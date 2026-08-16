@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+/* ===== Marca Lopez Sealcoating ===== */
+@theme {
+  --color-asphalt: #1a1a1a;
+  --color-asphalt-800: #262626;
+  --color-asphalt-700: #333333;
+  --color-signal: #f5c400;
+  --color-signal-600: #d9ad00;
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-asphalt antialiased;
+}
+
+/* Utilidad: franja diagonal tipo señalización */
+.signal-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-signal) 0,
+    var(--color-signal) 18px,
+    var(--color-asphalt) 18px,
+    var(--color-asphalt) 36px
+  );
+}
