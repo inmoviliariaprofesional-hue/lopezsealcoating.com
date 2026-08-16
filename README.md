@@ -5,7 +5,7 @@ Repositorio del proyecto de presencia digital de **Lopez Sealcoating LLC** (Chic
 ## Contenido
 
 - `propuesta/` — Propuesta comercial para el cliente (Demetrio López) y su generador.
-- *(próximamente)* `web/` — Sitio web bilingüe (EN/ES) de conversión.
+- `web/` — Sitio web bilingüe (EN/ES) de conversión (Astro + Tailwind, Cloudflare Pages).
 
 ## Cliente
 
