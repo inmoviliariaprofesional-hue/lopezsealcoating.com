@@ -119,3 +119,19 @@ h3,
     }
   }
 }
+
+
+/* Barra móvil: respeta el indicador de inicio de iOS. */
+.mobile-action-bar {
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+}
+
+.mobile-page-offset {
+  padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  .mobile-page-offset {
+    padding-bottom: 0;
+  }
+}

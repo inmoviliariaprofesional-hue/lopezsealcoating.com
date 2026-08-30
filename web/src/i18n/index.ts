@@ -13,6 +13,7 @@ export interface Copy {
     footerPrompt: string;
     aria: string;
   };
+  navAria: string;
   nav: { services: string; process: string; work: string; area: string; reviews: string; contact: string };
   cta: { call: string; quote: string; whatsapp: string };
   hero: {
@@ -24,6 +25,7 @@ export interface Copy {
     visualEyebrow: string;
     visualTitle: string;
     visualSteps: string[];
+    visualEstimate: string;
   };
   trust: { free: string; spanish: string; local: string; insured: string };
   services: {
@@ -39,8 +41,8 @@ export interface Copy {
     subtitle: string;
     steps: { number: string; name: string; desc: string }[];
   };
-  work: { eyebrow: string; title: string; subtitle: string; note: string; placeholder: string };
-  area: { eyebrow: string; title: string; body: string; note: string; radiusLabel: string; citiesLabel: string };
+  work: { eyebrow: string; title: string; subtitle: string; note: string; placeholder: string; labels: string[] };
+  area: { eyebrow: string; title: string; body: string; note: string; radiusLabel: string; coverageLabel: string; coverageTypes: string[] };
   reviews: { eyebrow: string; title: string; body: string; button: string; pending: string };
   contact: {
     eyebrow: string;
@@ -78,6 +80,7 @@ const en: Copy = {
     footerPrompt: "Este sitio también está disponible en español.",
     aria: "Cambiar el sitio a español",
   },
+  navAria: "Main navigation",
   nav: {
     services: "Services",
     process: "How it works",
@@ -97,6 +100,7 @@ const en: Copy = {
     visualEyebrow: "From worn to protected",
     visualTitle: "A cleaner, darker, better-defined surface.",
     visualSteps: ["Seal", "Protect", "Stripe"],
+    visualEstimate: "Free estimate",
   },
   trust: {
     free: "Free on-site estimates",
@@ -150,6 +154,7 @@ const en: Copy = {
     subtitle: "Soon this space will feature real Lopez Sealcoating driveways and commercial lots.",
     note: "Project photography is being prepared. No stock photos—only real work.",
     placeholder: "Project photo coming soon",
+    labels: ["Driveway", "Sealcoating", "Line striping"],
   },
   area: {
     eyebrow: "Local service",
@@ -157,12 +162,13 @@ const en: Copy = {
     body: "We serve residential and commercial properties within roughly a 40-mile radius, subject to project scope and availability.",
     note: "Not sure if your property is in range? Call us and we’ll confirm.",
     radiusLabel: "approximate service radius",
-    citiesLabel: "Areas we can evaluate",
+    coverageLabel: "Projects we evaluate",
+    coverageTypes: ["Residential driveways", "Commercial lots", "On-site estimates"],
   },
   reviews: {
     eyebrow: "Reputation in progress",
     title: "Every finished job is a chance to earn trust.",
-    body: "Our Google profile and review system are being prepared. Once active, customers will be able to share verified feedback after their service.",
+    body: "Our Google profile and review system are being prepared. Once active, customers will be able to share their feedback after service.",
     button: "View Google profile",
     pending: "Google reviews coming soon",
   },
@@ -206,6 +212,7 @@ const es: Copy = {
     footerPrompt: "This website is also available in English.",
     aria: "Switch the website to English",
   },
+  navAria: "Navegación principal",
   nav: {
     services: "Servicios",
     process: "Cómo funciona",
@@ -225,6 +232,7 @@ const es: Copy = {
     visualEyebrow: "De desgastado a protegido",
     visualTitle: "Una superficie más limpia, oscura y bien definida.",
     visualSteps: ["Sellar", "Proteger", "Señalizar"],
+    visualEstimate: "Cotización gratis",
   },
   trust: {
     free: "Cotización gratis en sitio",
@@ -278,6 +286,7 @@ const es: Copy = {
     subtitle: "Pronto mostraremos aquí entradas y estacionamientos reales atendidos por Lopez Sealcoating.",
     note: "Estamos preparando las fotografías. Sin imágenes de banco: solo trabajos reales.",
     placeholder: "Fotografía próximamente",
+    labels: ["Entrada residencial", "Sellado de asfalto", "Pintura de líneas"],
   },
   area: {
     eyebrow: "Servicio local",
@@ -285,12 +294,13 @@ const es: Copy = {
     body: "Atendemos propiedades residenciales y comerciales en un radio aproximado de 40 millas, según el alcance y la disponibilidad.",
     note: "¿No sabes si tu propiedad está dentro de la zona? Llámanos y lo confirmamos.",
     radiusLabel: "radio aproximado de servicio",
-    citiesLabel: "Zonas que podemos evaluar",
+    coverageLabel: "Proyectos que evaluamos",
+    coverageTypes: ["Entradas residenciales", "Estacionamientos comerciales", "Cotizaciones en sitio"],
   },
   reviews: {
     eyebrow: "Reputación en construcción",
     title: "Cada trabajo terminado es una oportunidad para ganar confianza.",
-    body: "Estamos preparando el Perfil de Empresa y el sistema de reseñas en Google. Al activarlo, los clientes podrán compartir su experiencia verificada.",
+    body: "Estamos preparando el Perfil de Empresa y el sistema de reseñas en Google. Al activarlo, los clientes podrán compartir su experiencia después del servicio.",
     button: "Ver perfil en Google",
     pending: "Reseñas de Google próximamente",
   },
