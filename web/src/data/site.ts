@@ -18,17 +18,9 @@ export const site = {
   insured: false, // TODO: cambiar a true cuando se confirme el seguro.
   // URL pública del sitio (para canonical, sitemap y datos estructurados).
   url: "https://lopezsealcoating.com",
-  // Ciudades cubiertas (para SEO local / areaServed). TODO: confirmar con Demetrio las reales.
-  areaServed: [
-    "Aurora, IL",
-    "Naperville, IL",
-    "Chicago, IL",
-    "Elgin, IL",
-    "Oswego, IL",
-    "Montgomery, IL",
-    "Batavia, IL",
-    "Geneva, IL",
-  ],
+  // Cobertura confirmada: área general de Chicagoland (radio aproximado de 40 millas).
+  // Agregar ciudades específicas solo después de confirmarlas con Demetrio.
+  areaServed: ["Chicagoland, IL"],
   // Servicios (para datos estructurados y SEO).
   services: [
     "Driveway Sealcoating",
