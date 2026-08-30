@@ -35,6 +35,9 @@ export interface Copy {
     send: string;
     or: string;
     disclaimer: string;
+    sending: string;
+    success: string;
+    error: string;
   };
   footer: { rights: string; season: string; tagline: string };
 }
@@ -106,6 +109,9 @@ const en: Copy = {
     send: "Request Free Estimate",
     or: "or reach us directly",
     disclaimer: "By submitting, you agree to be contacted about your request.",
+    sending: "Sending…",
+    success: "Thank you! We received your request and will contact you shortly.",
+    error: "Something went wrong. Please call or text us instead.",
   },
   footer: {
     rights: "All rights reserved.",
@@ -181,6 +187,9 @@ const es: Copy = {
     send: "Solicitar Cotización Gratis",
     or: "o contáctanos directo",
     disclaimer: "Al enviar, aceptas que te contactemos sobre tu solicitud.",
+    sending: "Enviando…",
+    success: "¡Gracias! Recibimos tu solicitud y te contactaremos muy pronto.",
+    error: "Algo salió mal. Por favor llámanos o mándanos mensaje.",
   },
   footer: {
     rights: "Todos los derechos reservados.",

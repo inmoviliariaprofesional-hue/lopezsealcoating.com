@@ -8,6 +8,38 @@ interface Props {
   description: string;
 }
 const { lang, title, description } = Astro.props;
+
+// Canonical + alternates (EN en "/", ES en "/es/")
+const base = Astro.site ?? new URL(site.url);
+const canonical = new URL(Astro.url.pathname, base).href;
+const enUrl = new URL("/", base).href;
+const esUrl = new URL("/es/", base).href;
+const ogImage = new URL("/og-image.png", base).href;
+
+// Datos estructurados: negocio local de servicio
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: site.legalName,
+  url: site.url,
+  telephone: site.phoneE164,
+  email: site.email,
+  image: ogImage,
+  priceRange: "$$",
+  description,
+  areaServed: site.areaServed.map((c) => ({ "@type": "City", name: c })),
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Services",
+    itemListElement: site.services.map((s) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: s },
+    })),
+  },
+  ...(site.facebook && site.facebook !== "https://www.facebook.com/"
+    ? { sameAs: [site.facebook] }
+    : {}),
+};
 ---
 
 <!doctype html>
@@ -18,31 +50,28 @@ const { lang, title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en-US" href={enUrl} />
+    <link rel="alternate" hreflang="es" href={esUrl} />
+    <link rel="alternate" hreflang="x-default" href={enUrl} />
+
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === "es" ? "es_US" : "en_US"} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <!-- LocalBusiness structured data (JSON-LD) -->
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        name: site.legalName,
-        telephone: site.phoneE164,
-        email: site.email,
-        areaServed: "Chicagoland, IL",
-        description: description,
-        priceRange: "$$",
-      })}
-    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <slot />
