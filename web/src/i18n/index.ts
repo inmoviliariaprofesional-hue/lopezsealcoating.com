@@ -6,26 +6,48 @@ export interface Copy {
   metaDescription: string;
   langSwitchLabel: string;
   langSwitchHref: string;
-  nav: { services: string; work: string; area: string; reviews: string; contact: string };
+  language: {
+    badge: string;
+    prompt: string;
+    action: string;
+    footerPrompt: string;
+    aria: string;
+  };
+  nav: { services: string; process: string; work: string; area: string; reviews: string; contact: string };
   cta: { call: string; quote: string; whatsapp: string };
   hero: {
     eyebrow: string;
     title: string;
+    accent: string;
     subtitle: string;
     bullets: string[];
+    visualEyebrow: string;
+    visualTitle: string;
+    visualSteps: string[];
   };
   trust: { free: string; spanish: string; local: string; insured: string };
   services: {
+    eyebrow: string;
     title: string;
     subtitle: string;
-    items: { name: string; desc: string }[];
+    items: { number: string; tag: string; name: string; desc: string }[];
   };
-  work: { title: string; subtitle: string; note: string };
-  area: { title: string; body: string; note: string };
-  reviews: { title: string; body: string; button: string };
-  contact: {
+  languageBanner: { title: string; body: string; action: string };
+  process: {
+    eyebrow: string;
     title: string;
     subtitle: string;
+    steps: { number: string; name: string; desc: string }[];
+  };
+  work: { eyebrow: string; title: string; subtitle: string; note: string; placeholder: string };
+  area: { eyebrow: string; title: string; body: string; note: string; radiusLabel: string; citiesLabel: string };
+  reviews: { eyebrow: string; title: string; body: string; button: string; pending: string };
+  contact: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    directTitle: string;
+    directBody: string;
     name: string;
     phone: string;
     email: string;
@@ -49,57 +71,107 @@ const en: Copy = {
     "Professional asphalt sealcoating and parking lot line striping in the Chicago area. Free estimates. Residential & commercial. Hablamos Español.",
   langSwitchLabel: "Español",
   langSwitchHref: "/es/",
-  nav: { services: "Services", work: "Our Work", area: "Service Area", reviews: "Reviews", contact: "Free Estimate" },
+  language: {
+    badge: "ES",
+    prompt: "¿Prefieres español?",
+    action: "Ver sitio en español",
+    footerPrompt: "Este sitio también está disponible en español.",
+    aria: "Cambiar el sitio a español",
+  },
+  nav: {
+    services: "Services",
+    process: "How it works",
+    work: "Our Work",
+    area: "Service Area",
+    reviews: "Reviews",
+    contact: "Free Estimate",
+  },
   cta: { call: "Call Now", quote: "Get a Free Estimate", whatsapp: "WhatsApp" },
   hero: {
     eyebrow: "Chicagoland • Residential & Commercial",
-    title: "Protect Your Driveway. Boost Your Curb Appeal.",
+    title: "Protect your asphalt.",
+    accent: "Make a lasting first impression.",
     subtitle:
-      "Professional asphalt sealcoating and parking lot line striping across the Chicago area. Free estimates, quality work, and we speak your language.",
-    bullets: ["Free Estimates", "Licensed work", "Hablamos Español"],
+      "Professional driveway sealcoating and parking lot line striping across Chicagoland—built around clear estimates, careful work, and direct communication.",
+    bullets: ["Free on-site estimates", "Quality-focused work", "Hablamos Español"],
+    visualEyebrow: "From worn to protected",
+    visualTitle: "A cleaner, darker, better-defined surface.",
+    visualSteps: ["Seal", "Protect", "Stripe"],
   },
   trust: {
-    free: "Free Estimates",
-    spanish: "Hablamos Español",
-    local: "Local, Chicagoland",
+    free: "Free on-site estimates",
+    spanish: "English & Spanish",
+    local: "Serving Chicagoland",
     insured: "Licensed & Insured",
   },
   services: {
-    title: "What We Do",
-    subtitle: "Two core services to protect and mark your asphalt.",
+    eyebrow: "Built for pavement",
+    title: "Two specialties. One reliable crew.",
+    subtitle: "Focused services for homes, parking lots, and commercial properties.",
     items: [
       {
+        number: "01",
+        tag: "Residential",
         name: "Driveway Sealcoating",
-        desc: "We seal and protect asphalt driveways from water, sun, and cracks — giving them a clean, black, like-new finish that lasts.",
+        desc: "A protective coat that helps shield asphalt from sun, water, and daily wear—finished in a rich, even black.",
       },
       {
+        number: "02",
+        tag: "Commercial",
         name: "Parking Lot Line Striping",
-        desc: "Sharp, clear striping for parking stalls, crosswalks, and markings — for businesses, lots, and commercial properties.",
+        desc: "Clean, visible parking stalls, crosswalks, and pavement markings that make your property easier to navigate.",
       },
       {
-        name: "Residential & Commercial",
-        desc: "From a single home driveway to a full commercial lot, we scale the job to fit — quoted by the square foot, on-site.",
+        number: "03",
+        tag: "Flexible scope",
+        name: "Homes & Businesses",
+        desc: "From one driveway to an entire commercial lot, every project is reviewed on-site and quoted by the square foot.",
       },
     ],
   },
+  languageBanner: {
+    title: "¿Hablas español? Estamos para ayudarte.",
+    body: "Consulta todos los servicios y solicita tu cotización en español.",
+    action: "Continuar en español",
+  },
+  process: {
+    eyebrow: "Simple from the start",
+    title: "Your estimate in three steps.",
+    subtitle: "No complicated process—just a quick conversation, an on-site look, and a clear schedule.",
+    steps: [
+      { number: "01", name: "Tell us about the job", desc: "Call, text, or send the form with your address and the service you need." },
+      { number: "02", name: "Get an on-site estimate", desc: "We visit the property, measure the area, and prepare a free estimate." },
+      { number: "03", name: "Choose your date", desc: "Once approved, we schedule the work around weather and availability." },
+    ],
+  },
   work: {
-    title: "Our Work",
-    subtitle: "Recent driveways and lots we've sealed and striped.",
-    note: "Photos coming soon — add your real project photos here.",
+    eyebrow: "Real results",
+    title: "Work that speaks through the finish.",
+    subtitle: "Soon this space will feature real Lopez Sealcoating driveways and commercial lots.",
+    note: "Project photography is being prepared. No stock photos—only real work.",
+    placeholder: "Project photo coming soon",
   },
   area: {
-    title: "Service Area",
-    body: "We proudly serve the greater Chicagoland area within roughly a 40-mile radius — residential and commercial.",
-    note: "Not sure if we cover your area? Just call and ask.",
+    eyebrow: "Local service",
+    title: "Across the greater Chicagoland area.",
+    body: "We serve residential and commercial properties within roughly a 40-mile radius, subject to project scope and availability.",
+    note: "Not sure if your property is in range? Call us and we’ll confirm.",
+    radiusLabel: "approximate service radius",
+    citiesLabel: "Areas we can evaluate",
   },
   reviews: {
-    title: "What Customers Say",
-    body: "People choose the business with the most stars on Google — for good reason. See our reviews or leave one after your job.",
-    button: "See us on Google",
+    eyebrow: "Reputation in progress",
+    title: "Every finished job is a chance to earn trust.",
+    body: "Our Google profile and review system are being prepared. Once active, customers will be able to share verified feedback after their service.",
+    button: "View Google profile",
+    pending: "Google reviews coming soon",
   },
   contact: {
-    title: "Get Your Free Estimate",
-    subtitle: "Tell us about your driveway or lot and we'll get right back to you.",
+    eyebrow: "Start with an estimate",
+    title: "Tell us about your driveway or lot.",
+    subtitle: "Share a few details and we’ll follow up to arrange an on-site estimate.",
+    directTitle: "Prefer to talk now?",
+    directBody: "Call or send a WhatsApp message. We speak English and Spanish.",
     name: "Your name",
     phone: "Phone number",
     email: "Email (optional)",
@@ -127,57 +199,107 @@ const es: Copy = {
     "Sellado de asfalto (sealcoating) y pintura de líneas de estacionamiento en el área de Chicago. Cotizaciones gratis. Residencial y comercial. Hablamos Español.",
   langSwitchLabel: "English",
   langSwitchHref: "/",
-  nav: { services: "Servicios", work: "Trabajos", area: "Zona", reviews: "Reseñas", contact: "Cotización Gratis" },
+  language: {
+    badge: "EN",
+    prompt: "Do you prefer English?",
+    action: "View site in English",
+    footerPrompt: "This website is also available in English.",
+    aria: "Switch the website to English",
+  },
+  nav: {
+    services: "Servicios",
+    process: "Cómo funciona",
+    work: "Trabajos",
+    area: "Zona",
+    reviews: "Reseñas",
+    contact: "Cotización Gratis",
+  },
   cta: { call: "Llámanos", quote: "Cotización Gratis", whatsapp: "WhatsApp" },
   hero: {
     eyebrow: "Chicagoland • Residencial y Comercial",
-    title: "Protege tu Entrada. Luce Como Nueva.",
+    title: "Protege tu asfalto.",
+    accent: "Causa una gran primera impresión.",
     subtitle:
-      "Sellado de asfalto y pintura de líneas de estacionamiento en el área de Chicago. Cotizaciones gratis, trabajo de calidad y hablamos tu idioma.",
-    bullets: ["Cotizaciones Gratis", "Trabajo profesional", "Hablamos Español"],
+      "Sellado profesional de entradas de asfalto y pintura de líneas en Chicagoland, con cotizaciones claras, trabajo cuidadoso y comunicación directa.",
+    bullets: ["Cotización gratis en sitio", "Trabajo enfocado en calidad", "Atención en español"],
+    visualEyebrow: "De desgastado a protegido",
+    visualTitle: "Una superficie más limpia, oscura y bien definida.",
+    visualSteps: ["Sellar", "Proteger", "Señalizar"],
   },
   trust: {
-    free: "Cotizaciones Gratis",
-    spanish: "Hablamos Español",
-    local: "Local, Chicagoland",
+    free: "Cotización gratis en sitio",
+    spanish: "Inglés y español",
+    local: "Servicio en Chicagoland",
     insured: "Con Licencia y Seguro",
   },
   services: {
-    title: "Qué Hacemos",
-    subtitle: "Dos servicios principales para proteger y marcar tu asfalto.",
+    eyebrow: "Especialistas en pavimento",
+    title: "Dos especialidades. Un servicio confiable.",
+    subtitle: "Soluciones enfocadas para hogares, estacionamientos y propiedades comerciales.",
     items: [
       {
+        number: "01",
+        tag: "Residencial",
         name: "Sellado de Asfalto (Sealcoating)",
-        desc: "Sellamos y protegemos entradas de asfalto contra el agua, el sol y las grietas — con un acabado negro, limpio y como nuevo que dura.",
+        desc: "Una capa protectora contra el sol, el agua y el uso diario, con un acabado negro, uniforme y renovado.",
       },
       {
+        number: "02",
+        tag: "Comercial",
         name: "Pintura de Líneas de Estacionamiento",
-        desc: "Líneas nítidas para cajones, cebras peatonales y señalización — para negocios, estacionamientos y propiedades comerciales.",
+        desc: "Cajones, cebras y marcas visibles que facilitan el tránsito y mejoran la presentación de la propiedad.",
       },
       {
-        name: "Residencial y Comercial",
-        desc: "Desde la entrada de una casa hasta un estacionamiento comercial completo, ajustamos el trabajo — cotizado por pie cuadrado, en sitio.",
+        number: "03",
+        tag: "Alcance flexible",
+        name: "Hogares y Negocios",
+        desc: "Desde una entrada residencial hasta un estacionamiento completo; revisamos el proyecto y cotizamos por pie cuadrado.",
       },
     ],
   },
+  languageBanner: {
+    title: "Would you rather continue in English?",
+    body: "Review every service and request your estimate in English.",
+    action: "Continue in English",
+  },
+  process: {
+    eyebrow: "Fácil desde el inicio",
+    title: "Tu cotización en tres pasos.",
+    subtitle: "Sin procesos complicados: una conversación, una visita y una fecha clara.",
+    steps: [
+      { number: "01", name: "Cuéntanos del trabajo", desc: "Llama, envía mensaje o llena el formulario con tu dirección y el servicio que necesitas." },
+      { number: "02", name: "Recibe una cotización en sitio", desc: "Visitamos la propiedad, medimos el área y preparamos una cotización gratuita." },
+      { number: "03", name: "Elige tu fecha", desc: "Al aprobar, programamos el trabajo según el clima y la disponibilidad." },
+    ],
+  },
   work: {
-    title: "Nuestros Trabajos",
-    subtitle: "Entradas y estacionamientos que hemos sellado y pintado.",
-    note: "Fotos próximamente — coloca aquí tus fotos reales de trabajos.",
+    eyebrow: "Resultados reales",
+    title: "Un acabado que habla por el trabajo.",
+    subtitle: "Pronto mostraremos aquí entradas y estacionamientos reales atendidos por Lopez Sealcoating.",
+    note: "Estamos preparando las fotografías. Sin imágenes de banco: solo trabajos reales.",
+    placeholder: "Fotografía próximamente",
   },
   area: {
-    title: "Zona de Servicio",
-    body: "Damos servicio en toda el área de Chicagoland, aproximadamente en un radio de 40 millas — residencial y comercial.",
-    note: "¿No sabes si cubrimos tu zona? Solo llámanos y pregunta.",
+    eyebrow: "Servicio local",
+    title: "En el área metropolitana de Chicago.",
+    body: "Atendemos propiedades residenciales y comerciales en un radio aproximado de 40 millas, según el alcance y la disponibilidad.",
+    note: "¿No sabes si tu propiedad está dentro de la zona? Llámanos y lo confirmamos.",
+    radiusLabel: "radio aproximado de servicio",
+    citiesLabel: "Zonas que podemos evaluar",
   },
   reviews: {
-    title: "Lo Que Dicen los Clientes",
-    body: "La gente elige al negocio con más estrellas en Google — y con razón. Mira nuestras reseñas o déjanos una al terminar tu trabajo.",
-    button: "Míranos en Google",
+    eyebrow: "Reputación en construcción",
+    title: "Cada trabajo terminado es una oportunidad para ganar confianza.",
+    body: "Estamos preparando el Perfil de Empresa y el sistema de reseñas en Google. Al activarlo, los clientes podrán compartir su experiencia verificada.",
+    button: "Ver perfil en Google",
+    pending: "Reseñas de Google próximamente",
   },
   contact: {
-    title: "Solicita tu Cotización Gratis",
-    subtitle: "Cuéntanos sobre tu entrada o estacionamiento y te respondemos enseguida.",
+    eyebrow: "Comienza con una cotización",
+    title: "Cuéntanos sobre tu entrada o estacionamiento.",
+    subtitle: "Comparte algunos detalles y te contactaremos para programar una cotización en sitio.",
+    directTitle: "¿Prefieres hablar ahora?",
+    directBody: "Llama o manda un mensaje por WhatsApp. Atendemos en inglés y español.",
     name: "Tu nombre",
     phone: "Teléfono",
     email: "Correo (opcional)",

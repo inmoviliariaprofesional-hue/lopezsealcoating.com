@@ -2,31 +2,120 @@
 
 /* ===== Marca Lopez Sealcoating ===== */
 @theme {
-  --color-asphalt: #1a1a1a;
-  --color-asphalt-800: #262626;
-  --color-asphalt-700: #333333;
-  --color-signal: #f5c400;
-  --color-signal-600: #d9ad00;
+  --color-asphalt: #151515;
+  --color-asphalt-950: #0b0b0c;
+  --color-asphalt-900: #111214;
+  --color-asphalt-800: #202124;
+  --color-asphalt-700: #34363a;
+  --color-signal: #f8c900;
+  --color-signal-500: #ffda2e;
+  --color-signal-600: #ddb300;
+  --color-concrete: #f3f2ed;
+  --color-concrete-100: #e8e6df;
 
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Manrope", "Inter", system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  --page-gutter: clamp(1rem, 4vw, 2rem);
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 body {
   @apply bg-white text-asphalt antialiased;
+  overflow-x: hidden;
 }
 
-/* Utilidad: franja diagonal tipo señalización */
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+::selection {
+  background: var(--color-signal);
+  color: var(--color-asphalt);
+}
+
+/* Textura de asfalto construida con gradientes; no usa fotografías externas. */
+.asphalt-texture {
+  background-color: var(--color-asphalt-900);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgb(255 255 255 / 7%) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 78% 35%, rgb(255 255 255 / 5%) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 40% 80%, rgb(255 255 255 / 4%) 0 1px, transparent 1.5px),
+    linear-gradient(135deg, #18191b 0%, #0c0d0e 100%);
+  background-size: 17px 17px, 23px 23px, 29px 29px, 100% 100%;
+}
+
+.road-grid {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
 .signal-stripes {
   background-image: repeating-linear-gradient(
     45deg,
     var(--color-signal) 0,
-    var(--color-signal) 18px,
-    var(--color-asphalt) 18px,
-    var(--color-asphalt) 36px
+    var(--color-signal) 12px,
+    var(--color-asphalt) 12px,
+    var(--color-asphalt) 24px
   );
+}
+
+.road-line {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-signal) 0,
+    var(--color-signal) 54px,
+    transparent 54px,
+    transparent 84px
+  );
+}
+
+.surface-card {
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 55%) inset,
+    0 22px 60px rgb(15 15 15 / 9%);
+}
+
+.glass-dark {
+  background: rgb(255 255 255 / 7%);
+  border: 1px solid rgb(255 255 255 / 11%);
+  backdrop-filter: blur(16px);
+}
+
+.focus-ring:focus-visible {
+  outline: 3px solid var(--color-signal);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lift {
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-5px);
+  }
+
+  .hero-road-line {
+    animation: road-shift 16s linear infinite;
+  }
+
+  @keyframes road-shift {
+    to {
+      background-position-x: 168px;
+    }
+  }
 }
