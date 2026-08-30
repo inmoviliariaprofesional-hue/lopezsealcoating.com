@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lopezsealcoating.com/sitemap-index.xml

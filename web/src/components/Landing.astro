@@ -174,12 +174,25 @@ const waHref = `https://wa.me/${site.whatsapp}`;
         <p class="mt-3 text-asphalt-700/70 text-lg">{t.contact.subtitle}</p>
       </div>
 
-      <!-- TODO: conectar action a un endpoint (Cloudflare Pages Function / Formspree / Brevo). -->
       <form
+        id="quote-form"
         class="mt-10 grid gap-4"
         method="POST"
-        action="#"
+        action="/api/quote"
+        data-sending={t.contact.sending}
+        data-success={t.contact.success}
+        data-error={t.contact.error}
       >
+        <input type="hidden" name="lang" value={t.htmlLang} />
+        {/* Honeypot anti-spam: los bots lo llenan, las personas no lo ven */}
+        <input
+          type="text"
+          name="company"
+          tabindex="-1"
+          autocomplete="off"
+          class="hidden"
+          aria-hidden="true"
+        />
         <div class="grid md:grid-cols-2 gap-4">
           <input
             required
@@ -215,10 +228,11 @@ const waHref = `https://wa.me/${site.whatsapp}`;
         ></textarea>
         <button
           type="submit"
-          class="bg-signal text-asphalt font-bold px-6 py-4 rounded-full hover:bg-signal-600 transition"
+          class="bg-signal text-asphalt font-bold px-6 py-4 rounded-full hover:bg-signal-600 transition disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {t.contact.send}
         </button>
+        <p id="form-status" class="text-sm text-center font-medium hidden" role="status" aria-live="polite"></p>
         <p class="text-xs text-asphalt-700/50 text-center">{t.contact.disclaimer}</p>
       </form>
 
@@ -267,3 +281,58 @@ const waHref = `https://wa.me/${site.whatsapp}`;
     </div>
   </div>
 </footer>
+
+
+<script>
+  const form = document.getElementById("quote-form") as HTMLFormElement | null;
+  const status = document.getElementById("form-status") as HTMLParagraphElement | null;
+
+  if (form && status) {
+    const btn = form.querySelector("button[type=submit]") as HTMLButtonElement | null;
+    const originalBtnText = btn?.textContent ?? "";
+
+    const setStatus = (msg: string, kind: "ok" | "err" | "info") => {
+      status.textContent = msg;
+      status.classList.remove("hidden", "text-green-700", "text-red-600", "text-asphalt");
+      status.classList.add(
+        kind === "ok" ? "text-green-700" : kind === "err" ? "text-red-600" : "text-asphalt"
+      );
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      // Honeypot: si viene lleno, es un bot -> fingimos éxito y no enviamos.
+      if (data.company) {
+        setStatus(form.dataset.success || "", "ok");
+        form.reset();
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = form.dataset.sending || "…";
+      }
+      setStatus(form.dataset.sending || "", "info");
+
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error("bad status " + res.status);
+        setStatus(form.dataset.success || "", "ok");
+        form.reset();
+      } catch (err) {
+        setStatus(form.dataset.error || "", "err");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = originalBtnText;
+        }
+      }
+    });
+  }
+</script>

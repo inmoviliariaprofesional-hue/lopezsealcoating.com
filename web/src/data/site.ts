@@ -16,6 +16,26 @@ export const site = {
   serviceRadiusMiles: 40,
   // Datos de licencia/seguro: solo mostrar sellos si son verdaderos.
   insured: false, // TODO: cambiar a true cuando se confirme el seguro.
+  // URL pública del sitio (para canonical, sitemap y datos estructurados).
+  url: "https://lopezsealcoating.com",
+  // Ciudades cubiertas (para SEO local / areaServed). TODO: confirmar con Demetrio las reales.
+  areaServed: [
+    "Aurora, IL",
+    "Naperville, IL",
+    "Chicago, IL",
+    "Elgin, IL",
+    "Oswego, IL",
+    "Montgomery, IL",
+    "Batavia, IL",
+    "Geneva, IL",
+  ],
+  // Servicios (para datos estructurados y SEO).
+  services: [
+    "Driveway Sealcoating",
+    "Asphalt Sealcoating",
+    "Parking Lot Line Striping",
+    "Pavement Marking",
+  ],
 } as const;
 
 export type Lang = "en" | "es";

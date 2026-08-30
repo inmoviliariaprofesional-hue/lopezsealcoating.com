@@ -1,0 +1,10 @@
+# Redirecciones de Cloudflare Pages.
+# La canonicalización www <-> dominio raíz y el forzado de HTTPS conviene
+# manejarlos con reglas de Cloudflare/DNS. Ejemplos (activar cuando exista el dominio):
+#
+# https://www.lopezsealcoating.com/*  https://lopezsealcoating.com/:splat  301!
+#
+# Atajos amigables:
+/contact   /#contact   301
+/contacto  /es/#contact 301
+/quote     /#contact   301
