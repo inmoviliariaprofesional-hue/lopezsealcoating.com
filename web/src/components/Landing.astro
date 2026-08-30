@@ -178,7 +178,7 @@ const waHref = `https://wa.me/${site.whatsapp}`;
         {t.services.items.map((item, i) => (
           <article class={`surface-card lift relative overflow-hidden rounded-[1.75rem] border p-7 sm:p-8 ${i === 1 ? "border-signal/45 bg-asphalt text-white" : "border-black/7 bg-white text-asphalt"}`}>
             <div class="mb-16 flex items-start justify-between">
-              <span class={`font-display text-sm font-extrabold ${i === 1 ? "text-signal" : "text-asphalt/30"}`}>{item.number}</span>
+              <span class={`font-display text-sm font-extrabold ${i === 1 ? "text-signal" : "text-asphalt/65"}`}>{item.number}</span>
               <span class={`rounded-full px-3 py-1 text-[10px] font-extrabold uppercase tracking-[.13em] ${i === 1 ? "bg-signal text-asphalt" : "bg-asphalt/6 text-asphalt/65"}`}>{item.tag}</span>
             </div>
             <h3 class="font-display text-2xl font-extrabold leading-tight">{item.name}</h3>
@@ -346,14 +346,14 @@ const waHref = `https://wa.me/${site.whatsapp}`;
           <input type="hidden" name="lang" value={t.htmlLang} />
           <input type="text" name="company" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
           <div class="grid gap-4 md:grid-cols-2">
-            <input required name="name" placeholder={t.contact.name} class="min-h-14 rounded-xl border border-black/10 bg-concrete/60 px-4 text-sm focus:border-signal focus:outline-none focus:ring-2 focus:ring-signal/25" />
-            <input required type="tel" name="phone" placeholder={t.contact.phone} class="min-h-14 rounded-xl border border-black/10 bg-concrete/60 px-4 text-sm focus:border-signal focus:outline-none focus:ring-2 focus:ring-signal/25" />
+            <input required name="name" aria-label={t.contact.name} placeholder={t.contact.name} class="min-h-14 rounded-xl border border-asphalt/50 bg-concrete/60 px-4 text-sm focus:border-asphalt focus:outline-none focus:ring-2 focus:ring-asphalt/20" />
+            <input required type="tel" name="phone" aria-label={t.contact.phone} placeholder={t.contact.phone} class="min-h-14 rounded-xl border border-asphalt/50 bg-concrete/60 px-4 text-sm focus:border-asphalt focus:outline-none focus:ring-2 focus:ring-asphalt/20" />
           </div>
-          <input type="email" name="email" placeholder={t.contact.email} class="min-h-14 rounded-xl border border-black/10 bg-concrete/60 px-4 text-sm focus:border-signal focus:outline-none focus:ring-2 focus:ring-signal/25" />
-          <select name="service" aria-label={t.contact.service} class="min-h-14 rounded-xl border border-black/10 bg-concrete/60 px-4 text-sm focus:border-signal focus:outline-none focus:ring-2 focus:ring-signal/25">
-            {t.contact.serviceOptions.map((option) => <option>{option}</option>)}
+          <input type="email" name="email" aria-label={t.contact.email} placeholder={t.contact.email} class="min-h-14 rounded-xl border border-asphalt/50 bg-concrete/60 px-4 text-sm focus:border-asphalt focus:outline-none focus:ring-2 focus:ring-asphalt/20" />
+          <select name="service" aria-label={t.contact.service} class="min-h-14 rounded-xl border border-asphalt/50 bg-concrete/60 px-4 text-sm focus:border-asphalt focus:outline-none focus:ring-2 focus:ring-asphalt/20">
+            {t.contact.serviceOptions.map((option) => <option value={option.value}>{option.label}</option>)}
           </select>
-          <textarea name="message" rows="5" placeholder={t.contact.message} class="rounded-xl border border-black/10 bg-concrete/60 px-4 py-4 text-sm focus:border-signal focus:outline-none focus:ring-2 focus:ring-signal/25"></textarea>
+          <textarea name="message" rows="5" aria-label={t.contact.message} placeholder={t.contact.message} class="rounded-xl border border-asphalt/50 bg-concrete/60 px-4 py-4 text-sm focus:border-asphalt focus:outline-none focus:ring-2 focus:ring-asphalt/20"></textarea>
           <button type="submit" class="focus-ring min-h-14 rounded-full bg-signal px-6 text-sm font-extrabold text-asphalt transition hover:bg-signal-500 disabled:cursor-not-allowed disabled:opacity-60">
             {t.contact.send}
           </button>
@@ -412,12 +412,35 @@ const waHref = `https://wa.me/${site.whatsapp}`;
   const status = document.getElementById("form-status") as HTMLParagraphElement | null;
   const draftKey = "lopez-sealcoating-quote-draft";
 
-  // Cambiar de idioma conserva la sección actual y cualquier borrador del formulario.
+  const getVisibleSectionHash = () => {
+    const marker = window.innerHeight * 0.35;
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("main section[id]"));
+
+    for (const section of sections) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= marker && rect.bottom >= marker) return `#${section.id}`;
+    }
+
+    let hash = "#top";
+    let largestVisibleArea = 0;
+    for (const section of sections) {
+      const rect = section.getBoundingClientRect();
+      const visibleArea = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+      if (visibleArea > largestVisibleArea) {
+        largestVisibleArea = visibleArea;
+        hash = `#${section.id}`;
+      }
+    }
+
+    return hash;
+  };
+
+  // Cambiar de idioma conserva la sección visible y cualquier borrador del formulario.
   document.querySelectorAll<HTMLAnchorElement>("[data-language-switch]").forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
       const target = new URL(link.href, window.location.href);
-      target.hash = window.location.hash;
+      target.hash = getVisibleSectionHash();
 
       if (form) {
         const draft: Record<string, string> = {};

@@ -54,7 +54,7 @@ export interface Copy {
     phone: string;
     email: string;
     service: string;
-    serviceOptions: string[];
+    serviceOptions: { value: string; label: string }[];
     message: string;
     send: string;
     or: string;
@@ -182,7 +182,11 @@ const en: Copy = {
     phone: "Phone number",
     email: "Email (optional)",
     service: "Service needed",
-    serviceOptions: ["Driveway Sealcoating", "Line Striping", "Both / Not sure"],
+    serviceOptions: [
+      { value: "Driveway Sealcoating", label: "Driveway Sealcoating" },
+      { value: "Line Striping", label: "Line Striping" },
+      { value: "Both / Not sure", label: "Both / Not sure" },
+    ],
     message: "Tell us about the job (address, size, details)",
     send: "Request Free Estimate",
     or: "or reach us directly",
@@ -314,7 +318,11 @@ const es: Copy = {
     phone: "Teléfono",
     email: "Correo (opcional)",
     service: "Servicio que necesitas",
-    serviceOptions: ["Sellado de Asfalto", "Pintura de Líneas", "Ambos / No estoy seguro"],
+    serviceOptions: [
+      { value: "Driveway Sealcoating", label: "Sellado de Asfalto" },
+      { value: "Line Striping", label: "Pintura de Líneas" },
+      { value: "Both / Not sure", label: "Ambos / No estoy seguro" },
+    ],
     message: "Cuéntanos del trabajo (dirección, tamaño, detalles)",
     send: "Solicitar Cotización Gratis",
     or: "o contáctanos directo",
