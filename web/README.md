@@ -88,7 +88,7 @@ npm run build    # genera dist/
 - [ ] Poner la URL real de Facebook y el enlace del Perfil de Empresa de Google en `site.ts`.
 - [ ] Cambiar `insured` a `true` en `site.ts` solo si se confirma el seguro.
 - [ ] Confirmar las ciudades reales de `areaServed` en `site.ts`.
-- [ ] Subir fotos reales de trabajos a `public/` y conectarlas en "Nuestros Trabajos".
+- [x] Subir fotos reales de trabajos a `public/` y conectarlas en "Nuestros Trabajos". _(6 fotos reales en la galería + hero y sección de zona; faltan videos y antes/después.)_
 - [ ] Agregar `public/og-image.png` (imagen para compartir en redes).
 - [ ] Configurar `BREVO_API_KEY` y correos en Cloudflare.
 - [ ] Reemplazar el nombre de texto por el logo original cuando esté listo.

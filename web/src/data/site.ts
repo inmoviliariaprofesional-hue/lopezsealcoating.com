@@ -20,7 +20,7 @@ export const site = {
   url: "https://lopezsealcoating.com",
   // Cobertura confirmada: área general de Chicagoland (radio aproximado de 40 millas).
   // Agregar ciudades específicas solo después de confirmarlas con Demetrio.
-  areaServed: ["Chicagoland, IL"],
+  areaServed: ["Chicagoland Area, IL"],
   // Servicios (para datos estructurados y SEO).
   services: [
     "Driveway Sealcoating",
