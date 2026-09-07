@@ -68,7 +68,7 @@ export interface Copy {
 
 const en: Copy = {
   htmlLang: "en",
-  metaTitle: "Lopez Sealcoating | Driveway Sealcoating & Line Striping in Chicagoland",
+  metaTitle: "Lopez Sealcoating | Driveway Sealcoating & Line Striping in the Chicagoland Area",
   metaDescription:
     "Professional asphalt sealcoating and parking lot line striping in the Chicago area. Free estimates. Residential & commercial. Hablamos Español.",
   langSwitchLabel: "Español",
@@ -91,11 +91,11 @@ const en: Copy = {
   },
   cta: { call: "Call Now", quote: "Get a Free Estimate", whatsapp: "WhatsApp" },
   hero: {
-    eyebrow: "Chicagoland • Residential & Commercial",
+    eyebrow: "Chicagoland Area • Residential & Commercial",
     title: "Protect your asphalt.",
     accent: "Make a lasting first impression.",
     subtitle:
-      "Professional driveway sealcoating and parking lot line striping across Chicagoland—built around clear estimates, careful work, and direct communication.",
+      "Professional driveway sealcoating and parking lot line striping across the Chicagoland area—built around clear estimates, careful work, and direct communication.",
     bullets: ["Free on-site estimates", "Quality-focused work", "Hablamos Español"],
     visualEyebrow: "From worn to protected",
     visualTitle: "A cleaner, darker, better-defined surface.",
@@ -105,7 +105,7 @@ const en: Copy = {
   trust: {
     free: "Free on-site estimates",
     spanish: "English & Spanish",
-    local: "Serving Chicagoland",
+    local: "Serving the Chicagoland Area",
     insured: "Licensed & Insured",
   },
   services: {
@@ -152,9 +152,16 @@ const en: Copy = {
     eyebrow: "The finish that sells",
     title: "Clean driveways. Crisp lines.",
     subtitle: "A look at the results that quality sealcoating and line striping bring to a property.",
-    note: "Illustrative reference photos — real Lopez Sealcoating projects will replace these soon.",
+    note: "",
     placeholder: "Reference image",
-    labels: ["Driveways", "Fresh sealcoat", "Residential", "Curb appeal"],
+    labels: [
+      "Residential driveway",
+      "Commercial line striping",
+      "Our bilingual crew",
+      "A rich, even finish",
+      "Parking lot markings",
+      "Fresh curb appeal",
+    ],
   },
   area: {
     eyebrow: "Local service",
@@ -198,13 +205,13 @@ const en: Copy = {
   footer: {
     rights: "All rights reserved.",
     season: "Season: May–October (weather permitting).",
-    tagline: "Sealcoating & Line Striping — Chicagoland",
+    tagline: "Sealcoating & Line Striping — Chicagoland Area",
   },
 };
 
 const es: Copy = {
   htmlLang: "es",
-  metaTitle: "Lopez Sealcoating | Sellado de Asfalto y Pintura de Líneas en Chicagoland",
+  metaTitle: "Lopez Sealcoating | Sellado de Asfalto y Pintura de Líneas en el Área de Chicagoland",
   metaDescription:
     "Sellado de asfalto (sealcoating) y pintura de líneas de estacionamiento en el área de Chicago. Cotizaciones gratis. Residencial y comercial. Hablamos Español.",
   langSwitchLabel: "English",
@@ -227,11 +234,11 @@ const es: Copy = {
   },
   cta: { call: "Llámanos", quote: "Cotización Gratis", whatsapp: "WhatsApp" },
   hero: {
-    eyebrow: "Chicagoland • Residencial y Comercial",
+    eyebrow: "Área de Chicagoland • Residencial y Comercial",
     title: "Protege tu asfalto.",
     accent: "Causa una gran primera impresión.",
     subtitle:
-      "Sellado profesional de entradas de asfalto y pintura de líneas en Chicagoland, con cotizaciones claras, trabajo cuidadoso y comunicación directa.",
+      "Sellado profesional de entradas de asfalto y pintura de líneas en el área de Chicagoland, con cotizaciones claras, trabajo cuidadoso y comunicación directa.",
     bullets: ["Cotización gratis en sitio", "Trabajo enfocado en calidad", "Atención en español"],
     visualEyebrow: "De desgastado a protegido",
     visualTitle: "Una superficie más limpia, oscura y bien definida.",
@@ -241,7 +248,7 @@ const es: Copy = {
   trust: {
     free: "Cotización gratis en sitio",
     spanish: "Inglés y español",
-    local: "Servicio en Chicagoland",
+    local: "Servicio en el Área de Chicagoland",
     insured: "Con Licencia y Seguro",
   },
   services: {
@@ -288,9 +295,16 @@ const es: Copy = {
     eyebrow: "El acabado que vende",
     title: "Entradas limpias. Líneas nítidas.",
     subtitle: "Un vistazo a los resultados que logran un buen sellado y una buena pintura de líneas.",
-    note: "Fotos de referencia ilustrativas — se reemplazarán por trabajos reales de Lopez Sealcoating.",
+    note: "",
     placeholder: "Imagen de referencia",
-    labels: ["Entradas", "Sellado fresco", "Residencial", "Fachada"],
+    labels: [
+      "Entrada residencial",
+      "Pintura de líneas comercial",
+      "Nuestro equipo bilingüe",
+      "Acabado negro y uniforme",
+      "Señalización de estacionamiento",
+      "Fachada renovada",
+    ],
   },
   area: {
     eyebrow: "Servicio local",
@@ -334,7 +348,7 @@ const es: Copy = {
   footer: {
     rights: "Todos los derechos reservados.",
     season: "Temporada: mayo–octubre (según el clima).",
-    tagline: "Sellado de Asfalto y Pintura de Líneas — Chicagoland",
+    tagline: "Sellado de Asfalto y Pintura de Líneas — Área de Chicagoland",
   },
 };
 
