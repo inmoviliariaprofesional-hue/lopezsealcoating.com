@@ -15,6 +15,10 @@ const canonical = new URL(Astro.url.pathname, base).href;
 const enUrl = new URL("/", base).href;
 const esUrl = new URL("/es/", base).href;
 const ogImage = new URL("/og-image.png", base).href;
+const ogImageAlt =
+  lang === "es"
+    ? "Lopez Sealcoating LLC — Sellado de asfalto y pintura de líneas en el área de Chicagoland"
+    : "Lopez Sealcoating LLC — Driveway sealcoating and parking lot line striping in the Chicagoland area";
 
 // Datos estructurados: negocio local de servicio
 const jsonLd = {
@@ -48,6 +52,8 @@ const jsonLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -61,8 +67,14 @@ const jsonLd = {
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content={lang === "es" ? "es_US" : "en_US"} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

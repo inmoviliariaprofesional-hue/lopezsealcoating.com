@@ -83,12 +83,12 @@ npm run build    # genera dist/
 
 ## Pendientes (TODO) antes de publicar
 
-- [ ] Registrar el dominio (recomendado: Cloudflare Registrar) y conectarlo.
+- [x] Registrar el dominio (Cloudflare Registrar) y conectarlo. _(lopezsealcoating.com + www, activo con SSL.)_
 - [ ] Reemplazar el Gmail por el correo profesional en `src/data/site.ts` y en las variables.
 - [ ] Poner la URL real de Facebook y el enlace del Perfil de Empresa de Google en `site.ts`.
-- [ ] Cambiar `insured` a `true` en `site.ts` solo si se confirma el seguro.
+- [x] `insured`: se mantiene en `false` (Demetrio confirmó que no cuenta con seguro; no se muestra "Licensed & Insured"). Sí se muestra "LLC".
 - [ ] Confirmar las ciudades reales de `areaServed` en `site.ts`.
 - [x] Subir fotos reales de trabajos a `public/` y conectarlas en "Nuestros Trabajos". _(6 fotos reales en la galería + hero y sección de zona; faltan videos y antes/después.)_
-- [ ] Agregar `public/og-image.png` (imagen para compartir en redes).
+- [x] Agregar `public/og-image.png` (imagen para compartir en redes). _(imagen social del kit de marca, 1200×630.)_
+- [x] Reemplazar el nombre de texto por el logo original. _(emblema en el header, logo completo en el pie; favicons del kit. Emblema y favicon LS son propuestas por validar con Demetrio.)_
 - [ ] Configurar `BREVO_API_KEY` y correos en Cloudflare.
-- [ ] Reemplazar el nombre de texto por el logo original cuando esté listo.
