@@ -42,6 +42,7 @@ export interface Copy {
     steps: { number: string; name: string; desc: string }[];
   };
   work: { eyebrow: string; title: string; subtitle: string; note: string; placeholder: string; labels: string[] };
+  video: { eyebrow: string; title: string; subtitle: string; labels: string[] };
   area: { eyebrow: string; title: string; body: string; note: string; radiusLabel: string; coverageLabel: string; coverageTypes: string[] };
   reviews: { eyebrow: string; title: string; body: string; button: string; pending: string };
   contact: {
@@ -162,6 +163,12 @@ const en: Copy = {
       "Parking lot markings",
       "Fresh curb appeal",
     ],
+  },
+  video: {
+    eyebrow: "See it in action",
+    title: "Real jobs, start to finish.",
+    subtitle: "A few clips from recent driveways and parking lots around the Chicagoland area.",
+    labels: ["Fresh driveway sealcoat", "Before & after", "Commercial parking lot"],
   },
   area: {
     eyebrow: "Local service",
@@ -305,6 +312,12 @@ const es: Copy = {
       "Señalización de estacionamiento",
       "Fachada renovada",
     ],
+  },
+  video: {
+    eyebrow: "Míralo en acción",
+    title: "Trabajos reales, de principio a fin.",
+    subtitle: "Algunos clips de entradas y estacionamientos recientes en el área de Chicagoland.",
+    labels: ["Sellado de entrada", "Antes y después", "Estacionamiento comercial"],
   },
   area: {
     eyebrow: "Servicio local",

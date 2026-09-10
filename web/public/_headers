@@ -9,3 +9,18 @@
 
 /favicon.svg
   Cache-Control: public, max-age=604800
+
+/videos/*
+  Cache-Control: public, max-age=2592000
+
+/images/*
+  Cache-Control: public, max-age=2592000
+
+/logo.png
+  Cache-Control: public, max-age=2592000
+
+/logo-emblem.png
+  Cache-Control: public, max-age=2592000
+
+/og-image.png
+  Cache-Control: public, max-age=2592000

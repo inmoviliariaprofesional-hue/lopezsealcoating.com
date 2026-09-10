@@ -18,17 +18,26 @@ const workImages = [
   "/images/work-5.jpg",
   "/images/work-6.jpg",
 ];
+// Videos reales de trabajos (verticales). El primero se reproduce solo (silenciado, en bucle).
+const workVideos = [
+  { src: "/videos/clip-1.mp4", poster: "/videos/clip-1.jpg", featured: true },
+  { src: "/videos/clip-2.mp4", poster: "/videos/clip-2.jpg", featured: false },
+  { src: "/videos/clip-3.mp4", poster: "/videos/clip-3.jpg", featured: false },
+];
 ---
 
 <!-- ===== Header ===== -->
 <header class="sticky top-0 z-50 border-b border-white/10 bg-asphalt-950/95 text-white backdrop-blur-xl">
   <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-    <a href="#top" class="focus-ring flex min-w-0 items-center gap-3 rounded-lg" aria-label="Lopez Sealcoating">
-      <span class="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-xl bg-signal shadow-[0_0_30px_rgba(248,201,0,.16)]">
-        <span class="absolute h-16 w-[6px] rotate-[38deg] bg-asphalt"></span>
-        <span class="absolute h-16 w-[2px] rotate-[38deg] bg-signal-500"></span>
-        <span class="relative text-[11px] font-black tracking-[-.08em] text-asphalt">LS</span>
-      </span>
+    <a href="#top" class="focus-ring flex min-w-0 items-center gap-3 rounded-lg" aria-label="Lopez Sealcoating LLC — Inicio">
+      <img
+        src="/logo-emblem.png"
+        alt=""
+        width="132"
+        height="132"
+        decoding="async"
+        class="h-11 w-11 shrink-0"
+      />
       <span class="truncate font-display text-sm font-extrabold tracking-[-.03em] sm:text-base">
         LOPEZ <span class="text-signal">SEALCOATING</span> <span class="font-semibold text-white/45">LLC</span>
       </span>
@@ -256,7 +265,52 @@ const workImages = [
         <p class="max-w-xl text-base leading-7 text-white/65 lg:justify-self-end">{t.work.subtitle}</p>
       </div>
 
-      <div class="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3">
+      <!-- Videos reales en acción -->
+      <div class="mt-14">
+        <div class="flex items-center gap-3">
+          <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-signal text-[11px] text-asphalt" aria-hidden="true">▶</span>
+          <p class="text-xs font-extrabold uppercase tracking-[.2em] text-signal">{t.video.eyebrow}</p>
+        </div>
+        <h3 class="mt-4 max-w-2xl font-display text-2xl font-extrabold leading-tight sm:text-3xl">{t.video.title}</h3>
+        <p class="mt-3 max-w-xl text-sm leading-6 text-white/65">{t.video.subtitle}</p>
+
+        <div class="mt-7 grid gap-4 sm:grid-cols-3">
+          {workVideos.map((v, i) => (
+            <figure class="group relative aspect-[9/16] overflow-hidden rounded-[1.5rem] border border-white/10 bg-black">
+              {v.featured ? (
+                <video
+                  class="absolute inset-0 h-full w-full object-cover"
+                  src={v.src}
+                  poster={v.poster}
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label={t.video.labels[i]}
+                ></video>
+              ) : (
+                <video
+                  class="absolute inset-0 h-full w-full object-cover"
+                  src={v.src}
+                  poster={v.poster}
+                  controls
+                  preload="none"
+                  playsinline
+                  aria-label={t.video.labels[i]}
+                ></video>
+              )}
+              <figcaption class="pointer-events-none absolute left-0 top-0 p-3">
+                <span class="rounded-full bg-signal px-3 py-1 text-[10px] font-extrabold uppercase tracking-[.14em] text-asphalt">
+                  {t.video.labels[i]}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
         {workImages.map((src, i) => (
           <figure class="group relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-white/10">
             <img
@@ -405,10 +459,15 @@ const workImages = [
   <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
     <div class="grid gap-10 border-b border-white/8 pb-12 md:grid-cols-[1.1fr_.7fr_1fr]">
       <div>
-        <div class="flex items-center gap-3">
-          <span class="relative grid h-10 w-10 place-items-center overflow-hidden rounded-xl bg-signal"><span class="absolute h-16 w-[5px] rotate-[38deg] bg-asphalt"></span><span class="relative text-[10px] font-black text-asphalt">LS</span></span>
-          <span class="font-display text-base font-extrabold text-white">LOPEZ <span class="text-signal">SEALCOATING</span> <span class="font-semibold text-white/45">LLC</span></span>
-        </div>
+        <img
+          src="/logo.png"
+          alt="Lopez Sealcoating LLC"
+          width="520"
+          height="520"
+          loading="lazy"
+          decoding="async"
+          class="h-24 w-24"
+        />
         <p class="mt-5 max-w-sm text-sm leading-6">{t.footer.tagline}</p>
         <p class="mt-2 text-xs text-white/60">{t.footer.season}</p>
       </div>
