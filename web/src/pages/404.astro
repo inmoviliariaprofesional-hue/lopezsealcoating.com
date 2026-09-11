@@ -1,0 +1,37 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+
+const telHref = `tel:${site.phoneE164}`;
+---
+
+<Base
+  lang="en"
+  title="Page not found | Lopez Sealcoating LLC"
+  description="The page you’re looking for isn’t here. Return to the homepage or call us for a free estimate."
+>
+  <main class="asphalt-texture grid min-h-[72vh] place-items-center px-6 py-24 text-center text-white">
+    <div class="relative">
+      <p class="font-display text-7xl font-extrabold text-signal">404</p>
+      <h1 class="mt-4 font-display text-3xl font-extrabold sm:text-4xl">Page not found</h1>
+      <p class="mx-auto mt-4 max-w-md text-sm leading-6 text-white/70">
+        The page you’re looking for doesn’t exist or was moved.<br />
+        La página que buscas no existe o fue movida.
+      </p>
+      <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+        <a
+          href="/"
+          class="focus-ring inline-flex min-h-12 items-center justify-center rounded-full bg-signal px-6 text-sm font-extrabold text-asphalt transition hover:bg-signal-500"
+        >
+          Back to home / Volver al inicio
+        </a>
+        <a
+          href={telHref}
+          class="focus-ring inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-extrabold text-white transition hover:bg-white/10"
+        >
+          Call {site.phoneDisplay}
+        </a>
+      </div>
+    </div>
+  </main>
+</Base>

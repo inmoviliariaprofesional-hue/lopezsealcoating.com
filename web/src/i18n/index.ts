@@ -45,10 +45,21 @@ export interface Copy {
   video: { eyebrow: string; title: string; subtitle: string; labels: string[] };
   area: { eyebrow: string; title: string; body: string; note: string; radiusLabel: string; coverageLabel: string; coverageTypes: string[]; citiesLabel: string; citiesNote: string };
   reviews: { eyebrow: string; title: string; body: string; button: string; pending: string };
+  about: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    points: string[];
+    projectLabel: string;
+    projectTitle: string;
+    projectDesc: string;
+  };
   contact: {
     eyebrow: string;
     title: string;
     subtitle: string;
+    responseTime: string;
+    city: string;
     directTitle: string;
     directBody: string;
     name: string;
@@ -93,10 +104,10 @@ const en: Copy = {
   cta: { call: "Call Now", quote: "Get a Free Estimate", whatsapp: "WhatsApp" },
   hero: {
     eyebrow: "Chicagoland Area • Residential & Commercial",
-    title: "Protect your asphalt.",
-    accent: "Make a lasting first impression.",
+    title: "Driveway sealcoating & line striping",
+    accent: "in the Chicagoland Area.",
     subtitle:
-      "Professional driveway sealcoating and parking lot line striping across the Chicagoland area—built around clear estimates, careful work, and direct communication.",
+      "Protect your asphalt and make a lasting first impression—clear estimates, careful work, and direct communication for homes and businesses.",
     bullets: ["Free on-site estimates", "Quality-focused work", "Hablamos Español"],
     visualEyebrow: "From worn to protected",
     visualTitle: "A cleaner, darker, better-defined surface.",
@@ -188,10 +199,26 @@ const en: Copy = {
     button: "View Google profile",
     pending: "Google reviews coming soon",
   },
+  about: {
+    eyebrow: "Owner-operated",
+    title: "Meet Demetrio — the owner on every job.",
+    body: "Lopez Sealcoating is a family business run by its owner, Demetrio López. He’s on-site for every project, works in English and Spanish, and treats every driveway and parking lot like his own.",
+    points: [
+      "The owner on every job",
+      "English & Spanish",
+      "Free on-site estimates",
+      "Careful, quality-focused work",
+    ],
+    projectLabel: "The crew",
+    projectTitle: "Hands-on, on every job.",
+    projectDesc: "You deal directly with the people doing the work—no call centers, no runaround.",
+  },
   contact: {
     eyebrow: "Start with an estimate",
     title: "Tell us about your driveway or lot.",
     subtitle: "Share a few details and we’ll follow up to arrange an on-site estimate.",
+    responseTime: "We respond within 24 hours.",
+    city: "City or ZIP code",
     directTitle: "Prefer to talk now?",
     directBody: "Call or send a WhatsApp message. We speak English and Spanish.",
     name: "Your name",
@@ -244,10 +271,10 @@ const es: Copy = {
   cta: { call: "Llámanos", quote: "Cotización Gratis", whatsapp: "WhatsApp" },
   hero: {
     eyebrow: "Área de Chicagoland • Residencial y Comercial",
-    title: "Protege tu asfalto.",
-    accent: "Causa una gran primera impresión.",
+    title: "Sellado de asfalto y pintura de líneas",
+    accent: "en el Área de Chicagoland.",
     subtitle:
-      "Sellado profesional de entradas de asfalto y pintura de líneas en el área de Chicagoland, con cotizaciones claras, trabajo cuidadoso y comunicación directa.",
+      "Protege tu asfalto y causa una gran primera impresión: cotizaciones claras, trabajo cuidadoso y comunicación directa, para hogares y negocios.",
     bullets: ["Cotización gratis en sitio", "Trabajo enfocado en calidad", "Atención en español"],
     visualEyebrow: "De desgastado a protegido",
     visualTitle: "Una superficie más limpia, oscura y bien definida.",
@@ -339,10 +366,26 @@ const es: Copy = {
     button: "Ver perfil en Google",
     pending: "Reseñas de Google próximamente",
   },
+  about: {
+    eyebrow: "Atendido por el dueño",
+    title: "Conoce a Demetrio, el dueño en cada trabajo.",
+    body: "Lopez Sealcoating es un negocio familiar atendido por su dueño, Demetrio López. Está presente en cada proyecto, atiende en inglés y español, y trata cada entrada y estacionamiento como si fuera suyo.",
+    points: [
+      "El dueño en cada trabajo",
+      "Inglés y español",
+      "Cotizaciones gratis en sitio",
+      "Trabajo cuidadoso y de calidad",
+    ],
+    projectLabel: "El equipo",
+    projectTitle: "Presentes en cada trabajo.",
+    projectDesc: "Tratas directo con quienes hacen el trabajo, sin call centers ni vueltas.",
+  },
   contact: {
     eyebrow: "Comienza con una cotización",
     title: "Cuéntanos sobre tu entrada o estacionamiento.",
     subtitle: "Comparte algunos detalles y te contactaremos para programar una cotización en sitio.",
+    responseTime: "Respondemos en menos de 24 horas.",
+    city: "Ciudad o código postal",
     directTitle: "¿Prefieres hablar ahora?",
     directBody: "Llama o manda un mensaje por WhatsApp. Atendemos en inglés y español.",
     name: "Tu nombre",
