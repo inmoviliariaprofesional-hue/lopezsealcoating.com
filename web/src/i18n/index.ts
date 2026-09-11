@@ -43,7 +43,7 @@ export interface Copy {
   };
   work: { eyebrow: string; title: string; subtitle: string; note: string; placeholder: string; labels: string[] };
   video: { eyebrow: string; title: string; subtitle: string; labels: string[] };
-  area: { eyebrow: string; title: string; body: string; note: string; radiusLabel: string; coverageLabel: string; coverageTypes: string[] };
+  area: { eyebrow: string; title: string; body: string; note: string; radiusLabel: string; coverageLabel: string; coverageTypes: string[]; citiesLabel: string; citiesNote: string };
   reviews: { eyebrow: string; title: string; body: string; button: string; pending: string };
   contact: {
     eyebrow: string;
@@ -173,11 +173,13 @@ const en: Copy = {
   area: {
     eyebrow: "Local service",
     title: "Across the greater Chicagoland area.",
-    body: "We serve residential and commercial properties within roughly a 40-mile radius, subject to project scope and availability.",
+    body: "Based in Hanover Park, we serve residential and commercial properties across the northwest and western Chicago suburbs—roughly a 40-mile radius, subject to project scope and availability.",
     note: "Not sure if your property is in range? Call us and we’ll confirm.",
     radiusLabel: "approximate service radius",
     coverageLabel: "Projects we evaluate",
     coverageTypes: ["Residential driveways", "Commercial lots", "On-site estimates"],
+    citiesLabel: "Cities we serve",
+    citiesNote: "…and nearby towns within about 40 miles. Don’t see yours? Call us—we’ll confirm.",
   },
   reviews: {
     eyebrow: "Reputation in progress",
@@ -322,11 +324,13 @@ const es: Copy = {
   area: {
     eyebrow: "Servicio local",
     title: "En el área metropolitana de Chicago.",
-    body: "Atendemos propiedades residenciales y comerciales en un radio aproximado de 40 millas, según el alcance y la disponibilidad.",
+    body: "Con base en Hanover Park, atendemos propiedades residenciales y comerciales en los suburbios del noroeste y oeste de Chicago, en un radio aproximado de 40 millas, según el alcance y la disponibilidad.",
     note: "¿No sabes si tu propiedad está dentro de la zona? Llámanos y lo confirmamos.",
     radiusLabel: "radio aproximado de servicio",
     coverageLabel: "Proyectos que evaluamos",
     coverageTypes: ["Entradas residenciales", "Estacionamientos comerciales", "Cotizaciones en sitio"],
+    citiesLabel: "Ciudades que atendemos",
+    citiesNote: "…y localidades cercanas en un radio de ~40 millas. ¿No ves la tuya? Llámanos y lo confirmamos.",
   },
   reviews: {
     eyebrow: "Reputación en construcción",
