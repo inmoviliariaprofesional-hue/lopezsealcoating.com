@@ -39,6 +39,7 @@ export async function onRequestPost({ request, env }) {
   const email = (data.email || "").toString().trim();
   const service = (data.service || "").toString().trim();
   const message = (data.message || "").toString().trim();
+  const city = (data.city || "").toString().trim();
   const lang = (data.lang || "").toString().trim();
 
   if (!name || !phone) {
@@ -62,6 +63,7 @@ export async function onRequestPost({ request, env }) {
       <tr><td><b>Teléfono</b></td><td>${esc(phone)}</td></tr>
       <tr><td><b>Correo</b></td><td>${esc(email) || "—"}</td></tr>
       <tr><td><b>Servicio</b></td><td>${esc(service) || "—"}</td></tr>
+      <tr><td><b>Ciudad/CP</b></td><td>${esc(city) || "—"}</td></tr>
       <tr><td><b>Idioma</b></td><td>${esc(lang) || "—"}</td></tr>
       <tr><td valign="top"><b>Mensaje</b></td><td>${esc(message).replace(/\n/g, "<br>") || "—"}</td></tr>
     </table>

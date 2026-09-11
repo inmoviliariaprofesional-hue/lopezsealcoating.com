@@ -19,6 +19,7 @@ const ogImageAlt =
   lang === "es"
     ? "Lopez Sealcoating LLC — Sellado de asfalto y pintura de líneas en el área de Chicagoland"
     : "Lopez Sealcoating LLC — Driveway sealcoating and parking lot line striping in the Chicagoland area";
+const gaId = site.gaMeasurementId;
 
 // Datos estructurados: negocio local de servicio
 const jsonLd = {
@@ -51,6 +52,17 @@ const jsonLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    {gaId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag("js", new Date());
+          gtag("config", gaId);
+        </script>
+      </>
+    )}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />

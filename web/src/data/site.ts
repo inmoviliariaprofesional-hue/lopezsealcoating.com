@@ -17,6 +17,8 @@ export const site = {
   // Correo profesional (Cloudflare Email Routing reenvía al Gmail del negocio).
   email: "info@lopezsealcoating.com",
   whatsapp: "13312369387",
+  // Google Analytics 4. Pega el ID de medición "G-XXXXXXXXXX" para activarlo (se activa al recompilar).
+  gaMeasurementId: "",
   facebook: "https://www.facebook.com/", // TODO: URL real de la página de Facebook
   // TODO: enlace directo para dejar reseña en Google cuando exista el Perfil de Empresa.
   googleReviewUrl: "",
