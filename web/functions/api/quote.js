@@ -4,16 +4,15 @@
 // Variables de entorno (Cloudflare Pages > Settings > Environment variables):
 //   BREVO_API_KEY      (obligatoria)  -> clave API de Brevo (v3)
 //   LEAD_NOTIFY_TO     (recomendada)  -> correo donde se reciben los leads
-//                                        (por ahora el Gmail de Demetrio)
+//                                        (info@lopezsealcoating.com)
 //   BREVO_SENDER_EMAIL (recomendada)  -> remitente verificado en Brevo
 //   BREVO_SENDER_NAME  (opcional)     -> nombre del remitente
 //   BREVO_LIST_ID      (opcional)     -> si se define, agrega el lead a esa lista
 //
-// Nota: mientras no exista el dominio/correo profesional, LEAD_NOTIFY_TO y
-// BREVO_SENDER_EMAIL pueden apuntar temporalmente a lopezsealcoating24@gmail.com,
-// pero el remitente debe estar verificado en Brevo para poder enviar.
+// El dominio ya está autenticado en Brevo y LEAD_NOTIFY_TO / BREVO_SENDER_EMAIL
+// apuntan a info@lopezsealcoating.com (Cloudflare Email Routing lo reenvía al Gmail).
 
-const DEFAULT_EMAIL = "lopezsealcoating24@gmail.com";
+const DEFAULT_EMAIL = "info@lopezsealcoating.com";
 
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), {

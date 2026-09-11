@@ -31,7 +31,7 @@ const jsonLd = {
   image: ogImage,
   priceRange: "$$",
   description,
-  areaServed: site.areaServed.map((area) => ({ "@type": "AdministrativeArea", name: area })),
+  areaServed: site.areaServed.map((area) => ({ "@type": "City", name: area })),
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Services",
