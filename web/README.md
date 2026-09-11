@@ -84,7 +84,7 @@ npm run build    # genera dist/
 ## Pendientes (TODO) antes de publicar
 
 - [x] Registrar el dominio (Cloudflare Registrar) y conectarlo. _(lopezsealcoating.com + www, activo con SSL.)_
-- [ ] Reemplazar el Gmail por el correo profesional en `src/data/site.ts` y en las variables.
+- [x] Reemplazar el Gmail por el correo profesional (`info@lopezsealcoating.com`) en `src/data/site.ts` y en las variables. _(Email Routing + Brevo autenticado; formulario operativo.)_
 - [ ] Poner la URL real de Facebook y el enlace del Perfil de Empresa de Google en `site.ts`.
 - [x] `insured`: se mantiene en `false` (Demetrio confirmó que no cuenta con seguro; no se muestra "Licensed & Insured"). Sí se muestra "LLC".
 - [ ] Confirmar las ciudades reales de `areaServed` en `site.ts`.

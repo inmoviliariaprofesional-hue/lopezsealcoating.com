@@ -5,8 +5,8 @@ export const site = {
   // Teléfono tomado del volante actual. Formato E.164 para enlaces.
   phoneDisplay: "(331) 236-9387",
   phoneE164: "+13312369387",
-  // TODO: reemplazar por correo profesional (ej. info@lopezsealcoating.com) cuando se cree el dominio.
-  email: "lopezsealcoating24@gmail.com",
+  // Correo profesional (Cloudflare Email Routing reenvía al Gmail del negocio).
+  email: "info@lopezsealcoating.com",
   whatsapp: "13312369387",
   facebook: "https://www.facebook.com/", // TODO: URL real de la página de Facebook
   // TODO: enlace directo para dejar reseña en Google cuando exista el Perfil de Empresa.
