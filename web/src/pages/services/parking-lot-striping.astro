@@ -1,0 +1,69 @@
+---
+import ServiceLayout from "../../layouts/ServiceLayout.astro";
+import { site } from "../../data/site";
+
+const title = "Parking Lot Line Striping in the Chicagoland Area | Lopez Sealcoating LLC";
+const description =
+  "Parking lot line striping and pavement markings across the Chicagoland area: stalls, ADA symbols, arrows, and fire lanes. Free estimates. Hablamos Español.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Parking Lot Line Striping",
+  provider: { "@type": "LocalBusiness", name: site.legalName, telephone: site.phoneE164 },
+  areaServed: site.areaServed.map((a) => ({ "@type": "City", name: a })),
+  url: `${site.url}/services/parking-lot-striping`,
+};
+---
+
+<ServiceLayout
+  lang="en"
+  title={title}
+  description={description}
+  enHref="/services/parking-lot-striping"
+  esHref="/es/servicios/pintura-de-lineas"
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <p class="text-xs font-extrabold uppercase tracking-[.2em] text-asphalt/60">Commercial</p>
+    <h1 class="mt-3 font-display text-4xl font-extrabold leading-tight sm:text-5xl">Parking lot line striping in the Chicagoland area</h1>
+    <p class="mt-5 text-lg leading-8 text-asphalt/70">
+      Clean, visible striping makes your property easier to navigate and shows customers you care about the details.
+      We stripe and re-stripe parking lots across the Chicagoland area, including stalls, ADA symbols, arrows, and
+      fire lanes.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">What we mark</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Standard and compact parking stalls</li>
+      <li>• ADA/handicap stalls and symbols</li>
+      <li>• Directional arrows and stop bars</li>
+      <li>• Fire lanes and no-parking zones</li>
+      <li>• Crosswalks and curb painting</li>
+    </ul>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Our process</h2>
+    <ol class="mt-4 space-y-2 text-asphalt/75">
+      <li><b>1. Free on-site estimate</b> — we review the layout and count stalls.</li>
+      <li><b>2. Clean the surface</b> — we clear dust and debris for better adhesion.</li>
+      <li><b>3. Layout &amp; measure</b> — we follow the existing layout or plan a new one.</li>
+      <li><b>4. Apply paint</b> — crisp, straight lines with the right paint.</li>
+      <li><b>5. Dry time</b> — we let you know when the lot is ready.</li>
+    </ol>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">What affects the price</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Number of stalls and total markings</li>
+      <li>• Re-stripe over existing lines vs. a new layout</li>
+      <li>• Special stencils/symbols and paint type</li>
+    </ul>
+    <p class="mt-4 text-asphalt/70">Striping pairs perfectly with fresh sealcoating for a like-new lot.</p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Aftercare</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Keep vehicles off until the paint is fully dry (we confirm the time).</li>
+      <li>• Re-stripe as lines fade with traffic and weather.</li>
+    </ul>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</ServiceLayout>

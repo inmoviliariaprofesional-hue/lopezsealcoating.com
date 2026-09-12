@@ -1,0 +1,68 @@
+---
+import ServiceLayout from "../../../layouts/ServiceLayout.astro";
+import { site } from "../../../data/site";
+
+const title = "Pintura de Líneas de Estacionamiento en el Área de Chicagoland | Lopez Sealcoating LLC";
+const description =
+  "Pintura de líneas y señalización de estacionamientos en el área de Chicagoland: cajones, símbolos ADA, flechas y carriles de bomberos. Cotización gratis. Hablamos Español.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Pintura de Líneas de Estacionamiento",
+  provider: { "@type": "LocalBusiness", name: site.legalName, telephone: site.phoneE164 },
+  areaServed: site.areaServed.map((a) => ({ "@type": "City", name: a })),
+  url: `${site.url}/es/servicios/pintura-de-lineas`,
+};
+---
+
+<ServiceLayout
+  lang="es"
+  title={title}
+  description={description}
+  enHref="/services/parking-lot-striping"
+  esHref="/es/servicios/pintura-de-lineas"
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <p class="text-xs font-extrabold uppercase tracking-[.2em] text-asphalt/60">Comercial</p>
+    <h1 class="mt-3 font-display text-4xl font-extrabold leading-tight sm:text-5xl">Pintura de líneas de estacionamiento en el área de Chicagoland</h1>
+    <p class="mt-5 text-lg leading-8 text-asphalt/70">
+      Líneas limpias y visibles facilitan el tránsito y muestran a tus clientes que cuidas los detalles. Pintamos y
+      repintamos estacionamientos en el área de Chicagoland: cajones, símbolos ADA, flechas y carriles de bomberos.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Qué marcamos</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Cajones estándar y compactos</li>
+      <li>• Cajones y símbolos ADA / para discapacitados</li>
+      <li>• Flechas de dirección y líneas de alto</li>
+      <li>• Carriles de bomberos y zonas de no estacionar</li>
+      <li>• Cebras peatonales y pintura de guarniciones</li>
+    </ul>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Nuestro proceso</h2>
+    <ol class="mt-4 space-y-2 text-asphalt/75">
+      <li><b>1. Cotización gratis en sitio</b> — revisamos el diseño y contamos los cajones.</li>
+      <li><b>2. Limpieza de la superficie</b> — quitamos polvo y basura para mejor adherencia.</li>
+      <li><b>3. Trazo y medición</b> — seguimos el diseño existente o planeamos uno nuevo.</li>
+      <li><b>4. Aplicación de pintura</b> — líneas rectas y nítidas con la pintura adecuada.</li>
+      <li><b>5. Tiempo de secado</b> — te avisamos cuándo está listo el estacionamiento.</li>
+    </ol>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Qué afecta el precio</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Número de cajones y total de marcas</li>
+      <li>• Repintar sobre líneas existentes vs. un diseño nuevo</li>
+      <li>• Plantillas/símbolos especiales y tipo de pintura</li>
+    </ul>
+    <p class="mt-4 text-asphalt/70">La pintura de líneas combina perfecto con un sellado fresco para dejar el lote como nuevo.</p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Cuidados después</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Mantén los autos fuera hasta que la pintura seque por completo (confirmamos el tiempo).</li>
+      <li>• Repinta cuando las líneas se desgasten con el tránsito y el clima.</li>
+    </ul>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</ServiceLayout>
