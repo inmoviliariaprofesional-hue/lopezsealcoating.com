@@ -88,7 +88,9 @@ npm run build    # genera dist/
 - [ ] Poner la URL real de Facebook y el enlace del Perfil de Empresa de Google en `site.ts`.
 - [x] `insured`: se mantiene en `false` (Demetrio confirmó que no cuenta con seguro; no se muestra "Licensed & Insured"). Sí se muestra "LLC".
 - [x] Confirmar las ciudades reales de `areaServed` en `site.ts`. _(base Hanover Park; 16 ciudades del NO/O de Chicago en `serviceCities`.)_
-- [x] Subir fotos y videos reales de trabajos a `public/` y conectarlos en "Nuestros Trabajos". _(6 fotos + 3 videos reales; hero y sección de zona con fotos reales. Pendiente: antes/después dedicado.)_
+- [x] Subir fotos y videos reales de trabajos a `public/` y conectarlos en "Nuestros Trabajos". _(6 fotos + 3 videos + antes/después reales; hero y sección de zona con fotos reales.)_
+- [x] Google Analytics 4 conectado (`gaMeasurementId` en `site.ts`) con eventos de lead, llamada y WhatsApp.
+- [ ] Optimización de imágenes a WebP/AVIF (pendiente, mejora de rendimiento).
 - [x] Agregar `public/og-image.png` (imagen para compartir en redes). _(imagen social del kit de marca, 1200×630.)_
 - [x] Reemplazar el nombre de texto por el logo original. _(emblema en el header, logo completo en el pie; favicons del kit. Emblema y favicon LS son propuestas por validar con Demetrio.)_
 - [ ] Configurar `BREVO_API_KEY` y correos en Cloudflare.
