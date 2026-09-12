@@ -19,7 +19,7 @@ export const site = {
   whatsapp: "13312369387",
   // Google Analytics 4. Pega el ID de medición "G-XXXXXXXXXX" para activarlo (se activa al recompilar).
   gaMeasurementId: "G-RV5L2W8YXZ",
-  facebook: "https://www.facebook.com/", // TODO: URL real de la página de Facebook
+  facebook: "https://www.facebook.com/lopez.sealcoating",
   // TODO: enlace directo para dejar reseña en Google cuando exista el Perfil de Empresa.
   googleReviewUrl: "",
   // TODO: activar cuando exista el Perfil de Empresa (para "Ver reseñas").
