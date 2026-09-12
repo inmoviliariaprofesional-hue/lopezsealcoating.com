@@ -43,6 +43,7 @@ export interface Copy {
   };
   work: { eyebrow: string; title: string; subtitle: string; note: string; placeholder: string; labels: string[] };
   video: { eyebrow: string; title: string; subtitle: string; labels: string[] };
+  beforeAfter: { eyebrow: string; title: string; subtitle: string; beforeLabel: string; afterLabel: string };
   area: { eyebrow: string; title: string; body: string; note: string; radiusLabel: string; coverageLabel: string; coverageTypes: string[]; citiesLabel: string; citiesNote: string };
   reviews: { eyebrow: string; title: string; body: string; button: string; pending: string };
   about: {
@@ -180,6 +181,13 @@ const en: Copy = {
     title: "Real jobs, start to finish.",
     subtitle: "A few clips from recent driveways and parking lots around the Chicagoland area.",
     labels: ["Fresh driveway sealcoat", "Before & after", "Commercial parking lot"],
+  },
+  beforeAfter: {
+    eyebrow: "The sealcoat difference",
+    title: "From worn to protected.",
+    subtitle: "Real driveways in the Chicagoland area—cleaned, sealed, and renewed to a rich, even black.",
+    beforeLabel: "Before",
+    afterLabel: "After",
   },
   area: {
     eyebrow: "Local service",
@@ -347,6 +355,13 @@ const es: Copy = {
     title: "Trabajos reales, de principio a fin.",
     subtitle: "Algunos clips de entradas y estacionamientos recientes en el área de Chicagoland.",
     labels: ["Sellado de entrada", "Antes y después", "Estacionamiento comercial"],
+  },
+  beforeAfter: {
+    eyebrow: "La diferencia del sellado",
+    title: "De desgastado a protegido.",
+    subtitle: "Entradas reales en el área de Chicagoland: limpiadas, selladas y renovadas a un negro intenso y uniforme.",
+    beforeLabel: "Antes",
+    afterLabel: "Después",
   },
   area: {
     eyebrow: "Servicio local",

@@ -18,7 +18,7 @@ export const site = {
   email: "info@lopezsealcoating.com",
   whatsapp: "13312369387",
   // Google Analytics 4. Pega el ID de medición "G-XXXXXXXXXX" para activarlo (se activa al recompilar).
-  gaMeasurementId: "",
+  gaMeasurementId: "G-NVSL2N8YX2",
   facebook: "https://www.facebook.com/", // TODO: URL real de la página de Facebook
   // TODO: enlace directo para dejar reseña en Google cuando exista el Perfil de Empresa.
   googleReviewUrl: "",
