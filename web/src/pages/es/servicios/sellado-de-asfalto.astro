@@ -1,0 +1,70 @@
+---
+import ServiceLayout from "../../../layouts/ServiceLayout.astro";
+import { site } from "../../../data/site";
+
+const title = "Sellado de Asfalto (Sealcoating) en el Área de Chicagoland | Lopez Sealcoating LLC";
+const description =
+  "Sellado profesional de entradas de asfalto en el área de Chicagoland. Protege tu asfalto con un acabado negro y uniforme. Cotización gratis. Hablamos Español.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Sellado de Asfalto (Sealcoating)",
+  provider: { "@type": "LocalBusiness", name: site.legalName, telephone: site.phoneE164 },
+  areaServed: site.areaServed.map((a) => ({ "@type": "City", name: a })),
+  url: `${site.url}/es/servicios/sellado-de-asfalto`,
+};
+---
+
+<ServiceLayout
+  lang="es"
+  title={title}
+  description={description}
+  enHref="/services/driveway-sealcoating"
+  esHref="/es/servicios/sellado-de-asfalto"
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <p class="text-xs font-extrabold uppercase tracking-[.2em] text-asphalt/60">Residencial y Comercial</p>
+    <h1 class="mt-3 font-display text-4xl font-extrabold leading-tight sm:text-5xl">Sellado de asfalto en el área de Chicagoland</h1>
+    <p class="mt-5 text-lg leading-8 text-asphalt/70">
+      Una capa de sellador protege tu asfalto del sol, el agua y el uso diario, y le devuelve al instante un acabado
+      negro, limpio y uniforme. Sellamos entradas residenciales y estacionamientos comerciales en el área de
+      Chicagoland, con atención en inglés y español.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Qué incluye</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Limpieza de la superficie (tierra, basura y material suelto)</li>
+      <li>• Perfilado y bordes limpios junto al pasto y las orillas</li>
+      <li>• Sellado de grietas menores como parte de la preparación</li>
+      <li>• Sellador de grado comercial aplicado de forma pareja</li>
+      <li>• Un acabado negro y uniforme que protege y renueva</li>
+    </ul>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Nuestro proceso</h2>
+    <ol class="mt-4 space-y-2 text-asphalt/75">
+      <li><b>1. Cotización gratis en sitio</b> — medimos el área y revisamos el estado.</li>
+      <li><b>2. Limpieza y preparación</b> — dejamos la superficie lista para que el sellador se adhiera.</li>
+      <li><b>3. Sellado de grietas</b> — tratamos las grietas menores antes de sellar.</li>
+      <li><b>4. Aplicación del sellador</b> — aplicamos parejo, primero las orillas.</li>
+      <li><b>5. Tiempo de secado</b> — te decimos exactamente cuándo puedes usarla.</li>
+    </ol>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Qué afecta el precio</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Tamaño de la entrada (pies cuadrados)</li>
+      <li>• Estado actual y cantidad de grietas por sellar</li>
+      <li>• Número de manos y acceso al lugar</li>
+    </ul>
+    <p class="mt-4 text-asphalt/70">Cotizamos por pie cuadrado después de una visita gratuita, sin compromiso.</p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Cuidados después</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• No uses la entrada por unas 24–48 horas (confirmamos el tiempo exacto).</li>
+      <li>• Evita giros bruscos y cargas pesadas los primeros días.</li>
+      <li>• Vuelve a sellar cada 2–3 años para mantener el asfalto protegido.</li>
+    </ul>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</ServiceLayout>

@@ -6,14 +6,16 @@ interface Props {
   lang: string;
   title: string;
   description: string;
+  enHref?: string;
+  esHref?: string;
 }
-const { lang, title, description } = Astro.props;
+const { lang, title, description, enHref = "/", esHref = "/es/" } = Astro.props;
 
-// Canonical + alternates (EN en "/", ES en "/es/")
+// Canonical + alternates (por página: cada página indica su equivalente EN/ES)
 const base = Astro.site ?? new URL(site.url);
 const canonical = new URL(Astro.url.pathname, base).href;
-const enUrl = new URL("/", base).href;
-const esUrl = new URL("/es/", base).href;
+const enUrl = new URL(enHref, base).href;
+const esUrl = new URL(esHref, base).href;
 const ogImage = new URL("/og-image.png", base).href;
 const ogImageAlt =
   lang === "es"

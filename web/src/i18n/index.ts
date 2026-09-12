@@ -55,6 +55,7 @@ export interface Copy {
     projectTitle: string;
     projectDesc: string;
   };
+  faq: { eyebrow: string; title: string; items: { q: string; a: string }[] };
   contact: {
     eyebrow: string;
     title: string;
@@ -220,6 +221,18 @@ const en: Copy = {
     projectLabel: "The owner on site",
     projectTitle: "Demetrio, hands-on.",
     projectDesc: "You deal directly with Demetrio and his crew—no call centers, no runaround.",
+  },
+  faq: {
+    eyebrow: "Good to know",
+    title: "Frequently asked questions",
+    items: [
+      { q: "When can I drive on my driveway after sealcoating?", a: "Usually after 24–48 hours, depending on weather and temperature. We'll give you the exact timing for your job before we start." },
+      { q: "What happens if it rains?", a: "We don't apply sealcoat if rain is expected within 24 hours. If the weather changes, we simply reschedule for the next dry day." },
+      { q: "How often should I sealcoat my driveway?", a: "For most driveways, every 2–3 years keeps the asphalt protected and looking new. High-traffic areas may need it sooner." },
+      { q: "Do you repair cracks and potholes?", a: "We fill minor cracks as part of prep. Sealcoating protects the surface but doesn't fix major structural damage—we'll tell you honestly what your pavement needs." },
+      { q: "How much does it cost and how do you quote?", a: "We quote by the square foot after a free on-site look. The estimate is free and there's no obligation." },
+      { q: "Do you serve businesses and parking lots?", a: "Yes. We handle residential driveways and commercial parking lots, including line striping and pavement markings." },
+    ],
   },
   contact: {
     eyebrow: "Start with an estimate",
@@ -394,6 +407,18 @@ const es: Copy = {
     projectLabel: "El dueño en obra",
     projectTitle: "Demetrio, con las manos en la obra.",
     projectDesc: "Tratas directo con Demetrio y su equipo, sin call centers ni vueltas.",
+  },
+  faq: {
+    eyebrow: "Bueno saberlo",
+    title: "Preguntas frecuentes",
+    items: [
+      { q: "¿Cuándo puedo usar mi entrada después del sellado?", a: "Normalmente después de 24–48 horas, según el clima y la temperatura. Te decimos el tiempo exacto de tu trabajo antes de empezar." },
+      { q: "¿Qué pasa si llueve?", a: "No aplicamos sellado si se espera lluvia en las siguientes 24 horas. Si el clima cambia, reprogramamos para el próximo día seco." },
+      { q: "¿Cada cuánto debo sellar mi entrada?", a: "En la mayoría de los casos, cada 2–3 años mantiene el asfalto protegido y como nuevo. Las zonas de mucho tránsito pueden necesitarlo antes." },
+      { q: "¿Reparan grietas y baches?", a: "Sellamos grietas menores como parte de la preparación. El sellado protege la superficie, pero no arregla daños estructurales mayores; te decimos con honestidad qué necesita tu pavimento." },
+      { q: "¿Cuánto cuesta y cómo cotizan?", a: "Cotizamos por pie cuadrado después de una visita gratuita. La cotización es gratis y sin compromiso." },
+      { q: "¿Atienden negocios y estacionamientos?", a: "Sí. Hacemos entradas residenciales y estacionamientos comerciales, incluida la pintura de líneas y señalización." },
+    ],
   },
   contact: {
     eyebrow: "Comienza con una cotización",

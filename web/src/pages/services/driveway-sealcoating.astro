@@ -1,0 +1,70 @@
+---
+import ServiceLayout from "../../layouts/ServiceLayout.astro";
+import { site } from "../../data/site";
+
+const title = "Driveway Sealcoating in the Chicagoland Area | Lopez Sealcoating LLC";
+const description =
+  "Professional driveway sealcoating across the Chicagoland area. Protect your asphalt with a clean, even black finish. Free on-site estimates. Hablamos Español.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Driveway Sealcoating",
+  provider: { "@type": "LocalBusiness", name: site.legalName, telephone: site.phoneE164 },
+  areaServed: site.areaServed.map((a) => ({ "@type": "City", name: a })),
+  url: `${site.url}/services/driveway-sealcoating`,
+};
+---
+
+<ServiceLayout
+  lang="en"
+  title={title}
+  description={description}
+  enHref="/services/driveway-sealcoating"
+  esHref="/es/servicios/sellado-de-asfalto"
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <p class="text-xs font-extrabold uppercase tracking-[.2em] text-asphalt/60">Residential &amp; Commercial</p>
+    <h1 class="mt-3 font-display text-4xl font-extrabold leading-tight sm:text-5xl">Driveway sealcoating in the Chicagoland area</h1>
+    <p class="mt-5 text-lg leading-8 text-asphalt/70">
+      A fresh coat of sealer shields your asphalt from sun, water, and daily wear—and instantly restores a clean,
+      even black finish. We seal residential driveways and commercial lots across the Chicagoland area, working in
+      English and Spanish.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">What's included</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Surface cleaning (dirt, debris, and loose material)</li>
+      <li>• Trimming and clean edges along grass and borders</li>
+      <li>• Filling of minor cracks as part of prep</li>
+      <li>• Commercial-grade sealer applied for even, full coverage</li>
+      <li>• A rich, uniform black finish that protects and renews</li>
+    </ul>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Our process</h2>
+    <ol class="mt-4 space-y-2 text-asphalt/75">
+      <li><b>1. Free on-site estimate</b> — we measure the area and review the condition.</li>
+      <li><b>2. Clean &amp; prep</b> — we clear the surface so the sealer bonds well.</li>
+      <li><b>3. Crack filling</b> — minor cracks are treated before sealing.</li>
+      <li><b>4. Sealcoat</b> — we apply the sealer evenly, edges first.</li>
+      <li><b>5. Cure time</b> — we tell you exactly when you can drive on it.</li>
+    </ol>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">What affects the price</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Size of the driveway (square footage)</li>
+      <li>• Current condition and amount of crack filling needed</li>
+      <li>• Number of coats and accessibility</li>
+    </ul>
+    <p class="mt-4 text-asphalt/70">We quote by the square foot after a free on-site look—no obligation.</p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold">Aftercare</h2>
+    <ul class="mt-4 space-y-2 text-asphalt/75">
+      <li>• Keep off the driveway for about 24–48 hours (we confirm the exact time).</li>
+      <li>• Avoid sharp turns and heavy loads the first few days.</li>
+      <li>• Re-seal every 2–3 years to keep the asphalt protected.</li>
+    </ul>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</ServiceLayout>

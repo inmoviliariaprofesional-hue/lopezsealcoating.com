@@ -9,6 +9,12 @@ const { t } = Astro.props;
 
 const telHref = `tel:${site.phoneE164}`;
 const waHref = `https://wa.me/${site.whatsapp}`;
+// Enlaces de las tarjetas de servicio a sus páginas (por idioma).
+const isES = t.htmlLang === "es";
+const serviceHrefs = isES
+  ? ["/es/servicios/sellado-de-asfalto", "/es/servicios/pintura-de-lineas", "/es/#contact"]
+  : ["/services/driveway-sealcoating", "/services/parking-lot-striping", "/#contact"];
+const serviceMore = isES ? "Ver detalles →" : "Learn more →";
 // Imágenes ilustrativas (stock CC0) para la galería de referencia.
 const workImages = [
   "/images/work-1.jpg",
@@ -30,15 +36,7 @@ const workVideos = [
 <header class="sticky top-0 z-50 border-b border-white/10 bg-asphalt-950/95 text-white backdrop-blur-xl">
   <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
     <a href="#top" class="focus-ring flex min-w-0 items-center gap-3 rounded-lg" aria-label="Lopez Sealcoating LLC — Inicio">
-      <img
-        src="/favicon.svg"
-        alt=""
-        width="64"
-        height="64"
-        decoding="async"
-        class="h-10 w-10 shrink-0 rounded-xl"
-      />
-      <span class="truncate font-display text-sm font-extrabold tracking-[-.03em] sm:text-base">
+      <span class="truncate font-display text-base font-extrabold tracking-[-.03em] sm:text-lg">
         LOPEZ <span class="text-signal">SEALCOATING</span> <span class="font-semibold text-white/45">LLC</span>
       </span>
     </a>
@@ -200,15 +198,15 @@ const workVideos = [
 
       <div class="mt-14 grid gap-5 lg:grid-cols-3">
         {t.services.items.map((item, i) => (
-          <article class={`surface-card lift relative overflow-hidden rounded-[1.75rem] border p-7 sm:p-8 ${i === 1 ? "border-signal/45 bg-asphalt text-white" : "border-black/7 bg-white text-asphalt"}`}>
+          <a href={serviceHrefs[i]} class={`focus-ring lift surface-card relative block overflow-hidden rounded-[1.75rem] border p-7 sm:p-8 ${i === 1 ? "border-signal/45 bg-asphalt text-white" : "border-black/7 bg-white text-asphalt"}`}>
             <div class="mb-16 flex items-start justify-between">
               <span class={`font-display text-sm font-extrabold ${i === 1 ? "text-signal" : "text-asphalt/65"}`}>{item.number}</span>
               <span class={`rounded-full px-3 py-1 text-[10px] font-extrabold uppercase tracking-[.13em] ${i === 1 ? "bg-signal text-asphalt" : "bg-asphalt/6 text-asphalt/65"}`}>{item.tag}</span>
             </div>
             <h3 class="font-display text-2xl font-extrabold leading-tight">{item.name}</h3>
             <p class={`mt-4 text-sm leading-6 ${i === 1 ? "text-white/60" : "text-asphalt/65"}`}>{item.desc}</p>
-            <div class={`mt-8 h-1 w-12 rounded-full ${i === 1 ? "bg-signal" : "bg-asphalt"}`}></div>
-          </article>
+            <span class={`mt-8 inline-flex items-center gap-1 text-xs font-extrabold ${i === 1 ? "text-signal" : "text-asphalt"}`}>{serviceMore}</span>
+          </a>
         ))}
       </div>
     </div>
@@ -458,6 +456,39 @@ const workVideos = [
         </figcaption>
       </figure>
     </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="bg-white py-24 sm:py-28">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <p class="text-xs font-extrabold uppercase tracking-[.2em] text-asphalt/65">{t.faq.eyebrow}</p>
+        <h2 class="mt-4 font-display text-4xl font-extrabold sm:text-5xl">{t.faq.title}</h2>
+      </div>
+      <div class="mt-10 border-t border-black/8">
+        {t.faq.items.map((item) => (
+          <details class="group border-b border-black/8 py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-extrabold text-asphalt">
+              <span>{item.q}</span>
+              <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-signal/20 text-lg leading-none text-asphalt transition group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 text-sm leading-6 text-asphalt/70">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: t.faq.items.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
+      })}
+    />
   </section>
 
   <!-- ===== Contact ===== -->
