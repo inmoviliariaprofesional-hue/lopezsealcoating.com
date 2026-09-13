@@ -66,7 +66,7 @@ const t = {
   </section>
   )}
 
-  <footer class="bg-asphalt-950 py-10 text-white/60">
+  <footer class={`bg-asphalt-950 pt-10 text-white/60 ${showCta ? "pb-28 md:pb-10" : "pb-10"}`}>
     <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
       <a href={home} class="focus-ring rounded text-sm font-semibold text-white/70 hover:text-signal">{t.back}</a>
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
@@ -76,4 +76,14 @@ const t = {
       </div>
     </div>
   </footer>
+
+  <!-- Barra de acción fija (solo móvil) ===== -->
+  {showCta && (
+  <div class="mobile-action-bar fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-white/95 p-2 shadow-[0_-12px_36px_rgba(0,0,0,.12)] backdrop-blur-xl md:hidden">
+    <div class="grid grid-cols-2 gap-2">
+      <a href={telHref} class="focus-ring flex min-h-12 items-center justify-center rounded-xl border border-black/8 text-xs font-extrabold text-asphalt">{t.call}</a>
+      <a href={contactHref} class="focus-ring flex min-h-12 items-center justify-center rounded-xl bg-signal px-3 text-center text-xs font-extrabold text-asphalt">{t.quote}</a>
+    </div>
+  </div>
+  )}
 </Base>

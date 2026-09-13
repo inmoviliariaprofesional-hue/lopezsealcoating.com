@@ -20,10 +20,12 @@ export const site = {
   // Google Analytics 4. Pega el ID de medición "G-XXXXXXXXXX" para activarlo (se activa al recompilar).
   gaMeasurementId: "G-RV5L2W8YXZ",
   facebook: "https://www.facebook.com/lopez.sealcoating",
-  // TODO: enlace directo para dejar reseña en Google cuando exista el Perfil de Empresa.
-  googleReviewUrl: "",
-  // TODO: activar cuando exista el Perfil de Empresa (para "Ver reseñas").
-  googleProfileUrl: "",
+  // Enlace de reseñas: por ahora abre la ficha de Google del negocio (por CID), donde el
+  // cliente toca "Escribir una reseña". Cuando Demetrio obtenga el enlace directo de un
+  // clic desde su Perfil de Empresa (formato g.page/r/.../review), reemplazar aquí.
+  googleReviewUrl: "https://www.google.com/maps?cid=9429981723223566481",
+  // Ficha pública en Google Maps (Perfil de Empresa verificado).
+  googleProfileUrl: "https://www.google.com/maps?cid=9429981723223566481",
   serviceRadiusMiles: 40,
   // Datos de licencia/seguro: solo mostrar sellos si son verdaderos.
   insured: false, // TODO: cambiar a true cuando se confirme el seguro.
