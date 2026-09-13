@@ -54,6 +54,7 @@ export interface Copy {
     projectLabel: string;
     projectTitle: string;
     projectDesc: string;
+    reviewCta: string;
   };
   faq: { eyebrow: string; title: string; items: { q: string; a: string }[] };
   contact: {
@@ -171,10 +172,8 @@ const en: Copy = {
     labels: [
       "Residential driveway",
       "Commercial line striping",
-      "Our bilingual crew",
       "A rich, even finish",
       "Parking lot markings",
-      "Fresh curb appeal",
     ],
   },
   video: {
@@ -186,9 +185,9 @@ const en: Copy = {
   beforeAfter: {
     eyebrow: "The sealcoat difference",
     title: "From worn to protected.",
-    subtitle: "Real driveways in the Chicagoland area—cleaned, sealed, and renewed to a rich, even black.",
-    beforeLabel: "Before",
-    afterLabel: "After",
+    subtitle: "The difference a fresh sealcoat makes—worn, faded asphalt next to a clean, even black finish.",
+    beforeLabel: "Worn asphalt",
+    afterLabel: "Freshly sealed",
   },
   area: {
     eyebrow: "Local service",
@@ -221,6 +220,7 @@ const en: Copy = {
     projectLabel: "The owner on site",
     projectTitle: "Demetrio, hands-on.",
     projectDesc: "You deal directly with Demetrio and his crew—no call centers, no runaround.",
+    reviewCta: "Leave us a Google review",
   },
   faq: {
     eyebrow: "Good to know",
@@ -357,10 +357,8 @@ const es: Copy = {
     labels: [
       "Entrada residencial",
       "Pintura de líneas comercial",
-      "Nuestro equipo bilingüe",
       "Acabado negro y uniforme",
       "Señalización de estacionamiento",
-      "Fachada renovada",
     ],
   },
   video: {
@@ -372,9 +370,9 @@ const es: Copy = {
   beforeAfter: {
     eyebrow: "La diferencia del sellado",
     title: "De desgastado a protegido.",
-    subtitle: "Entradas reales en el área de Chicagoland: limpiadas, selladas y renovadas a un negro intenso y uniforme.",
-    beforeLabel: "Antes",
-    afterLabel: "Después",
+    subtitle: "La diferencia que hace un buen sellado: asfalto desgastado y descolorido junto a un acabado negro, limpio y uniforme.",
+    beforeLabel: "Asfalto desgastado",
+    afterLabel: "Recién sellado",
   },
   area: {
     eyebrow: "Servicio local",
@@ -407,6 +405,7 @@ const es: Copy = {
     projectLabel: "El dueño en obra",
     projectTitle: "Demetrio, con las manos en la obra.",
     projectDesc: "Tratas directo con Demetrio y su equipo, sin call centers ni vueltas.",
+    reviewCta: "Déjanos tu reseña en Google",
   },
   faq: {
     eyebrow: "Bueno saberlo",

@@ -59,9 +59,12 @@ const jsonLd = {
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
         <script is:inline define:vars={{ gaId }}>
           window.dataLayer = window.dataLayer || [];
-          function gtag() { dataLayer.push(arguments); }
-          gtag("js", new Date());
-          gtag("config", gaId);
+          // Se expone gtag en window para que los eventos (call_click, generate_lead,
+          // whatsapp_click) definidos en otros scripts lo encuentren, incluso cuando
+          // Astro envuelve este script (define:vars) en su propio ámbito de función.
+          window.gtag = function gtag() { window.dataLayer.push(arguments); };
+          window.gtag("js", new Date());
+          window.gtag("config", gaId);
         </script>
       </>
     )}

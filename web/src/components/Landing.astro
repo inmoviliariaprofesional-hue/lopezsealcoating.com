@@ -19,10 +19,8 @@ const serviceMore = isES ? "Ver detalles →" : "Learn more →";
 const workImages = [
   "/images/work-1.jpg",
   "/images/work-2.jpg",
-  "/images/work-3.jpg",
   "/images/work-4.jpg",
   "/images/work-5.jpg",
-  "/images/work-6.jpg",
 ];
 // Videos reales de trabajos (verticales). El primero se reproduce solo (silenciado, en bucle).
 const workVideos = [
@@ -339,7 +337,7 @@ const workVideos = [
         </div>
       </div>
 
-      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
+      <div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {workImages.map((src, i) => (
           <figure class="group relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-white/10">
             <img
@@ -438,6 +436,18 @@ const workVideos = [
           <a href="#contact" class="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-signal px-6 text-sm font-extrabold text-asphalt transition hover:bg-signal-500">{t.cta.quote}</a>
           <a href={telHref} class="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-asphalt/15 px-6 text-sm font-extrabold text-asphalt transition hover:bg-concrete">{t.cta.call}</a>
         </div>
+        {site.googleReviewUrl && (
+          <p class="mt-5">
+            <a
+              href={site.googleReviewUrl}
+              target="_blank"
+              rel="noopener"
+              class="focus-ring inline-flex items-center gap-2 rounded text-sm font-bold text-asphalt/70 transition hover:text-asphalt"
+            >
+              <span class="text-signal" aria-hidden="true">★</span> {t.about.reviewCta} <span aria-hidden="true">→</span>
+            </a>
+          </p>
+        )}
       </div>
 
       <figure class="surface-card overflow-hidden rounded-[2rem] border border-black/7 bg-white">
