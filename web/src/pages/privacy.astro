@@ -1,0 +1,77 @@
+---
+import ServiceLayout from "../layouts/ServiceLayout.astro";
+import { site } from "../data/site";
+
+const title = "Privacy Policy | Lopez Sealcoating LLC";
+const description = "How Lopez Sealcoating LLC collects, uses, and protects your information.";
+const updated = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<ServiceLayout
+  lang="en"
+  title={title}
+  description={description}
+  enHref="/privacy"
+  esHref="/es/privacidad"
+  showCta={false}
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 text-asphalt/75 sm:px-6 lg:px-8">
+    <h1 class="font-display text-4xl font-extrabold leading-tight text-asphalt sm:text-5xl">Privacy Policy</h1>
+    <p class="mt-3 text-sm text-asphalt/55">Last updated: {updated}</p>
+
+    <p class="mt-6 leading-7">
+      This Privacy Policy explains how <b>Lopez Sealcoating LLC</b> ("we", "us") collects, uses, and protects your
+      information when you visit <b>lopezsealcoating.com</b> or contact us. By using our website, you agree to this policy.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Information we collect</h2>
+    <ul class="mt-4 space-y-2">
+      <li>• <b>Information you give us</b> through our estimate form: your name, phone number, email, city or ZIP code, and any details you include.</li>
+      <li>• <b>Information collected automatically</b>: basic usage data through Google Analytics (for example, pages visited and general location), using cookies and similar technologies.</li>
+    </ul>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">How we use your information</h2>
+    <ul class="mt-4 space-y-2">
+      <li>• To respond to your request and prepare a free estimate.</li>
+      <li>• To contact you about your project by phone, text, or email.</li>
+      <li>• To understand and improve our website.</li>
+    </ul>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">How we share it</h2>
+    <p class="mt-4 leading-7">
+      We <b>do not sell</b> your personal information. We share it only with service providers that help us operate,
+      such as our email provider (Brevo) and analytics provider (Google Analytics), or when required by law.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Cookies &amp; analytics</h2>
+    <p class="mt-4 leading-7">
+      We use Google Analytics cookies to measure site usage. You can control cookies through your browser settings or
+      opt out of Google Analytics using Google's tools.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Contact consent</h2>
+    <p class="mt-4 leading-7">
+      By submitting the form, you agree that we may contact you about your request by phone, text message, or email.
+      Message and data rates may apply. You can ask us to stop contacting you at any time.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Your choices</h2>
+    <p class="mt-4 leading-7">
+      You may request access to, correction of, or deletion of your information by emailing
+      <a class="font-semibold text-asphalt underline" href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Children's privacy</h2>
+    <p class="mt-4 leading-7">Our website is not directed to children under 13, and we do not knowingly collect their information.</p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Changes to this policy</h2>
+    <p class="mt-4 leading-7">We may update this policy from time to time. The latest version will always be posted on this page.</p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Contact us</h2>
+    <p class="mt-4 leading-7">
+      Lopez Sealcoating LLC<br />
+      5601 Court Leona, Hanover Park, IL 60133<br />
+      <a class="font-semibold text-asphalt underline" href={`mailto:${site.email}`}>{site.email}</a> · {site.phoneDisplay}
+    </p>
+  </article>
+</ServiceLayout>

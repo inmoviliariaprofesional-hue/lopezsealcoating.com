@@ -1,0 +1,77 @@
+---
+import ServiceLayout from "../../layouts/ServiceLayout.astro";
+import { site } from "../../data/site";
+
+const title = "Aviso de Privacidad | Lopez Sealcoating LLC";
+const description = "Cómo Lopez Sealcoating LLC recopila, usa y protege tu información.";
+const updated = new Date().toLocaleDateString("es-MX", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<ServiceLayout
+  lang="es"
+  title={title}
+  description={description}
+  enHref="/privacy"
+  esHref="/es/privacidad"
+  showCta={false}
+>
+  <article class="mx-auto max-w-3xl px-4 py-16 text-asphalt/75 sm:px-6 lg:px-8">
+    <h1 class="font-display text-4xl font-extrabold leading-tight text-asphalt sm:text-5xl">Aviso de Privacidad</h1>
+    <p class="mt-3 text-sm text-asphalt/55">Última actualización: {updated}</p>
+
+    <p class="mt-6 leading-7">
+      Este Aviso de Privacidad explica cómo <b>Lopez Sealcoating LLC</b> ("nosotros") recopila, usa y protege tu
+      información cuando visitas <b>lopezsealcoating.com</b> o nos contactas. Al usar el sitio, aceptas este aviso.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Información que recopilamos</h2>
+    <ul class="mt-4 space-y-2">
+      <li>• <b>La que nos proporcionas</b> en el formulario de cotización: nombre, teléfono, correo, ciudad o código postal y los detalles que incluyas.</li>
+      <li>• <b>La que se recopila automáticamente</b>: datos de uso mediante Google Analytics (por ejemplo, páginas visitadas y ubicación general), usando cookies y tecnologías similares.</li>
+    </ul>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Cómo usamos tu información</h2>
+    <ul class="mt-4 space-y-2">
+      <li>• Para responder tu solicitud y preparar una cotización gratuita.</li>
+      <li>• Para contactarte sobre tu proyecto por teléfono, mensaje o correo.</li>
+      <li>• Para entender y mejorar nuestro sitio web.</li>
+    </ul>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Con quién la compartimos</h2>
+    <p class="mt-4 leading-7">
+      <b>No vendemos</b> tu información personal. Solo la compartimos con proveedores que nos ayudan a operar, como
+      nuestro servicio de correo (Brevo) y de analítica (Google Analytics), o cuando la ley lo exige.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Cookies y analítica</h2>
+    <p class="mt-4 leading-7">
+      Usamos cookies de Google Analytics para medir el uso del sitio. Puedes controlar las cookies desde tu navegador
+      o desactivar Google Analytics con las herramientas de Google.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Consentimiento de contacto</h2>
+    <p class="mt-4 leading-7">
+      Al enviar el formulario, aceptas que te contactemos sobre tu solicitud por teléfono, mensaje de texto o correo.
+      Pueden aplicar tarifas de mensajes y datos. Puedes pedirnos que dejemos de contactarte cuando quieras.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Tus opciones</h2>
+    <p class="mt-4 leading-7">
+      Puedes solicitar acceso, corrección o eliminación de tu información escribiendo a
+      <a class="font-semibold text-asphalt underline" href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Privacidad de menores</h2>
+    <p class="mt-4 leading-7">Nuestro sitio no está dirigido a menores de 13 años y no recopilamos su información a sabiendas.</p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Cambios a este aviso</h2>
+    <p class="mt-4 leading-7">Podemos actualizar este aviso ocasionalmente. La versión más reciente estará siempre en esta página.</p>
+
+    <h2 class="mt-10 font-display text-2xl font-extrabold text-asphalt">Contáctanos</h2>
+    <p class="mt-4 leading-7">
+      Lopez Sealcoating LLC<br />
+      5601 Court Leona, Hanover Park, IL 60133<br />
+      <a class="font-semibold text-asphalt underline" href={`mailto:${site.email}`}>{site.email}</a> · {site.phoneDisplay}
+    </p>
+  </article>
+</ServiceLayout>
