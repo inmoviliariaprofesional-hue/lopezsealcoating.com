@@ -20,6 +20,7 @@ export const site = {
   // Google Analytics 4. Pega el ID de medición "G-XXXXXXXXXX" para activarlo (se activa al recompilar).
   gaMeasurementId: "G-RV5L2W8YXZ",
   facebook: "https://www.facebook.com/lopez.sealcoating",
+  instagram: "https://www.instagram.com/lopezsealcoating/",
   // Enlace de reseñas: por ahora abre la ficha de Google del negocio (por CID), donde el
   // cliente toca "Escribir una reseña". Cuando Demetrio obtenga el enlace directo de un
   // clic desde su Perfil de Empresa (formato g.page/r/.../review), reemplazar aquí.

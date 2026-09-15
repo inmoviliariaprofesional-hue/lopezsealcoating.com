@@ -431,16 +431,14 @@ const workVideos = [
           <a href={telHref} class="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-asphalt/15 px-6 text-sm font-extrabold text-asphalt transition hover:bg-concrete">{t.cta.call}</a>
         </div>
         {site.googleReviewUrl && (
-          <p class="mt-5">
-            <a
-              href={site.googleReviewUrl}
-              target="_blank"
-              rel="noopener"
-              class="focus-ring inline-flex items-center gap-2 rounded text-sm font-bold text-asphalt/70 transition hover:text-asphalt"
-            >
-              <span class="text-signal" aria-hidden="true">★</span> {t.about.reviewCta} <span aria-hidden="true">→</span>
-            </a>
-          </p>
+          <a
+            href={site.googleReviewUrl}
+            target="_blank"
+            rel="noopener"
+            class="focus-ring mt-4 inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-signal bg-signal/10 px-6 text-sm font-extrabold text-asphalt transition hover:bg-signal hover:text-asphalt"
+          >
+            <span aria-hidden="true">★</span> {t.about.reviewCta}
+          </a>
         )}
       </div>
 
@@ -605,6 +603,9 @@ const workVideos = [
         <a href={waHref} target="_blank" rel="noopener" class="focus-ring block rounded hover:text-signal">WhatsApp</a>
         {site.facebook !== "https://www.facebook.com/" && (
           <a href={site.facebook} target="_blank" rel="noopener" class="focus-ring block rounded hover:text-signal">Facebook</a>
+        )}
+        {site.instagram !== "https://www.instagram.com/" && (
+          <a href={site.instagram} target="_blank" rel="noopener" class="focus-ring block rounded hover:text-signal">Instagram</a>
         )}
       </div>
       <div class="rounded-2xl border border-signal/22 bg-signal/[.06] p-5">
