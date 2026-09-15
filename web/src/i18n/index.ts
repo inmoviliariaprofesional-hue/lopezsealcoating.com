@@ -41,9 +41,9 @@ export interface Copy {
     subtitle: string;
     steps: { number: string; name: string; desc: string }[];
   };
-  work: { eyebrow: string; title: string; subtitle: string; note: string; placeholder: string; labels: string[] };
+  work: { eyebrow: string; title: string; subtitle: string; galleryTitle: string; note: string; placeholder: string; labels: string[]; imageAlts: string[] };
+  projectComparison: { eyebrow: string; title: string; subtitle: string; beforeLabel: string; afterLabel: string; beforeAlt: string; afterAlt: string };
   video: { eyebrow: string; title: string; subtitle: string; labels: string[] };
-  beforeAfter: { eyebrow: string; title: string; subtitle: string; beforeLabel: string; afterLabel: string };
   area: { eyebrow: string; title: string; body: string; note: string; radiusLabel: string; coverageLabel: string; coverageTypes: string[]; citiesLabel: string; citiesNote: string };
   reviews: { eyebrow: string; title: string; body: string; button: string; pending: string };
   about: {
@@ -54,6 +54,9 @@ export interface Copy {
     projectLabel: string;
     projectTitle: string;
     projectDesc: string;
+    videoLabel: string;
+    videoLanguage: string;
+    videoFallback: string;
     reviewCta: string;
   };
   faq: { eyebrow: string; title: string; items: { q: string; a: string }[] };
@@ -164,30 +167,39 @@ const en: Copy = {
     ],
   },
   work: {
-    eyebrow: "The finish that sells",
+    eyebrow: "Our work",
     title: "Clean driveways. Crisp lines.",
-    subtitle: "A look at the results that quality sealcoating and line striping bring to a property.",
-    note: "",
+    subtitle: "Explore sealcoating and line striping projects at different homes and commercial properties.",
+    galleryTitle: "More projects",
+    note: "Each photo shows a separate project.",
     placeholder: "Reference image",
     labels: [
       "Residential driveway",
       "Commercial line striping",
-      "A rich, even finish",
+      "Residential sealcoating",
       "Parking lot markings",
+    ],
+    imageAlts: [
+      "Asphalt driveway leading to a two-story home with dark shutters",
+      "Commercial parking lot with yellow parking lines",
+      "Sealed driveway in front of a home with a white garage door and blue-gray roof",
+      "Accessible parking space and yellow access aisle markings beside a commercial building",
     ],
   },
   video: {
     eyebrow: "See it in action",
-    title: "Real jobs, start to finish.",
+    title: "A closer look at the work.",
     subtitle: "A few clips from recent driveways and parking lots around the Chicagoland area.",
-    labels: ["Fresh driveway sealcoat", "Before & after", "Commercial parking lot"],
+    labels: ["Driveway sealcoating", "Sealcoat application", "Commercial parking lot"],
   },
-  beforeAfter: {
-    eyebrow: "The sealcoat difference",
-    title: "From worn to protected.",
-    subtitle: "The difference a fresh sealcoat makes—worn, faded asphalt next to a clean, even black finish.",
-    beforeLabel: "Worn asphalt",
-    afterLabel: "Freshly sealed",
+  projectComparison: {
+    eyebrow: "One residential project",
+    title: "The same driveway, before and after.",
+    subtitle: "A circular driveway before sealcoating and after the work is complete.",
+    beforeLabel: "Before sealcoating",
+    afterLabel: "After sealcoating",
+    beforeAlt: "Circular driveway before sealcoating, with faded asphalt, a light stone strip, and a planted island in front of a light-colored house",
+    afterAlt: "The same circular driveway after sealcoating, with dark asphalt, the same stone strip and planted island, and a cord across the entrance",
   },
   area: {
     eyebrow: "Local service",
@@ -217,9 +229,12 @@ const en: Copy = {
       "Free on-site estimates",
       "Careful, quality-focused work",
     ],
-    projectLabel: "The owner on site",
-    projectTitle: "Demetrio, hands-on.",
-    projectDesc: "You deal directly with Demetrio and his crew—no call centers, no runaround.",
+    projectLabel: "Lopez Sealcoating in action",
+    projectTitle: "See how we work.",
+    projectDesc: "A short look at driveway sealcoating, line striping, and the work behind the name.",
+    videoLabel: "Lopez Sealcoating: driveway sealcoating and line striping",
+    videoLanguage: "26-second video with music and English narration. Press play to watch with sound.",
+    videoFallback: "Open the Lopez Sealcoating video",
     reviewCta: "Leave us a Google review",
   },
   faq: {
@@ -351,30 +366,39 @@ const es: Copy = {
     ],
   },
   work: {
-    eyebrow: "El acabado que vende",
+    eyebrow: "Nuestros trabajos",
     title: "Entradas limpias. Líneas nítidas.",
-    subtitle: "Un vistazo a los resultados que logran un buen sellado y una buena pintura de líneas.",
-    note: "",
+    subtitle: "Conoce trabajos de sellado y pintura de líneas en distintas casas y propiedades comerciales.",
+    galleryTitle: "Otros proyectos",
+    note: "Cada fotografía muestra un proyecto independiente.",
     placeholder: "Imagen de referencia",
     labels: [
       "Entrada residencial",
       "Pintura de líneas comercial",
-      "Acabado negro y uniforme",
+      "Sellado residencial",
       "Señalización de estacionamiento",
+    ],
+    imageAlts: [
+      "Entrada de asfalto frente a una casa de dos pisos con contraventanas oscuras",
+      "Estacionamiento comercial con líneas amarillas que delimitan los cajones",
+      "Entrada sellada frente a una casa con portón blanco y techo gris azulado",
+      "Cajón accesible y franja de acceso amarilla junto a un edificio comercial",
     ],
   },
   video: {
     eyebrow: "Míralo en acción",
-    title: "Trabajos reales, de principio a fin.",
+    title: "Nuestro trabajo, de cerca.",
     subtitle: "Algunos clips de entradas y estacionamientos recientes en el área de Chicagoland.",
-    labels: ["Sellado de entrada", "Antes y después", "Estacionamiento comercial"],
+    labels: ["Sellado de entrada", "Aplicación de sellador", "Estacionamiento comercial"],
   },
-  beforeAfter: {
-    eyebrow: "La diferencia del sellado",
-    title: "De desgastado a protegido.",
-    subtitle: "La diferencia que hace un buen sellado: asfalto desgastado y descolorido junto a un acabado negro, limpio y uniforme.",
-    beforeLabel: "Asfalto desgastado",
-    afterLabel: "Recién sellado",
+  projectComparison: {
+    eyebrow: "Un proyecto residencial",
+    title: "La misma entrada, antes y después.",
+    subtitle: "Una entrada circular antes de aplicar el sellador y al terminar el trabajo.",
+    beforeLabel: "Antes del sellado",
+    afterLabel: "Después del sellado",
+    beforeAlt: "Entrada circular antes del sellado, con asfalto descolorido, una franja de piedra clara y un jardín central frente a una casa de fachada clara",
+    afterAlt: "La misma entrada circular después del sellado, con asfalto oscuro, la misma franja de piedra y jardín central, y un cordón que cierra el acceso",
   },
   area: {
     eyebrow: "Servicio local",
@@ -404,9 +428,12 @@ const es: Copy = {
       "Cotizaciones gratis en sitio",
       "Trabajo cuidadoso y de calidad",
     ],
-    projectLabel: "El dueño en obra",
-    projectTitle: "Demetrio, con las manos en la obra.",
-    projectDesc: "Tratas directo con Demetrio y su equipo, sin call centers ni vueltas.",
+    projectLabel: "Lopez Sealcoating en acción",
+    projectTitle: "Así trabajamos.",
+    projectDesc: "Un vistazo al sellado de entradas, la pintura de líneas y el trabajo detrás de nuestro nombre.",
+    videoLabel: "Lopez Sealcoating: sellado de entradas y pintura de líneas",
+    videoLanguage: "Video de 26 segundos con música y narración en inglés. Pulsa reproducir para escucharlo.",
+    videoFallback: "Abrir el video de Lopez Sealcoating",
     reviewCta: "Déjanos tu reseña en Google",
   },
   faq: {

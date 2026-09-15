@@ -15,7 +15,7 @@ const serviceHrefs = isES
   ? ["/es/servicios/sellado-de-asfalto", "/es/servicios/pintura-de-lineas", "/es/#contact"]
   : ["/services/driveway-sealcoating", "/services/parking-lot-striping", "/#contact"];
 const serviceMore = isES ? "Ver detalles →" : "Learn more →";
-// Imágenes ilustrativas (stock CC0) para la galería de referencia.
+// Fotos de trabajos independientes. No forman una secuencia antes/después.
 const workImages = [
   "/images/work-1.jpg",
   "/images/work-2.jpg",
@@ -248,7 +248,7 @@ const workVideos = [
     </div>
   </section>
 
-  <!-- ===== Work / editorial placeholders ===== -->
+  <!-- ===== Work / independent project gallery ===== -->
   <section id="work" class="asphalt-texture relative overflow-hidden py-24 text-white sm:py-28">
     <div class="road-grid absolute inset-0 opacity-40"></div>
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -260,29 +260,44 @@ const workVideos = [
         <p class="max-w-xl text-base leading-7 text-white/65 lg:justify-self-end">{t.work.subtitle}</p>
       </div>
 
-      <!-- Antes / Después -->
-      <div class="mt-14">
-        <div class="flex items-center gap-3">
-          <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-signal text-[11px] text-asphalt" aria-hidden="true">↺</span>
-          <p class="text-xs font-extrabold uppercase tracking-[.2em] text-signal">{t.beforeAfter.eyebrow}</p>
-        </div>
-        <h3 class="mt-4 max-w-2xl font-display text-2xl font-extrabold leading-tight sm:text-3xl">{t.beforeAfter.title}</h3>
-        <p class="mt-3 max-w-xl text-sm leading-6 text-white/65">{t.beforeAfter.subtitle}</p>
-        <div class="mt-7 grid gap-4 sm:grid-cols-2">
-          <figure class="relative overflow-hidden rounded-[1.5rem] border border-white/10">
-            <img src="/images/before.jpg" alt={t.beforeAfter.beforeLabel} width="820" height="1093" loading="lazy" class="aspect-[4/3] w-full object-cover" />
-            <figcaption class="absolute left-0 top-0 p-3">
-              <span class="rounded-full bg-white/90 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[.14em] text-asphalt">{t.beforeAfter.beforeLabel}</span>
-            </figcaption>
+      <!-- Par verificado en los originales de Drive: misma entrada circular.
+           Véase guias/correccion-medios-2026-09-15.md antes de sustituir una foto. -->
+      <div class="mt-14" aria-labelledby="project-comparison-title">
+        <p class="text-xs font-extrabold uppercase tracking-[.2em] text-signal">{t.projectComparison.eyebrow}</p>
+        <h3 id="project-comparison-title" class="mt-4 max-w-2xl font-display text-2xl font-extrabold leading-tight sm:text-3xl">{t.projectComparison.title}</h3>
+        <p class="mt-3 max-w-xl text-sm leading-6 text-white/65">{t.projectComparison.subtitle}</p>
+        <div class="mt-7 grid max-w-4xl gap-5 sm:grid-cols-2">
+          <figure class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-asphalt-900">
+            <figcaption class="border-b border-white/10 px-5 py-3 text-sm font-extrabold">{t.projectComparison.beforeLabel}</figcaption>
+            <img src="/images/circular-driveway-before.webp" alt={t.projectComparison.beforeAlt} width="960" height="1280" loading="lazy" class="block h-auto w-full" />
           </figure>
-          <figure class="relative overflow-hidden rounded-[1.5rem] border border-white/10">
-            <img src="/images/after.jpg" alt={t.beforeAfter.afterLabel} width="820" height="1093" loading="lazy" class="aspect-[4/3] w-full object-cover" />
-            <figcaption class="absolute left-0 top-0 p-3">
-              <span class="rounded-full bg-signal px-3 py-1 text-[10px] font-extrabold uppercase tracking-[.14em] text-asphalt">{t.beforeAfter.afterLabel}</span>
-            </figcaption>
+          <figure class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-asphalt-900">
+            <figcaption class="bg-signal px-5 py-3 text-sm font-extrabold text-asphalt">{t.projectComparison.afterLabel}</figcaption>
+            <img src="/images/circular-driveway-after.webp" alt={t.projectComparison.afterAlt} width="960" height="1280" loading="lazy" class="block h-auto w-full" />
           </figure>
         </div>
       </div>
+
+      <!-- Cada tarjeta muestra un proyecto por separado, sin sugerir una transformación. -->
+      <h3 class="mt-14 font-display text-2xl font-extrabold">{t.work.galleryTitle}</h3>
+      <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {workImages.map((src, i) => (
+          <figure class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-asphalt-900">
+            <img
+              src={src}
+              alt={t.work.imageAlts[i]}
+              width="900"
+              height="1200"
+              loading="lazy"
+              class="block h-auto w-full"
+            />
+            <figcaption class="p-4 text-sm font-semibold text-white">
+              {t.work.labels[i]}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      {t.work.note && <p class="mt-5 text-xs text-white/65">{t.work.note}</p>}
 
       <!-- Videos reales en acción -->
       <div class="mt-14">
@@ -337,27 +352,6 @@ const workVideos = [
         </div>
       </div>
 
-      <div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        {workImages.map((src, i) => (
-          <figure class="group relative aspect-[3/4] overflow-hidden rounded-[1.5rem] border border-white/10">
-            <img
-              src={src}
-              alt={t.work.labels[i]}
-              width="900"
-              height="1200"
-              loading="lazy"
-              class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent"></div>
-            <figcaption class="absolute bottom-0 left-0 p-4">
-              <span class="rounded-full bg-signal px-3 py-1 text-[10px] font-extrabold uppercase tracking-[.14em] text-asphalt">
-                {t.work.labels[i]}
-              </span>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-      {t.work.note && <p class="mt-5 text-xs italic text-white/60">{t.work.note}</p>}
     </div>
   </section>
 
@@ -450,19 +444,27 @@ const workVideos = [
         )}
       </div>
 
-      <figure class="surface-card overflow-hidden rounded-[2rem] border border-black/7 bg-white">
-        <img
-          src="/images/owner-demetrio.jpg"
-          alt={t.about.title}
-          width="600"
-          height="750"
-          loading="lazy"
-          class="aspect-[4/5] w-full object-cover"
-        />
+      <figure class="surface-card mx-auto w-full max-w-sm overflow-hidden rounded-[2rem] border border-black/7 bg-asphalt">
+        <video
+          id="owner-introduction"
+          poster="/videos/lopez-sealcoating-introduction.jpg"
+          width="1080"
+          height="1920"
+          controls
+          playsinline
+          preload="none"
+          aria-label={t.about.videoLabel}
+          aria-describedby="owner-video-language"
+          class="block aspect-[9/16] h-auto w-full bg-black object-contain"
+        >
+          <source src="/videos/lopez-sealcoating-introduction.mp4" type="video/mp4" />
+          <a href="/videos/lopez-sealcoating-introduction.mp4">{t.about.videoFallback}</a>
+        </video>
         <figcaption class="bg-asphalt p-6 text-white">
           <p class="text-[10px] font-extrabold uppercase tracking-[.18em] text-signal">{t.about.projectLabel}</p>
           <p class="mt-2 font-display text-xl font-extrabold">{t.about.projectTitle}</p>
           <p class="mt-2 text-sm leading-6 text-white/70">{t.about.projectDesc}</p>
+          <p id="owner-video-language" class="mt-3 text-xs text-white/65">{t.about.videoLanguage}</p>
         </figcaption>
       </figure>
     </div>
