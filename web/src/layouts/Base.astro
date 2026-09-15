@@ -43,9 +43,13 @@ const jsonLd = {
       itemOffered: { "@type": "Service", name: s },
     })),
   },
-  ...(site.facebook && site.facebook !== "https://www.facebook.com/"
-    ? { sameAs: [site.facebook] }
-    : {}),
+  ...(() => {
+    // Redes sociales verificadas (para SEO). Se omiten los marcadores vacíos.
+    const sameAs = [site.facebook, site.instagram].filter(
+      (u) => u && u !== "https://www.facebook.com/" && u !== "https://www.instagram.com/"
+    );
+    return sameAs.length ? { sameAs } : {};
+  })(),
 };
 ---
 
