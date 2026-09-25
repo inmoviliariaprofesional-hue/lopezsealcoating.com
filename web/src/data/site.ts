@@ -30,6 +30,8 @@ export const site = {
   serviceRadiusMiles: 40,
   // Datos de licencia/seguro: solo mostrar sellos si son verdaderos.
   insured: false, // TODO: cambiar a true cuando se confirme el seguro.
+  // Promoción de octubre: muestra el banner superior animado. Poner en false al terminar.
+  promoActive: true,
   // URL pública del sitio (para canonical, sitemap y datos estructurados).
   url: "https://lopezsealcoating.com",
   // Cobertura: base en Hanover Park, IL; radio aproximado de 40 millas (ver serviceCities).

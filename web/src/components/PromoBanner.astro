@@ -1,0 +1,30 @@
+---
+import type { Copy } from "../i18n";
+
+interface Props {
+  promo: Copy["promo"];
+  href: string;
+}
+const { promo, href } = Astro.props;
+// El grupo se repite para llenar el ancho y lograr un bucle continuo (marquee).
+const groups = [0, 1, 2, 3];
+---
+
+<a
+  href={href}
+  aria-label={promo.aria}
+  class="promo-banner focus-ring relative block overflow-hidden border-b border-asphalt/15 bg-signal text-asphalt"
+>
+  <div class="promo-marquee-track flex w-max items-center whitespace-nowrap py-2.5" aria-hidden="true">
+    {[...groups, ...groups].map(() => (
+      <span class="mx-4 inline-flex items-center gap-2 text-sm sm:mx-6">
+        <span class="rounded bg-asphalt px-2 py-0.5 text-[11px] font-black uppercase tracking-wider text-signal">{promo.tag}</span>
+        <span class="font-extrabold">{promo.headline}</span>
+        <span class="hidden font-semibold text-asphalt/70 sm:inline">· {promo.detail}</span>
+        <span class="font-extrabold underline underline-offset-2">{promo.cta} →</span>
+        <span class="hidden font-medium text-asphalt/55 md:inline">· {promo.finePrint}</span>
+        <span aria-hidden="true" class="px-1 text-asphalt/40">◆</span>
+      </span>
+    ))}
+  </div>
+</a>
