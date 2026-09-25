@@ -81,7 +81,7 @@ export interface Copy {
     success: string;
     error: string;
   };
-  footer: { rights: string; season: string; tagline: string; privacy: string; terms: string };
+  footer: { rights: string; tagline: string; privacy: string; terms: string };
 }
 
 const en: Copy = {
@@ -276,7 +276,6 @@ const en: Copy = {
   },
   footer: {
     rights: "All rights reserved.",
-    season: "Season: May–October (weather permitting).",
     tagline: "Sealcoating & Line Striping — Chicagoland Area",
     privacy: "Privacy Policy",
     terms: "Terms of Use",
@@ -475,7 +474,6 @@ const es: Copy = {
   },
   footer: {
     rights: "Todos los derechos reservados.",
-    season: "Temporada: mayo–octubre (según el clima).",
     tagline: "Sellado de Asfalto y Pintura de Líneas — Área de Chicagoland",
     privacy: "Aviso de Privacidad",
     terms: "Términos de Uso",
