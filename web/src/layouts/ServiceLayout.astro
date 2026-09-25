@@ -1,6 +1,8 @@
 ---
 import Base from "./Base.astro";
 import { site } from "../data/site";
+import { translations } from "../i18n";
+import PromoBanner from "../components/PromoBanner.astro";
 
 interface Props {
   lang: "en" | "es";
@@ -19,6 +21,7 @@ const toggleHref = isES ? enHref : esHref;
 const privacyHref = isES ? "/es/privacidad" : "/privacy";
 const termsHref = isES ? "/es/terminos" : "/terms";
 const legal = { privacy: isES ? "Aviso de Privacidad" : "Privacy Policy", terms: isES ? "Términos de Uso" : "Terms of Use" };
+const promo = translations[lang].promo;
 const t = {
   quote: isES ? "Cotización Gratis" : "Free Estimate",
   call: isES ? "Llámanos" : "Call Now",
@@ -33,7 +36,10 @@ const t = {
 ---
 
 <Base lang={lang} title={title} description={description} enHref={enHref} esHref={esHref}>
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-asphalt-950/95 text-white backdrop-blur-xl">
+  <div class="sticky top-0 z-50">
+    {site.promoActive && <PromoBanner promo={promo} href={contactHref} />}
+
+    <header class="border-b border-white/10 bg-asphalt-950/95 text-white backdrop-blur-xl">
     <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
       <a href={home} class="focus-ring flex min-w-0 items-center rounded-lg" aria-label="Lopez Sealcoating LLC">
         <span class="truncate font-display text-base font-extrabold tracking-[-.03em] sm:text-lg">
@@ -45,7 +51,8 @@ const t = {
         <a href={telHref} class="focus-ring hidden items-center gap-2 rounded-full bg-signal px-4 py-2.5 text-xs font-extrabold text-asphalt transition hover:bg-signal-500 md:inline-flex">{site.phoneDisplay}</a>
       </div>
     </div>
-  </header>
+    </header>
+  </div>
 
   <main>
     <slot />
