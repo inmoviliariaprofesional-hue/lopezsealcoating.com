@@ -82,6 +82,7 @@ export interface Copy {
     error: string;
   };
   footer: { rights: string; tagline: string; privacy: string; terms: string };
+  promo: { tag: string; headline: string; detail: string; cta: string; finePrint: string; aria: string };
 }
 
 const en: Copy = {
@@ -280,6 +281,14 @@ const en: Copy = {
     privacy: "Privacy Policy",
     terms: "Terms of Use",
   },
+  promo: {
+    tag: "October Savings",
+    headline: "$20 USD OFF all services",
+    detail: "Sealcoating + line striping · work completed Oct 1–31, 2026",
+    cta: "Get your free estimate",
+    finePrint: "Weather & availability permitting",
+    aria: "October promotion: 20 US dollars off all services. Get your free estimate.",
+  },
 };
 
 const es: Copy = {
@@ -477,6 +486,14 @@ const es: Copy = {
     tagline: "Sellado de Asfalto y Pintura de Líneas — Área de Chicagoland",
     privacy: "Aviso de Privacidad",
     terms: "Términos de Uso",
+  },
+  promo: {
+    tag: "Oferta de octubre",
+    headline: "$20 USD de descuento en todos los servicios",
+    detail: "Sellado + pintura de líneas · trabajo del 1 al 31 de oct, 2026",
+    cta: "Pide tu cotización gratis",
+    finePrint: "Sujeto a clima y disponibilidad",
+    aria: "Promoción de octubre: 20 dólares de descuento en todos los servicios. Pide tu cotización gratis.",
   },
 };
 

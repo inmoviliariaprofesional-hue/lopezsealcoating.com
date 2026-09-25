@@ -135,3 +135,35 @@ h3,
     padding-bottom: 0;
   }
 }
+
+
+/* ===== Banner promocional: marquee con movimiento + brillo ===== */
+.promo-marquee-track {
+  animation: promo-marquee 30s linear infinite;
+}
+@keyframes promo-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+/* Pausa al pasar el cursor para poder leer/hacer clic. */
+.promo-banner:hover .promo-marquee-track {
+  animation-play-state: paused;
+}
+/* Brillo diagonal que recorre el banner de vez en cuando. */
+.promo-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 35%, rgb(255 255 255 / 55%) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: promo-shine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes promo-shine {
+  0% { transform: translateX(-120%); }
+  55%, 100% { transform: translateX(120%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .promo-marquee-track { animation: none; }
+  .promo-banner::after { display: none; }
+}

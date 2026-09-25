@@ -1,6 +1,7 @@
 ---
 import { site, serviceCities } from "../data/site";
 import type { Copy } from "../i18n";
+import PromoBanner from "./PromoBanner.astro";
 
 interface Props {
   t: Copy;
@@ -29,6 +30,9 @@ const workVideos = [
   { src: "/videos/clip-3.mp4", poster: "/videos/clip-3.jpg", featured: false },
 ];
 ---
+
+<!-- ===== Banner promocional (octubre) ===== -->
+{site.promoActive && <PromoBanner promo={t.promo} href="#contact" />}
 
 <!-- ===== Header ===== -->
 <header class="sticky top-0 z-50 border-b border-white/10 bg-asphalt-950/95 text-white backdrop-blur-xl">
