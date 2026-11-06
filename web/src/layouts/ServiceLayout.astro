@@ -3,6 +3,7 @@ import Base from "./Base.astro";
 import { site } from "../data/site";
 import { translations } from "../i18n";
 import PromoBanner from "../components/PromoBanner.astro";
+import BuiltBy from "../components/BuiltBy.astro";
 
 interface Props {
   lang: "en" | "es";
@@ -81,6 +82,9 @@ const t = {
         <a href={termsHref} class="focus-ring rounded hover:text-signal">{legal.terms}</a>
         <span class="text-white/40">© {new Date().getFullYear()} {site.legalName}</span>
       </div>
+    </div>
+    <div class="mx-auto mt-5 max-w-7xl px-4 text-[11px] sm:px-6 lg:px-8">
+      <BuiltBy label={translations[lang].footer.builtBy} />
     </div>
   </footer>
 

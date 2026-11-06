@@ -1,0 +1,13 @@
+---
+// Crédito discreto de la agencia en el pie de página (mismo formato que metalesinfinity.com).
+// Hereda el tamaño de letra del pie; text-white/60 mantiene el contraste AA sobre asphalt-950.
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+
+<p class="text-white/60">
+  {label}
+  <a href="https://soyaimarktech.com/" target="_blank" rel="noopener" class="focus-ring rounded font-semibold text-white/75 underline-offset-2 hover:text-signal hover:underline">Aimarktech</a>
+</p>
