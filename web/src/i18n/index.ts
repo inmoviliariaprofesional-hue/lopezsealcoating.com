@@ -81,7 +81,7 @@ export interface Copy {
     success: string;
     error: string;
   };
-  footer: { rights: string; tagline: string; privacy: string; terms: string };
+  footer: { rights: string; tagline: string; privacy: string; terms: string; builtBy: string };
   promo: { tag: string; headline: string; detail: string; cta: string; finePrint: string; aria: string };
 }
 
@@ -280,6 +280,7 @@ const en: Copy = {
     tagline: "Sealcoating & Line Striping — Chicagoland Area",
     privacy: "Privacy Policy",
     terms: "Terms of Use",
+    builtBy: "Website by",
   },
   promo: {
     tag: "October Savings",
@@ -486,6 +487,7 @@ const es: Copy = {
     tagline: "Sellado de Asfalto y Pintura de Líneas — Área de Chicagoland",
     privacy: "Aviso de Privacidad",
     terms: "Términos de Uso",
+    builtBy: "Sitio desarrollado por",
   },
   promo: {
     tag: "Oferta de octubre",

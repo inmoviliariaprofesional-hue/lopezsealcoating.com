@@ -2,6 +2,7 @@
 import { site, serviceCities } from "../data/site";
 import type { Copy } from "../i18n";
 import PromoBanner from "./PromoBanner.astro";
+import BuiltBy from "./BuiltBy.astro";
 
 interface Props {
   t: Copy;
@@ -628,6 +629,9 @@ const workVideos = [
         <a href={isES ? "/es/terminos" : "/terms"} class="focus-ring rounded hover:text-signal">{t.footer.terms}</a>
         <span>Chicagoland Area, Illinois</span>
       </div>
+    </div>
+    <div class="mt-5 text-[11px]">
+      <BuiltBy label={t.footer.builtBy} />
     </div>
   </div>
 </footer>
