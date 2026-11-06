@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from "../layouts/ServiceLayout.astro";
-import { site } from "../data/site";
+// Contacto editable en /admin (src/middleware.ts).
+const site = Astro.locals.site;
 
 const title = "Terms of Use | Lopez Sealcoating LLC";
 const description = "The terms that govern your use of the Lopez Sealcoating LLC website.";

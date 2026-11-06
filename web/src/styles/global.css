@@ -17,6 +17,24 @@
   --font-display: "Manrope", "Inter", system-ui, sans-serif;
 }
 
+/* Tipografías del Kit de identidad v2 servidas desde el propio sitio (licencia OFL en /fonts).
+   Subconjunto latino: incluye acentos, ñ, ¿ y ¡. Antes se cargaban de Google Fonts. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/inter-latin-var.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600 800;
+  font-display: swap;
+  src: url("/fonts/manrope-latin-var.woff2") format("woff2");
+}
+
 :root {
   color-scheme: light;
   --page-gutter: clamp(1rem, 4vw, 2rem);

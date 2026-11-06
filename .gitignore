@@ -13,3 +13,6 @@ dist/
 # Temp
 *.tmp
 ~$*
+
+# Cloudflare (estado local de wrangler)
+.wrangler/

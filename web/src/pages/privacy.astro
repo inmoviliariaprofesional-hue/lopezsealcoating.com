@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from "../layouts/ServiceLayout.astro";
-import { site } from "../data/site";
+// Contacto editable en /admin (src/middleware.ts).
+const site = Astro.locals.site;
 
 const title = "Privacy Policy | Lopez Sealcoating LLC";
 const description = "How Lopez Sealcoating LLC collects, uses, and protects your information.";

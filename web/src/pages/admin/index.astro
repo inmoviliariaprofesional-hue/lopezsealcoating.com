@@ -1,0 +1,49 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { SECTIONS } from "../../lib/schema";
+
+const env = Astro.locals.runtime?.env ?? ({} as Env);
+const strip = Astro.locals.content.topStrip;
+const checks = [
+  { ok: Boolean(env.DB), label: "Base de datos (DB)", fix: "Sin ella no se pueden guardar cambios." },
+  { ok: Boolean(env.MEDIA), label: "Espacio de fotos (MEDIA)", fix: "Sin él no se pueden subir fotos." },
+];
+const missing = checks.filter((c) => !c.ok);
+---
+
+<AdminLayout title="Secciones">
+  <h1 class="font-display text-3xl font-extrabold">Hola, Demetrio</h1>
+  <p class="mt-2 max-w-2xl text-sm leading-6 text-asphalt/70">
+    Elige qué quieres cambiar. Cada sección tiene los textos en inglés y en español. Los cambios se ven en el sitio en
+    cuanto tocas «Guardar cambios», y si algo sale mal puedes regresar a una versión anterior en «Historial».
+  </p>
+
+  {missing.length > 0 && (
+    <div class="mt-6 rounded-2xl border border-red-300 bg-red-50 p-4 text-sm text-red-900" role="alert">
+      <p class="font-extrabold">Falta terminar la configuración en Cloudflare:</p>
+      <ul class="mt-2 list-disc pl-5">
+        {missing.map((c) => <li><b>{c.label}</b>. {c.fix}</li>)}
+      </ul>
+    </div>
+  )}
+
+  <div class="mt-8 grid gap-4 sm:grid-cols-2">
+    {SECTIONS.map((s) => (
+      <a href={`/admin/${s.id}`} class="focus-ring block rounded-[1.25rem] border border-black/10 bg-white p-5 transition hover:-translate-y-0.5 hover:border-asphalt/30 hover:shadow-md">
+        <span class="flex items-center justify-between gap-3">
+          <span class="font-display text-lg font-extrabold">{s.title}</span>
+          {s.id === "franja-superior" && (
+            <span class={`rounded-full px-2.5 py-1 text-[11px] font-extrabold ${strip.enabled ? "bg-green-100 text-green-800" : "bg-concrete-100 text-asphalt/70"}`}>
+              {strip.enabled ? "Encendida" : "Apagada"}
+            </span>
+          )}
+        </span>
+        <span class="mt-2 block text-sm leading-6 text-asphalt/70">{s.summary}</span>
+      </a>
+    ))}
+  </div>
+
+  <p class="mt-10 text-xs leading-5 text-asphalt/60">
+    Los videos, las páginas de cada servicio y los textos legales se cambian con Aimarktech.
+  </p>
+</AdminLayout>

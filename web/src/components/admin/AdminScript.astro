@@ -1,0 +1,186 @@
+---
+// Comportamiento del formulario del panel: agregar, quitar y ordenar filas de listas, y subir fotos
+// (reducidas y convertidas a WebP en el navegador antes de enviarlas a /admin/api/subir).
+---
+
+<script>
+  const MAX_FULL = 1600;
+  const MAX_SMALL = 640;
+  let uid = 0;
+  let pendingUploads = 0;
+
+  const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  // ---------- Listas ----------
+  function refreshList(list: HTMLElement) {
+    const rows = list.querySelector<HTMLElement>("[data-rows]");
+    const add = list.querySelector<HTMLButtonElement>(":scope > [data-add]");
+    if (!rows) return;
+    const items = Array.from(rows.children).filter((el) => el.hasAttribute("data-row"));
+    items.forEach((row, i) => {
+      const n = row.querySelector("[data-row-number]");
+      if (n) n.textContent = String(i + 1);
+    });
+    const max = Number(list.dataset.max || "99");
+    if (add) add.hidden = items.length >= max;
+  }
+
+  function renumber(form: HTMLFormElement) {
+    form.querySelectorAll<HTMLElement>("[data-list]").forEach((list) => {
+      const base = list.dataset.list!;
+      const re = new RegExp("^" + escapeRe(base) + "\\.(?:\\d+|__i__|n\\d+)\\.");
+      const rows = list.querySelector<HTMLElement>("[data-rows]");
+      if (!rows) return;
+      Array.from(rows.children)
+        .filter((el) => el.hasAttribute("data-row"))
+        .forEach((row, i) => {
+          row.querySelectorAll<HTMLInputElement>("[name]").forEach((el) => {
+            el.name = el.name.replace(re, `${base}.${i}.`);
+          });
+        });
+    });
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    const button = target.closest("button");
+    if (!button) return;
+    const list = button.closest<HTMLElement>("[data-list]");
+    if (!list) return;
+    const rows = list.querySelector<HTMLElement>("[data-rows]")!;
+    const row = button.closest<HTMLElement>("[data-row]");
+
+    if (button.hasAttribute("data-add") && button.parentElement === list) {
+      const tpl = list.querySelector<HTMLTemplateElement>(":scope > [data-template]");
+      if (!tpl) return;
+      const temp = `n${++uid}`;
+      const html = tpl.innerHTML.replaceAll("__i__", temp);
+      const wrap = document.createElement("div");
+      wrap.innerHTML = html.trim();
+      const newRow = wrap.firstElementChild as HTMLElement;
+      rows.appendChild(newRow);
+      refreshList(list);
+      newRow.querySelector<HTMLElement>("input:not([type=hidden]), textarea")?.focus();
+    } else if (row && button.hasAttribute("data-remove")) {
+      if (!confirm("¿Quitar este elemento? El cambio se aplica al guardar.")) return;
+      row.remove();
+      refreshList(list);
+    } else if (row && button.hasAttribute("data-up") && row.previousElementSibling) {
+      rows.insertBefore(row, row.previousElementSibling);
+      refreshList(list);
+      button.focus();
+    } else if (row && button.hasAttribute("data-down") && row.nextElementSibling) {
+      rows.insertBefore(row.nextElementSibling, row);
+      refreshList(list);
+      button.focus();
+    }
+  });
+
+  document.querySelectorAll<HTMLElement>("[data-list]").forEach(refreshList);
+
+  // ---------- Fotos ----------
+  async function decode(file: File): Promise<ImageBitmap | HTMLImageElement> {
+    try {
+      return await createImageBitmap(file, { imageOrientation: "from-image" });
+    } catch {
+      const url = URL.createObjectURL(file);
+      try {
+        const img = new Image();
+        img.src = url;
+        await img.decode();
+        return img;
+      } finally {
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+      }
+    }
+  }
+
+  function toBlob(canvas: HTMLCanvasElement, type: string, quality: number): Promise<Blob | null> {
+    return new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+  }
+
+  async function resize(source: ImageBitmap | HTMLImageElement, max: number, type?: string): Promise<Blob> {
+    const w = "naturalWidth" in source ? source.naturalWidth : source.width;
+    const h = "naturalHeight" in source ? source.naturalHeight : source.height;
+    const scale = Math.min(1, max / Math.max(w, h));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(w * scale));
+    canvas.height = Math.max(1, Math.round(h * scale));
+    const ctx = canvas.getContext("2d")!;
+    ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+    if (!type || type === "image/webp") {
+      const webp = await toBlob(canvas, "image/webp", 0.8);
+      if (webp && webp.type === "image/webp") return webp;
+    }
+    // Navegadores sin WebP (Safari antiguo): JPEG.
+    const jpg = await toBlob(canvas, "image/jpeg", 0.85);
+    if (!jpg) throw new Error("encode");
+    return jpg;
+  }
+
+  function setSaving(form: HTMLFormElement | null) {
+    form?.querySelectorAll<HTMLButtonElement>("button[type=submit]").forEach((b) => {
+      b.disabled = pendingUploads > 0;
+    });
+  }
+
+  document.addEventListener("change", async (event) => {
+    const input = event.target as HTMLInputElement;
+    if (!input.matches("[data-image-file]") || !input.files?.[0]) return;
+    const box = input.closest<HTMLElement>("[data-image-field]")!;
+    const status = box.querySelector<HTMLElement>("[data-image-status]")!;
+    const hidden = box.querySelector<HTMLInputElement>("[data-image-value]")!;
+    const preview = box.querySelector<HTMLImageElement>("[data-image-preview]")!;
+    const form = input.closest("form");
+    const file = input.files[0];
+    pendingUploads++;
+    setSaving(form);
+    status.textContent = "Preparando la foto…";
+    status.className = "text-xs font-semibold text-asphalt/70";
+    try {
+      const img = await decode(file);
+      const full = await resize(img, MAX_FULL);
+      const small = await resize(img, MAX_SMALL, full.type);
+      status.textContent = `Subiendo (${Math.round(full.size / 1024)} KB)…`;
+      const body = new FormData();
+      body.append("full", full, full.type === "image/webp" ? "foto.webp" : "foto.jpg");
+      body.append("small", small, small.type === "image/webp" ? "foto-640.webp" : "foto-640.jpg");
+      const res = await fetch("/admin/api/subir", { method: "POST", body });
+      const data = (await res.json().catch(() => ({}))) as { src?: string; error?: string };
+      if (!res.ok || !data.src) throw new Error(data.error || "No se pudo subir la foto.");
+      hidden.value = data.src;
+      preview.src = data.src;
+      status.textContent = "Lista. Recuerda tocar «Guardar cambios».";
+      status.className = "text-xs font-extrabold text-green-700";
+    } catch (err) {
+      const msg = err instanceof Error && err.message !== "encode" ? err.message : "";
+      status.textContent = msg || "No se pudo leer la foto. Prueba con una JPG o PNG.";
+      status.className = "text-xs font-extrabold text-red-700";
+    } finally {
+      input.value = "";
+      pendingUploads--;
+      setSaving(form);
+    }
+  });
+
+  // ---------- Enviar ----------
+  document.querySelectorAll<HTMLFormElement>("form[data-admin-form]").forEach((form) => {
+    let dirty = false;
+    form.addEventListener("input", () => (dirty = true));
+    form.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("[data-add],[data-remove],[data-up],[data-down]")) dirty = true;
+    });
+    form.addEventListener("submit", (event) => {
+      if (pendingUploads > 0) {
+        event.preventDefault();
+        alert("Espera a que termine de subir la foto.");
+        return;
+      }
+      renumber(form);
+      dirty = false;
+    });
+    window.addEventListener("beforeunload", (event) => {
+      if (dirty) event.preventDefault();
+    });
+  });
+</script>

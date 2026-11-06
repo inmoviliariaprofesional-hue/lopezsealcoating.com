@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from "../../../layouts/ServiceLayout.astro";
-import { site } from "../../../data/site";
+// Contacto editable en /admin (src/middleware.ts).
+const site = Astro.locals.site;
 
 const title = "Pintura de Líneas de Estacionamiento en el Área de Chicagoland | Lopez Sealcoating LLC";
 const description =
@@ -33,7 +34,9 @@ const jsonLd = {
 
     <figure class="mt-8 overflow-hidden rounded-2xl border border-black/10">
       <img
-        src="/images/work-2.jpg"
+        src="/images/work-2.webp"
+        srcset={`/images/work-2-640.webp 640w, /images/work-2.webp 900w`}
+        sizes="(max-width: 768px) 92vw, 720px"
         alt="Estacionamiento comercial con líneas recién pintadas, nítidas y visibles"
         width="1200"
         height="900"
@@ -79,5 +82,5 @@ const jsonLd = {
     </ul>
   </article>
 
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, "\\u003c")} />
 </ServiceLayout>

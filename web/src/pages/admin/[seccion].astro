@@ -1,0 +1,78 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import AdminField from "../../components/admin/AdminField.astro";
+import AdminScript from "../../components/admin/AdminScript.astro";
+import { sectionById } from "../../lib/schema";
+import { formToObject, previewSection, saveContent, updateSection, type Content } from "../../lib/content";
+import { cleanupOrphans } from "../../lib/media";
+
+const section = sectionById(Astro.params.seccion ?? "");
+if (!section) return Astro.redirect("/admin", 303);
+
+const env = Astro.locals.runtime?.env ?? ({} as Env);
+let shown: Content = Astro.locals.content;
+let errors: string[] = [];
+const saved = Astro.url.searchParams.get("ok") === "1";
+
+if (Astro.request.method === "POST") {
+  if (!env.DB) {
+    errors = ["Falta conectar la base de datos (DB) en Cloudflare: los cambios no se pueden guardar todavía."];
+  } else {
+    const raw = formToObject(await Astro.request.formData());
+    const res = updateSection(Astro.locals.content, section.id, raw);
+    if ("errors" in res) {
+      errors = res.errors;
+      shown = previewSection(Astro.locals.content, section.id, raw);
+    } else {
+      await saveContent(env.DB, res.content, section.id);
+      // Limpieza de fotos que ya no se usan (no bloquea si falla).
+      await cleanupOrphans(env.DB, env.MEDIA).catch((err) => console.error("Limpieza de fotos", err));
+      return Astro.redirect(`/admin/${section.id}?ok=1`, 303);
+    }
+  }
+  Astro.response.status = 400;
+}
+
+const getPath = (obj: unknown, path: string) =>
+  path.split(".").reduce<unknown>((o, k) => (o && typeof o === "object" ? (o as Record<string, unknown>)[k] : undefined), obj);
+---
+
+<AdminLayout title={section.title}>
+  <a href="/admin" class="focus-ring rounded text-sm font-bold text-asphalt/70 hover:text-asphalt">← Todas las secciones</a>
+  <div class="mt-3 flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <h1 class="font-display text-3xl font-extrabold">{section.title}</h1>
+      <p class="mt-1 text-sm text-asphalt/70">{section.summary}</p>
+    </div>
+    <div class="flex gap-2 text-xs font-extrabold">
+      <a href={`/${section.anchor}`} target="_blank" rel="noopener" class="focus-ring rounded-full border border-asphalt/20 bg-white px-3 py-2 hover:bg-concrete-100">Ver en inglés ↗</a>
+      <a href={`/es/${section.anchor}`} target="_blank" rel="noopener" class="focus-ring rounded-full border border-asphalt/20 bg-white px-3 py-2 hover:bg-concrete-100">Ver en español ↗</a>
+    </div>
+  </div>
+
+  {saved && (
+    <p class="mt-6 rounded-2xl border border-green-300 bg-green-50 p-4 text-sm font-extrabold text-green-900" role="status">
+      ✓ Cambios guardados. Ya se ven en el sitio.
+    </p>
+  )}
+  {errors.length > 0 && (
+    <div class="mt-6 rounded-2xl border border-red-300 bg-red-50 p-4 text-sm text-red-900" role="alert">
+      <p class="font-extrabold">No se guardó. Revisa esto:</p>
+      <ul class="mt-2 list-disc space-y-1 pl-5">{errors.map((e) => <li>{e}</li>)}</ul>
+    </div>
+  )}
+
+  <form method="post" class="mt-8 space-y-8" data-admin-form>
+    {section.fields.map((field) => (
+      <div class="rounded-[1.5rem] border border-black/10 bg-concrete-100/40 p-4 sm:p-6">
+        <AdminField field={field} value={getPath(shown, field.key)} />
+      </div>
+    ))}
+    <div class="sticky bottom-0 -mx-4 border-t border-black/10 bg-concrete/95 px-4 py-4 backdrop-blur sm:mx-0 sm:rounded-2xl sm:border">
+      <button type="submit" class="focus-ring min-h-12 w-full rounded-full bg-signal px-8 text-sm font-extrabold text-asphalt hover:bg-signal-500 disabled:cursor-wait disabled:opacity-60 sm:w-auto">
+        Guardar cambios
+      </button>
+    </div>
+  </form>
+  <AdminScript />
+</AdminLayout>

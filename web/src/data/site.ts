@@ -1,4 +1,6 @@
-// Configuración central del sitio. Ajustar aquí cuando Demetrio confirme datos definitivos.
+// Configuración central del sitio.
+// Teléfono, correo, WhatsApp, redes, enlace de reseñas y ciudades son los valores iniciales: Demetrio los cambia en
+// /admin → "Contacto y redes" (src/lib/content.ts). La franja superior (antes promoActive) también se maneja en /admin.
 
 // Ciudades de servicio (base: Hanover Park, IL; radio aproximado de 40 millas).
 // Se usan en los datos estructurados (JSON-LD) y en la sección "Zona de servicio".
@@ -30,9 +32,6 @@ export const site = {
   serviceRadiusMiles: 40,
   // Datos de licencia/seguro: solo mostrar sellos si son verdaderos.
   insured: false, // TODO: cambiar a true cuando se confirme el seguro.
-  // Banner promocional superior animado. La promoción de octubre 2026 ($20 USD OFF) terminó el 31 de octubre;
-  // los textos siguen en i18n (promo) por si se reutiliza. Poner en true solo con una promoción vigente.
-  promoActive: false,
   // URL pública del sitio (para canonical, sitemap y datos estructurados).
   url: "https://lopezsealcoating.com",
   // Cobertura: base en Hanover Park, IL; radio aproximado de 40 millas (ver serviceCities).

@@ -1,30 +1,44 @@
 ---
-import type { Copy } from "../i18n";
+// Franja superior animada (marquee). Se enciende, apaga y edita en /admin → "Franja superior".
+import type { Content } from "../lib/content";
+import { pick } from "../lib/content";
+import type { Lang } from "../data/site";
 
 interface Props {
-  promo: Copy["promo"];
-  href: string;
+  strip: Content["topStrip"];
+  lang: Lang;
+  /** Inicio del idioma: los enlaces "#seccion" llevan ahí cuando la franja está en otra página. */
+  home?: string;
 }
-const { promo, href } = Astro.props;
+const { strip, lang, home = "" } = Astro.props;
+const messages = strip.messages.map((m) => pick(m, lang)).filter(Boolean);
+const tag = pick(strip.tag, lang);
+const cta = pick(strip.cta, lang);
+const href = strip.href.startsWith("#") ? `${home}${strip.href}` : strip.href;
+const external = href.startsWith("https://");
+const aria = [tag, ...messages, cta].filter(Boolean).join(". ");
 // El grupo se repite para llenar el ancho y lograr un bucle continuo (marquee).
 const groups = [0, 1, 2, 3];
 ---
 
-<a
-  href={href}
-  aria-label={promo.aria}
-  class="promo-banner focus-ring relative block overflow-hidden border-b border-asphalt/15 bg-signal text-asphalt"
->
-  <div class="promo-marquee-track flex w-max items-center whitespace-nowrap py-2.5" aria-hidden="true">
-    {[...groups, ...groups].map(() => (
-      <span class="mx-4 inline-flex items-center gap-2 text-sm sm:mx-6">
-        <span class="rounded bg-asphalt px-2 py-0.5 text-[11px] font-black uppercase tracking-wider text-signal">{promo.tag}</span>
-        <span class="font-extrabold">{promo.headline}</span>
-        <span class="hidden font-semibold text-asphalt/70 sm:inline">· {promo.detail}</span>
-        <span class="font-extrabold underline underline-offset-2">{promo.cta} →</span>
-        <span class="hidden font-medium text-asphalt/55 md:inline">· {promo.finePrint}</span>
-        <span aria-hidden="true" class="px-1 text-asphalt/40">◆</span>
-      </span>
-    ))}
-  </div>
-</a>
+{strip.enabled && messages.length > 0 && (
+  <a
+    href={href}
+    aria-label={aria}
+    rel={external ? "noopener" : undefined}
+    class="promo-banner focus-ring relative block overflow-hidden border-b border-asphalt/15 bg-signal text-asphalt"
+  >
+    <div class="promo-marquee-track flex w-max items-center whitespace-nowrap py-2.5" aria-hidden="true">
+      {[...groups, ...groups].map(() => (
+        <span class="mx-4 inline-flex items-center gap-2 text-sm sm:mx-6">
+          {tag && <span class="rounded bg-asphalt px-2 py-0.5 text-[11px] font-black uppercase tracking-wider text-signal">{tag}</span>}
+          {messages.map((m, i) => (
+            <span class={i === 0 ? "font-extrabold" : "hidden font-semibold text-asphalt/75 sm:inline"}>{i > 0 && "· "}{m}</span>
+          ))}
+          {cta && <span class="font-extrabold underline underline-offset-2">{cta} →</span>}
+          <span aria-hidden="true" class="px-1 text-asphalt/40">◆</span>
+        </span>
+      ))}
+    </div>
+  </a>
+)}
