@@ -1,0 +1,58 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { historyValue, listHistory, saveContent, type HistoryEntry } from "../../lib/content";
+import { sectionById } from "../../lib/schema";
+
+const env = Astro.locals.runtime?.env ?? ({} as Env);
+let error = "";
+const restored = Astro.url.searchParams.get("ok") === "1";
+
+if (Astro.request.method === "POST" && env.DB) {
+  const form = await Astro.request.formData();
+  const id = Number(form.get("id"));
+  const value = Number.isInteger(id) ? await historyValue(env.DB, id) : null;
+  if (value) {
+    await saveContent(env.DB, value, "restaurar");
+    return Astro.redirect("/admin/historial?ok=1", 303);
+  }
+  error = "No se encontró esa versión.";
+  Astro.response.status = 400;
+}
+
+const entries: HistoryEntry[] = env.DB ? await listHistory(env.DB) : [];
+// Hora de Chicago (donde trabaja el negocio).
+const fmt = new Intl.DateTimeFormat("es-MX", { dateStyle: "medium", timeStyle: "short", timeZone: "America/Chicago" });
+const sectionName = (id: string) => (id === "restaurar" ? "Restauración" : (sectionById(id)?.title ?? id));
+---
+
+<AdminLayout title="Historial">
+  <a href="/admin" class="focus-ring rounded text-sm font-bold text-asphalt/70 hover:text-asphalt">← Todas las secciones</a>
+  <h1 class="mt-3 font-display text-3xl font-extrabold">Historial</h1>
+  <p class="mt-2 max-w-2xl text-sm leading-6 text-asphalt/70">
+    Cada vez que guardas, el sitio conserva cómo estaba justo antes (las últimas 30 veces). Si algo quedó mal,
+    restaura la versión de antes de ese cambio. Restaurar también se puede deshacer desde aquí.
+  </p>
+
+  {restored && <p class="mt-6 rounded-2xl border border-green-300 bg-green-50 p-4 text-sm font-extrabold text-green-900" role="status">✓ Versión restaurada. Ya se ve en el sitio.</p>}
+  {error && <p class="mt-6 rounded-2xl border border-red-300 bg-red-50 p-4 text-sm font-bold text-red-900" role="alert">{error}</p>}
+  {!env.DB && <p class="mt-6 rounded-2xl border border-red-300 bg-red-50 p-4 text-sm font-bold text-red-900" role="alert">Falta conectar la base de datos (DB) en Cloudflare.</p>}
+
+  {entries.length === 0 ? (
+    <p class="mt-8 text-sm text-asphalt/70">Todavía no hay cambios guardados.</p>
+  ) : (
+    <ul class="mt-8 divide-y divide-black/10 overflow-hidden rounded-[1.25rem] border border-black/10 bg-white">
+      {entries.map((e) => (
+        <li class="flex flex-wrap items-center justify-between gap-3 p-4">
+          <span>
+            <span class="block text-sm font-extrabold">Antes de cambiar: {sectionName(e.section)}</span>
+            <span class="block text-xs text-asphalt/60">{fmt.format(new Date(e.saved_at * 1000))} (hora de Chicago)</span>
+          </span>
+          <form method="post" onsubmit="return confirm('¿Regresar el sitio a esta versión? Se aplica a todas las secciones.')">
+            <input type="hidden" name="id" value={e.id} />
+            <button type="submit" class="focus-ring rounded-full border border-asphalt/20 px-4 py-2 text-xs font-extrabold hover:bg-concrete">Restaurar</button>
+          </form>
+        </li>
+      ))}
+    </ul>
+  )}
+</AdminLayout>

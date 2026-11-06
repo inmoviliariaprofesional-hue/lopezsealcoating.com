@@ -1,29 +1,33 @@
 ---
-import { site, serviceCities } from "../data/site";
 import type { Copy } from "../i18n";
+import { pick } from "../lib/content";
+import { srcSetFor } from "../lib/media";
 import PromoBanner from "./PromoBanner.astro";
 import BuiltBy from "./BuiltBy.astro";
+import BrandMark from "./BrandMark.astro";
 
 interface Props {
   t: Copy;
 }
 const { t } = Astro.props;
+// Contacto, ciudades, fotos y franjas vienen del panel /admin (src/middleware.ts).
+const site = Astro.locals.site;
+const content = Astro.locals.content;
+const serviceCities = site.serviceCities;
 
 const telHref = `tel:${site.phoneE164}`;
 const waHref = `https://wa.me/${site.whatsapp}`;
 // Enlaces de las tarjetas de servicio a sus páginas (por idioma).
 const isES = t.htmlLang === "es";
+const lang = isES ? "es" : "en";
+const trustItems = content.trust.map((item) => pick(item, lang));
+const trustCols = ["", "sm:grid-cols-1", "sm:grid-cols-2", "sm:grid-cols-3", "sm:grid-cols-4"][trustItems.length] ?? "sm:grid-cols-3";
 const serviceHrefs = isES
   ? ["/es/servicios/sellado-de-asfalto", "/es/servicios/pintura-de-lineas", "/es/#contact"]
   : ["/services/driveway-sealcoating", "/services/parking-lot-striping", "/#contact"];
 const serviceMore = isES ? "Ver detalles →" : "Learn more →";
-// Fotos de trabajos independientes. No forman una secuencia antes/después.
-const workImages = [
-  "/images/work-1.jpg",
-  "/images/work-2.jpg",
-  "/images/work-4.jpg",
-  "/images/work-5.jpg",
-];
+// Fotos de trabajos independientes (galería del panel). No forman una secuencia antes/después.
+const workImages = content.gallery.map((g) => ({ src: g.src, label: pick(g.label, lang), alt: pick(g.alt, lang) || pick(g.label, lang) }));
 // Videos reales de trabajos (verticales). El primero se reproduce solo (silenciado, en bucle).
 const workVideos = [
   { src: "/videos/clip-1.mp4", poster: "/videos/clip-1.jpg", featured: true },
@@ -34,15 +38,13 @@ const workVideos = [
 
 <!-- ===== Barra superior fija: banner promocional + encabezado ===== -->
 <div class="sticky top-0 z-50">
-{site.promoActive && <PromoBanner promo={t.promo} href="#contact" />}
+<PromoBanner strip={content.topStrip} lang={lang} />
 
 <!-- ===== Header ===== -->
 <header class="border-b border-white/10 bg-asphalt-950/95 text-white backdrop-blur-xl">
   <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-    <a href="#top" class="focus-ring flex min-w-0 items-center gap-3 rounded-lg" aria-label="Lopez Sealcoating LLC — Inicio">
-      <span class="truncate font-display text-base font-extrabold tracking-[-.03em] sm:text-lg">
-        LOPEZ <span class="text-signal">SEALCOATING</span> <span class="font-semibold text-white/45">LLC</span>
-      </span>
+    <a href="#top" class="focus-ring flex min-w-0 items-center gap-3 rounded-lg" aria-label={isES ? "Lopez Sealcoating LLC — Inicio" : "Lopez Sealcoating LLC — Home"}>
+      <BrandMark />
     </a>
 
     <nav class="hidden items-center gap-7 text-[13px] font-semibold text-white/65 lg:flex" aria-label={t.navAria}>
@@ -140,11 +142,14 @@ const workVideos = [
         <div class="glass-dark relative overflow-hidden rounded-[2rem] p-3 shadow-[0_35px_100px_rgba(0,0,0,.48)]">
           <div class="asphalt-texture relative min-h-[470px] overflow-hidden rounded-[1.45rem] border border-white/8 p-7 sm:p-9">
             <img
-              src="/images/hero-driveway.jpg"
+              src={content.hero.image}
+              srcset={srcSetFor(content.hero.image)}
+              sizes="(max-width: 1024px) 92vw, 530px"
               alt={t.hero.visualTitle}
-              width="1100"
-              height="760"
+              width="1080"
+              height="1440"
               fetchpriority="high"
+              decoding="async"
               class="absolute inset-0 h-full w-full object-cover"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/25"></div>
@@ -178,10 +183,11 @@ const workVideos = [
     </div>
   </section>
 
-  <!-- ===== Trust strip ===== -->
+  <!-- ===== Trust strip (franja de confianza, editable en /admin) ===== -->
+  {trustItems.length > 0 && (
   <section class="relative z-10 border-y border-black/5 bg-white">
-    <div class="mx-auto grid max-w-7xl grid-cols-1 divide-y divide-black/7 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8">
-      {[t.trust.free, t.trust.spanish, t.trust.local].map((item, i) => (
+    <div class={`mx-auto grid max-w-7xl grid-cols-1 divide-y divide-black/7 px-4 sm:divide-x sm:divide-y-0 sm:px-6 lg:px-8 ${trustCols}`}>
+      {trustItems.map((item, i) => (
         <div class="flex items-center justify-center gap-3 px-5 py-5 text-center text-xs font-extrabold uppercase tracking-[.1em] text-asphalt/70">
           <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-signal/15 text-xs text-asphalt">0{i + 1}</span>
           {item}
@@ -189,6 +195,7 @@ const workVideos = [
       ))}
     </div>
   </section>
+  )}
 
   <!-- ===== Services ===== -->
   <section id="services" class="bg-concrete py-24 sm:py-28">
@@ -276,35 +283,43 @@ const workVideos = [
         <div class="mt-7 grid max-w-4xl gap-5 sm:grid-cols-2">
           <figure class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-asphalt-900">
             <figcaption class="border-b border-white/10 px-5 py-3 text-sm font-extrabold">{t.projectComparison.beforeLabel}</figcaption>
-            <img src="/images/circular-driveway-before.webp" alt={t.projectComparison.beforeAlt} width="960" height="1280" loading="lazy" class="block h-auto w-full" />
+            <img src={content.comparison.before} srcset={srcSetFor(content.comparison.before)} sizes="(max-width: 640px) 92vw, 440px" alt={t.projectComparison.beforeAlt} width="960" height="1280" loading="lazy" decoding="async" class="block h-auto w-full" />
           </figure>
           <figure class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-asphalt-900">
             <figcaption class="bg-signal px-5 py-3 text-sm font-extrabold text-asphalt">{t.projectComparison.afterLabel}</figcaption>
-            <img src="/images/circular-driveway-after.webp" alt={t.projectComparison.afterAlt} width="960" height="1280" loading="lazy" class="block h-auto w-full" />
+            <img src={content.comparison.after} srcset={srcSetFor(content.comparison.after)} sizes="(max-width: 640px) 92vw, 440px" alt={t.projectComparison.afterAlt} width="960" height="1280" loading="lazy" decoding="async" class="block h-auto w-full" />
           </figure>
         </div>
       </div>
 
       <!-- Cada tarjeta muestra un proyecto por separado, sin sugerir una transformación. -->
+      {workImages.length > 0 && (
+      <>
       <h3 class="mt-14 font-display text-2xl font-extrabold">{t.work.galleryTitle}</h3>
       <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {workImages.map((src, i) => (
+        {workImages.map((img) => (
           <figure class="overflow-hidden rounded-[1.5rem] border border-white/10 bg-asphalt-900">
             <img
-              src={src}
-              alt={t.work.imageAlts[i]}
+              src={img.src}
+              srcset={srcSetFor(img.src)}
+              sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 300px"
+              alt={img.alt}
               width="900"
               height="1200"
               loading="lazy"
-              class="block h-auto w-full"
+              decoding="async"
+              class="block aspect-[3/4] h-auto w-full bg-black object-contain"
             />
+            <!-- Marco vertical igual para todas; las fotos horizontales se ven completas (sin recorte) con fondo negro. -->
             <figcaption class="p-4 text-sm font-semibold text-white">
-              {t.work.labels[i]}
+              {img.label}
             </figcaption>
           </figure>
         ))}
       </div>
       {t.work.note && <p class="mt-5 text-xs text-white/65">{t.work.note}</p>}
+      </>
+      )}
 
       <!-- Videos reales en acción -->
       <div class="mt-14">
@@ -391,7 +406,9 @@ const workVideos = [
       <div class="surface-card overflow-hidden rounded-[2rem] border border-black/7 bg-white">
         <div class="asphalt-texture relative overflow-hidden p-8 text-white sm:p-10">
           <img
-            src="/images/asphalt-lane.jpg"
+            src="/images/asphalt-lane.webp"
+            srcset={srcSetFor("/images/asphalt-lane.webp")}
+            sizes="(max-width: 1024px) 92vw, 560px"
             alt=""
             aria-hidden="true"
             width="1600"
@@ -504,7 +521,7 @@ const workVideos = [
           name: item.q,
           acceptedAnswer: { "@type": "Answer", text: item.a },
         })),
-      })}
+      }).replace(/</g, "\\u003c")}
     />
   </section>
 
@@ -607,10 +624,10 @@ const workVideos = [
         <a href={telHref} class="focus-ring block rounded hover:text-signal">{site.phoneDisplay}</a>
         <a href={`mailto:${site.email}`} class="focus-ring block break-all rounded hover:text-signal">{site.email}</a>
         <a href={waHref} target="_blank" rel="noopener" class="focus-ring block rounded hover:text-signal">WhatsApp</a>
-        {site.facebook !== "https://www.facebook.com/" && (
+        {site.facebook && site.facebook !== "https://www.facebook.com/" && (
           <a href={site.facebook} target="_blank" rel="noopener" class="focus-ring block rounded hover:text-signal">Facebook</a>
         )}
-        {site.instagram !== "https://www.instagram.com/" && (
+        {site.instagram && site.instagram !== "https://www.instagram.com/" && (
           <a href={site.instagram} target="_blank" rel="noopener" class="focus-ring block rounded hover:text-signal">Instagram</a>
         )}
       </div>

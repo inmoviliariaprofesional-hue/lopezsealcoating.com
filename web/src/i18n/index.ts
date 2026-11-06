@@ -82,7 +82,6 @@ export interface Copy {
     error: string;
   };
   footer: { rights: string; tagline: string; privacy: string; terms: string; builtBy: string };
-  promo: { tag: string; headline: string; detail: string; cta: string; finePrint: string; aria: string };
 }
 
 const en: Copy = {
@@ -282,14 +281,6 @@ const en: Copy = {
     terms: "Terms of Use",
     builtBy: "Website by",
   },
-  promo: {
-    tag: "October Savings",
-    headline: "$20 USD OFF all services",
-    detail: "Sealcoating + line striping · work completed Oct 1–31, 2026",
-    cta: "Get your free estimate",
-    finePrint: "Weather & availability permitting",
-    aria: "October promotion: 20 US dollars off all services. Get your free estimate.",
-  },
 };
 
 const es: Copy = {
@@ -488,14 +479,6 @@ const es: Copy = {
     privacy: "Aviso de Privacidad",
     terms: "Términos de Uso",
     builtBy: "Sitio desarrollado por",
-  },
-  promo: {
-    tag: "Oferta de octubre",
-    headline: "$20 USD de descuento en todos los servicios",
-    detail: "Sellado + pintura de líneas · trabajo del 1 al 31 de oct, 2026",
-    cta: "Pide tu cotización gratis",
-    finePrint: "Sujeto a clima y disponibilidad",
-    aria: "Promoción de octubre: 20 dólares de descuento en todos los servicios. Pide tu cotización gratis.",
   },
 };
 
