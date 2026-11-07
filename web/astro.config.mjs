@@ -37,6 +37,8 @@ export default defineConfig({
   integrations: [
     sitemap({
       customPages: PUBLIC_PAGES.map((p) => SITE + p),
+      // El sitemap también descubre las rutas del servidor; el panel no va (pide contraseña y robots.txt lo bloquea).
+      filter: (page) => !new URL(page).pathname.startsWith("/admin"),
       i18n: {
         defaultLocale: "en",
         locales: { en: "en-US", es: "es" },
