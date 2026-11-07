@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import { site } from "../data/site";
 
 interface Props {
   lang: string;
@@ -10,6 +9,8 @@ interface Props {
   esHref?: string;
 }
 const { lang, title, description, enHref = "/", esHref = "/es/" } = Astro.props;
+// Datos del negocio (contacto y ciudades editables en /admin).
+const site = Astro.locals.site;
 
 // Canonical + alternates (por página: cada página indica su equivalente EN/ES)
 const base = Astro.site ?? new URL(site.url);
@@ -97,14 +98,10 @@ const jsonLd = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={ogImageAlt} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope-latin-var.woff2" as="font" type="font/woff2" crossorigin />
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, "\\u003c")} />
   </head>
   <body>
     <slot />

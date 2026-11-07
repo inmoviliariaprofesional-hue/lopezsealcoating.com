@@ -1,30 +1,24 @@
-// Cloudflare Pages Function: recibe el formulario "Free Estimate" del sitio
-// y envía la solicitud por correo usando la API transaccional de Brevo.
-//
-// Variables de entorno (Cloudflare Pages > Settings > Environment variables):
+// Recibe el formulario "Free Estimate" y envía la solicitud por correo con la API transaccional de Brevo.
+// Antes era functions/api/quote.js (Pages Function); con las páginas generadas por Astro, Cloudflare Pages ignora
+// la carpeta functions/, así que vive aquí. Mismo comportamiento y mismas variables:
 //   BREVO_API_KEY      (obligatoria)  -> clave API de Brevo (v3)
-//   LEAD_NOTIFY_TO     (recomendada)  -> correo donde se reciben los leads
-//                                        (info@lopezsealcoating.com)
+//   LEAD_NOTIFY_TO     (recomendada)  -> correo donde se reciben los leads (info@lopezsealcoating.com)
 //   BREVO_SENDER_EMAIL (recomendada)  -> remitente verificado en Brevo
 //   BREVO_SENDER_NAME  (opcional)     -> nombre del remitente
 //   BREVO_LIST_ID      (opcional)     -> si se define, agrega el lead a esa lista
-//
-// El dominio ya está autenticado en Brevo y LEAD_NOTIFY_TO / BREVO_SENDER_EMAIL
-// apuntan a info@lopezsealcoating.com (Cloudflare Email Routing lo reenvía al Gmail).
+import type { APIRoute } from "astro";
 
 const DEFAULT_EMAIL = "info@lopezsealcoating.com";
 
-const json = (obj, status = 200) =>
-  new Response(JSON.stringify(obj), {
-    status,
-    headers: { "Content-Type": "application/json" },
-  });
+const json = (obj: unknown, status = 200) =>
+  new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } });
 
-const esc = (s = "") =>
-  String(s).replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
+const esc = (s = "") => String(s).replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" })[c]!);
+const field = (v: unknown, max: number) => (v ?? "").toString().trim().slice(0, max);
 
-export async function onRequestPost({ request, env }) {
-  let data;
+export const POST: APIRoute = async ({ request, locals }) => {
+  const env = locals.runtime?.env ?? ({} as Env);
+  let data: Record<string, unknown>;
   try {
     data = await request.json();
   } catch {
@@ -34,23 +28,18 @@ export async function onRequestPost({ request, env }) {
   // Honeypot: si "company" viene con texto, es spam. Respondemos ok sin enviar.
   if (data.company) return json({ ok: true });
 
-  const name = (data.name || "").toString().trim();
-  const phone = (data.phone || "").toString().trim();
-  const email = (data.email || "").toString().trim();
-  const service = (data.service || "").toString().trim();
-  const message = (data.message || "").toString().trim();
-  const city = (data.city || "").toString().trim();
-  const lang = (data.lang || "").toString().trim();
+  const name = field(data.name, 120);
+  const phone = field(data.phone, 40);
+  const email = field(data.email, 200);
+  const service = field(data.service, 80);
+  const message = field(data.message, 4000);
+  const city = field(data.city, 120);
+  const lang = field(data.lang, 5);
 
-  if (!name || !phone) {
-    return json({ ok: false, error: "missing_fields" }, 422);
-  }
+  if (!name || !phone) return json({ ok: false, error: "missing_fields" }, 422);
 
   const apiKey = env.BREVO_API_KEY;
-  if (!apiKey) {
-    // Sin clave configurada no podemos enviar; avisamos para que el front muestre error.
-    return json({ ok: false, error: "email_not_configured" }, 500);
-  }
+  if (!apiKey) return json({ ok: false, error: "email_not_configured" }, 500);
 
   const notifyTo = env.LEAD_NOTIFY_TO || DEFAULT_EMAIL;
   const senderEmail = env.BREVO_SENDER_EMAIL || DEFAULT_EMAIL;
@@ -70,32 +59,28 @@ export async function onRequestPost({ request, env }) {
     <p style="color:#777;font-size:12px">Enviado desde el sitio web de Lopez Sealcoating.</p>
   `;
 
-  const payload = {
+  const payload: Record<string, unknown> = {
     sender: { name: senderName, email: senderEmail },
     to: [{ email: notifyTo }],
     subject: `Nueva cotización – ${name}${service ? " (" + service + ")" : ""}`,
     htmlContent,
   };
   // Si el cliente dejó su correo, permitimos responderle directo.
-  if (email) payload.replyTo = { email, name };
+  if (email && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) payload.replyTo = { email, name };
 
   try {
     const res = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
-      headers: {
-        "api-key": apiKey,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers: { "api-key": apiKey, "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify(payload),
     });
-
     if (!res.ok) {
-      const detail = await res.text();
-      return json({ ok: false, error: "send_failed", detail }, 502);
+      console.error("Brevo rechazó el correo del formulario", res.status, await res.text());
+      return json({ ok: false, error: "send_failed" }, 502);
     }
   } catch (err) {
-    return json({ ok: false, error: "network", detail: String(err) }, 502);
+    console.error("No se pudo conectar con Brevo", err);
+    return json({ ok: false, error: "network" }, 502);
   }
 
   // Opcional: agregar el lead a una lista de Brevo (best-effort, no bloquea la respuesta).
@@ -103,11 +88,7 @@ export async function onRequestPost({ request, env }) {
     try {
       await fetch("https://api.brevo.com/v3/contacts", {
         method: "POST",
-        headers: {
-          "api-key": apiKey,
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: { "api-key": apiKey, "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           email,
           attributes: { NOMBRE: name, SMS: phone, SERVICIO: service },
@@ -121,9 +102,6 @@ export async function onRequestPost({ request, env }) {
   }
 
   return json({ ok: true });
-}
+};
 
-// GET u otros métodos: no permitido.
-export async function onRequestGet() {
-  return json({ ok: false, error: "method_not_allowed" }, 405);
-}
+export const GET: APIRoute = () => json({ ok: false, error: "method_not_allowed" }, 405);

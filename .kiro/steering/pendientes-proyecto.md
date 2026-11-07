@@ -24,3 +24,17 @@ Cualquier comparación "antes / después" en el sitio debe usar fotografías de 
 - Los archivos antiguos (`before.jpg`, `after.jpg`, `owner-demetrio.jpg`) se conservan en el repositorio como histórico, pero **ya no se referencian** desde el sitio.
 
 Procedencia y verificaciones detalladas: `guias/correccion-medios-2026-09-15.md`.
+
+## Panel `/admin` y contenido editable (noviembre 2026)
+
+- El sitio dejó de ser estático: Astro genera las páginas al momento (`@astrojs/cloudflare`, Cloudflare Pages) y lee de **D1** (`DB`) los textos y fotos que Demetrio edita en `/admin`. Las fotos subidas viven en **R2** (`MEDIA`). Mismo modelo que metalesinfinity.com. Detalles y pasos de configuración: `web/README.md`.
+- **Qué es editable lo define `web/src/lib/schema.ts`** (formularios y validación) junto con `DEFAULT_CONTENT` en `web/src/lib/content.ts`. Los textos de `web/src/i18n` y los datos de `web/src/data/site.ts` son los valores por defecto: si cambias uno que también se edita en el panel, el sitio sigue mostrando lo que Demetrio guardó.
+- **No crear `wrangler.toml` ni `wrangler.jsonc` en `web/`**: Cloudflare Pages lo tomaría como configuración y dejaría de usar las variables y vínculos del panel (incluidas las de Brevo). El archivo local se llama `wrangler.dev.jsonc` a propósito.
+- La carpeta `functions/` ya no se usa (Pages la ignora con `_worker.js`). Rutas de servidor: `web/src/pages/api/` y `web/src/pages/admin/`. `public/_headers` y `public/_redirects` solo cubren archivos estáticos; las cabeceras y redirecciones de las páginas están en `web/src/middleware.ts`.
+- Al agregar una página pública, súmala a `PUBLIC_PAGES` en `web/astro.config.mjs` (sitemap).
+- Franja superior (antes `promoActive`): apagada por defecto; Demetrio la enciende en `/admin` → "Franja superior". Toda promoción debe decir sus fechas.
+- Galería "Otros proyectos": marco vertical 3:4 con `object-contain` (las fotos horizontales se ven completas, sin recorte).
+- Pie de página: "Website by / Sitio desarrollado por **Aimarktech**" (`BuiltBy.astro`), discreto, como en metalesinfinity.com.
+- Encabezado: emblema circular + nombre en Manrope (`BrandMark.astro`). Demetrio aprobó el emblema circular y la firma horizontal (nov. 2026); la firma horizontal del kit tiene letras oscuras, por eso en el encabezado oscuro se arma con HTML.
+- Fotos del sitio: `.webp` + versión `-640.webp` (registradas en `STATIC_WIDTHS`, `web/src/lib/media.ts`). Las `.jpg` originales se conservan.
+- Flujo de PR: José Antonio autoriza cada fusión; preguntar antes de fusionar.

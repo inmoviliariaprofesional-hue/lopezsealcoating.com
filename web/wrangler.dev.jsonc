@@ -1,0 +1,12 @@
+// Solo para desarrollo local (npm run dev). En producción, los vínculos DB y MEDIA y los secretos se
+// configuran en Cloudflare → Workers & Pages → proyecto → Settings → Bindings / Variables and Secrets (ver README).
+{
+  "name": "lopez-sealcoating-dev",
+  "compatibility_date": "2026-09-01",
+  "d1_databases": [{ "binding": "DB", "database_name": "lopez-sealcoating", "database_id": "local-dev" }],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "lopez-sealcoating-media" }],
+  "vars": {
+    "ADMIN_PASSWORD": "prueba-local-1234",
+    "SESSION_SECRET": "cadena-local-de-prueba-de-al-menos-32-caracteres"
+  }
+}

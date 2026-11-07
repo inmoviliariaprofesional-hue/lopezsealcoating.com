@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
-import { site } from "../data/site";
+// Contacto editable en /admin (src/middleware.ts).
+const site = Astro.locals.site;
 
 const telHref = `tel:${site.phoneE164}`;
 ---

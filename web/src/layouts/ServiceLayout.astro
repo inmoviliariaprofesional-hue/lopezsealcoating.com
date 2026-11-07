@@ -1,6 +1,6 @@
 ---
 import Base from "./Base.astro";
-import { site } from "../data/site";
+import BrandMark from "../components/BrandMark.astro";
 import { translations } from "../i18n";
 import PromoBanner from "../components/PromoBanner.astro";
 import BuiltBy from "../components/BuiltBy.astro";
@@ -14,6 +14,9 @@ interface Props {
   showCta?: boolean;
 }
 const { lang, title, description, enHref, esHref, showCta = true } = Astro.props;
+// Contacto y franja superior vienen del panel /admin (src/middleware.ts).
+const site = Astro.locals.site;
+const content = Astro.locals.content;
 const isES = lang === "es";
 const home = isES ? "/es/" : "/";
 const contactHref = isES ? "/es/#contact" : "/#contact";
@@ -22,7 +25,6 @@ const toggleHref = isES ? enHref : esHref;
 const privacyHref = isES ? "/es/privacidad" : "/privacy";
 const termsHref = isES ? "/es/terminos" : "/terms";
 const legal = { privacy: isES ? "Aviso de Privacidad" : "Privacy Policy", terms: isES ? "Términos de Uso" : "Terms of Use" };
-const promo = translations[lang].promo;
 const t = {
   quote: isES ? "Cotización Gratis" : "Free Estimate",
   call: isES ? "Llámanos" : "Call Now",
@@ -38,14 +40,12 @@ const t = {
 
 <Base lang={lang} title={title} description={description} enHref={enHref} esHref={esHref}>
   <div class="sticky top-0 z-50">
-    {site.promoActive && <PromoBanner promo={promo} href={contactHref} />}
+    <PromoBanner strip={content.topStrip} lang={lang} home={home} />
 
     <header class="border-b border-white/10 bg-asphalt-950/95 text-white backdrop-blur-xl">
     <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-      <a href={home} class="focus-ring flex min-w-0 items-center rounded-lg" aria-label="Lopez Sealcoating LLC">
-        <span class="truncate font-display text-base font-extrabold tracking-[-.03em] sm:text-lg">
-          LOPEZ <span class="text-signal">SEALCOATING</span> <span class="font-semibold text-white/45">LLC</span>
-        </span>
+      <a href={home} class="focus-ring flex min-w-0 items-center rounded-lg" aria-label={isES ? "Lopez Sealcoating LLC — Inicio" : "Lopez Sealcoating LLC — Home"}>
+        <BrandMark />
       </a>
       <div class="flex items-center gap-2 sm:gap-3">
         <a href={toggleHref} class="focus-ring rounded-full border border-signal/55 bg-signal/10 px-3 py-2 text-xs font-extrabold text-signal transition hover:bg-signal hover:text-asphalt sm:px-4">{t.toggle}</a>

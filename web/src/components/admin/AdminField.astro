@@ -1,0 +1,191 @@
+---
+// Dibuja un campo del panel según su tipo (src/lib/schema.ts). Los nombres siguen el formato "f:ruta.en", que
+// formToObject() (src/lib/content.ts) convierte de vuelta en objeto. En listas, el índice de cada fila se
+// renumera al enviar (script del panel), así se pueden agregar, quitar y ordenar filas.
+import type { Field } from "../../lib/schema";
+import type { L } from "../../lib/content";
+
+interface Props {
+  field: Field;
+  value: unknown;
+  /** Prefijo del nombre, por ejemplo "f:" o "f:gallery.2." */
+  prefix?: string;
+}
+const { field, value, prefix = "f:" } = Astro.props;
+const name = `${prefix}${field.key}`;
+const id = name.replace(/[^A-Za-z0-9_]/g, "-");
+const l = (v: unknown): L => (v && typeof v === "object" ? (v as L) : { en: "", es: "" });
+const arr = (v: unknown): unknown[] => (Array.isArray(v) ? v : []);
+const input =
+  "w-full rounded-xl border border-asphalt/30 bg-white px-3 py-2.5 text-sm text-asphalt focus:border-asphalt focus:outline-none focus:ring-2 focus:ring-signal/60";
+const small = "mt-1 block text-xs font-semibold text-asphalt/60";
+const btn =
+  "focus-ring inline-flex min-h-10 items-center gap-2 rounded-full border border-asphalt/20 bg-white px-4 text-xs font-extrabold text-asphalt hover:bg-concrete";
+---
+
+{field.kind === "bool" && (
+  <label class="flex items-start gap-3 rounded-2xl border border-black/10 bg-white p-4">
+    <input type="checkbox" name={name} checked={value === true} class="mt-0.5 h-5 w-5 accent-[#151515]" />
+    <span>
+      <span class="block text-sm font-extrabold">{field.label}</span>
+      {field.help && <span class={small}>{field.help}</span>}
+    </span>
+  </label>
+)}
+
+{field.kind === "text" && (
+  <fieldset class="space-y-2">
+    <legend class="text-sm font-extrabold">{field.label}{field.required && <span class="text-red-700"> *</span>}</legend>
+    {field.help && <p class="text-xs font-semibold text-asphalt/60">{field.help}</p>}
+    <div class="grid gap-3 md:grid-cols-2">
+      {(["en", "es"] as const).map((lang) => (
+        <label class="block">
+          <span class="mb-1 block text-[11px] font-extrabold uppercase tracking-wider text-asphalt/60">{lang === "en" ? "Inglés" : "Español"}</span>
+          {field.multiline ? (
+            <textarea name={`${name}.${lang}`} rows={4} maxlength={field.max} class={input} lang={lang}>{l(value)[lang]}</textarea>
+          ) : (
+            <input name={`${name}.${lang}`} value={l(value)[lang]} maxlength={field.max} class={input} lang={lang} />
+          )}
+        </label>
+      ))}
+    </div>
+  </fieldset>
+)}
+
+{field.kind === "plain" && (
+  <label class="block" for={id}>
+    <span class="text-sm font-extrabold">{field.label}</span>
+    {field.help && <span class={small}>{field.help}</span>}
+    <input
+      id={id}
+      name={name}
+      value={typeof value === "string" ? value : ""}
+      maxlength={field.max}
+      placeholder={field.placeholder}
+      type={field.format === "email" ? "email" : field.format === "tel" ? "tel" : field.format === "url" ? "url" : "text"}
+      inputmode={field.format === "digits" ? "numeric" : undefined}
+      class={`${input} mt-2`}
+    />
+  </label>
+)}
+
+{field.kind === "lines" && (
+  <label class="block" for={id}>
+    <span class="text-sm font-extrabold">{field.label}</span>
+    {field.help && <span class={small}>{field.help}</span>}
+    <textarea id={id} name={name} rows={8} class={`${input} mt-2`}>{arr(value).join("\n")}</textarea>
+  </label>
+)}
+
+{field.kind === "image" && (
+  <div class="space-y-2" data-image-field>
+    <p class="text-sm font-extrabold">{field.label}</p>
+    {field.help && <p class="text-xs font-semibold text-asphalt/60">{field.help}</p>}
+    <div class="flex flex-wrap items-center gap-4">
+      <img
+        src={typeof value === "string" && value ? value : "/brand/emblema-96.webp"}
+        alt="Vista previa"
+        width="160"
+        height="160"
+        class="h-40 w-40 rounded-xl border border-black/10 bg-concrete object-cover"
+        data-image-preview
+      />
+      <div class="space-y-2">
+        <input type="hidden" name={name} value={typeof value === "string" ? value : ""} data-image-value />
+        <label class={`${btn} cursor-pointer`}>
+          <span aria-hidden="true">⇪</span> {value ? "Cambiar foto" : "Subir foto"}
+          <input type="file" accept="image/*" class="sr-only" data-image-file />
+        </label>
+        <p class="text-xs font-semibold text-asphalt/60" role="status" aria-live="polite" data-image-status>
+          JPG, PNG, WebP o HEIC. Se reduce sola antes de subir.
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
+{field.kind === "textlist" && (
+  <fieldset class="space-y-3" data-list={name} data-max={field.max}>
+    <legend class="text-sm font-extrabold">{field.label}</legend>
+    {field.help && <p class="text-xs font-semibold text-asphalt/60">{field.help}</p>}
+    <div class="space-y-3" data-rows>
+      {arr(value).map((item, i) => (
+        <div class="grid items-end gap-3 rounded-2xl border border-black/10 bg-white p-3 md:grid-cols-[1fr_1fr_auto]" data-row>
+          {(["en", "es"] as const).map((lang) => (
+            <label class="block">
+              <span class="mb-1 block text-[11px] font-extrabold uppercase tracking-wider text-asphalt/60">{lang === "en" ? "Inglés" : "Español"}</span>
+              <input name={`${name}.${i}.${lang}`} value={l(item)[lang]} maxlength={field.itemMax} class={input} lang={lang} />
+            </label>
+          ))}
+          <div class="flex gap-1">
+            <button type="button" class={btn} data-up aria-label="Subir">↑</button>
+            <button type="button" class={btn} data-down aria-label="Bajar">↓</button>
+            <button type="button" class={`${btn} text-red-700`} data-remove>Quitar</button>
+          </div>
+        </div>
+      ))}
+    </div>
+    <template data-template>
+      <div class="grid items-end gap-3 rounded-2xl border border-black/10 bg-white p-3 md:grid-cols-[1fr_1fr_auto]" data-row>
+        {(["en", "es"] as const).map((lang) => (
+          <label class="block">
+            <span class="mb-1 block text-[11px] font-extrabold uppercase tracking-wider text-asphalt/60">{lang === "en" ? "Inglés" : "Español"}</span>
+            <input name={`${name}.__i__.${lang}`} value="" maxlength={field.itemMax} class={input} lang={lang} />
+          </label>
+        ))}
+        <div class="flex gap-1">
+          <button type="button" class={btn} data-up aria-label="Subir">↑</button>
+          <button type="button" class={btn} data-down aria-label="Bajar">↓</button>
+          <button type="button" class={`${btn} text-red-700`} data-remove>Quitar</button>
+        </div>
+      </div>
+    </template>
+    <button type="button" class={btn} data-add>+ {field.addLabel}</button>
+  </fieldset>
+)}
+
+{field.kind === "list" && (
+  <fieldset class="space-y-4" data-list={name} data-max={field.max}>
+    <legend class="text-sm font-extrabold">{field.label}</legend>
+    {field.help && <p class="text-xs font-semibold text-asphalt/60">{field.help}</p>}
+    <div class="space-y-4" data-rows>
+      {arr(value).map((item, i) => (
+        <div class="space-y-4 rounded-2xl border border-black/10 bg-white p-4 sm:p-5" data-row>
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <p class="font-display text-base font-extrabold">{`${field.itemLabel} `}<span data-row-number>{i + 1}</span></p>
+            {!field.fixed && (
+              <div class="flex gap-1">
+                <button type="button" class={btn} data-up aria-label="Subir">↑</button>
+                <button type="button" class={btn} data-down aria-label="Bajar">↓</button>
+                <button type="button" class={`${btn} text-red-700`} data-remove>Quitar</button>
+              </div>
+            )}
+          </div>
+          {field.fields.map((sub) => (
+            <Astro.self field={sub} value={(item as Record<string, unknown>)?.[sub.key]} prefix={`${name}.${i}.`} />
+          ))}
+        </div>
+      ))}
+    </div>
+    {!field.fixed && (
+      <>
+        <template data-template>
+          <div class="space-y-4 rounded-2xl border border-black/10 bg-white p-4 sm:p-5" data-row>
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <p class="font-display text-base font-extrabold">{`${field.itemLabel} `}<span data-row-number>nueva</span></p>
+              <div class="flex gap-1">
+                <button type="button" class={btn} data-up aria-label="Subir">↑</button>
+                <button type="button" class={btn} data-down aria-label="Bajar">↓</button>
+                <button type="button" class={`${btn} text-red-700`} data-remove>Quitar</button>
+              </div>
+            </div>
+            {field.fields.map((sub) => (
+              <Astro.self field={sub} value={undefined} prefix={`${name}.__i__.`} />
+            ))}
+          </div>
+        </template>
+        <button type="button" class={btn} data-add>+ {field.addLabel}</button>
+      </>
+    )}
+  </fieldset>
+)}

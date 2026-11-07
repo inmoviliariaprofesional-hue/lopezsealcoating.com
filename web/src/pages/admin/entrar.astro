@@ -1,0 +1,57 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { adminConfigured, checkPassword, isAdmin, recordFailedAttempt, startSession, tooManyAttempts } from "../../lib/auth";
+
+const env = Astro.locals.runtime?.env ?? ({} as Env);
+const configured = adminConfigured(env);
+let error = "";
+
+if (configured && (await isAdmin(env, Astro.cookies))) return Astro.redirect("/admin", 303);
+
+if (Astro.request.method === "POST" && configured) {
+  const ip = Astro.request.headers.get("cf-connecting-ip") ?? "local";
+  if (!env.DB) {
+    error = "Falta conectar la base de datos (DB) en Cloudflare. Revisa la guía del README.";
+  } else if (await tooManyAttempts(env.DB, ip)) {
+    error = "Demasiados intentos. Espera 15 minutos e inténtalo de nuevo.";
+  } else {
+    const form = await Astro.request.formData();
+    const password = String(form.get("password") ?? "").slice(0, 200);
+    if (await checkPassword(env, password)) {
+      await startSession(env, Astro.cookies, Astro.url.protocol === "https:");
+      return Astro.redirect("/admin", 303);
+    }
+    await recordFailedAttempt(env.DB, ip);
+    error = "Contraseña incorrecta.";
+  }
+  Astro.response.status = 400;
+}
+---
+
+<AdminLayout title="Entrar" nav={false}>
+  <div class="mx-auto max-w-md rounded-[1.5rem] border border-black/10 bg-white p-6 shadow-sm sm:p-8">
+    <h1 class="font-display text-2xl font-extrabold">Entrar al panel</h1>
+    {configured ? (
+      <form method="post" class="mt-6 space-y-4">
+        <label class="block">
+          <span class="text-sm font-extrabold">Contraseña</span>
+          <input
+            type="password"
+            name="password"
+            required
+            autocomplete="current-password"
+            autofocus
+            class="mt-2 w-full rounded-xl border border-asphalt/30 px-3 py-3 text-sm focus:border-asphalt focus:outline-none focus:ring-2 focus:ring-signal/60"
+          />
+        </label>
+        {error && <p class="text-sm font-bold text-red-700" role="alert">{error}</p>}
+        <button type="submit" class="focus-ring min-h-12 w-full rounded-full bg-signal px-6 text-sm font-extrabold text-asphalt hover:bg-signal-500">Entrar</button>
+      </form>
+    ) : (
+      <p class="mt-4 text-sm leading-6 text-asphalt/75">
+        El panel todavía no está configurado. Hay que guardar los secretos <code>ADMIN_PASSWORD</code> y
+        <code>SESSION_SECRET</code> (32 caracteres o más) en Cloudflare. Los pasos están en el README del proyecto.
+      </p>
+    )}
+  </div>
+</AdminLayout>

@@ -1,9 +1,10 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Landing from "../../components/Landing.astro";
-import { translations } from "../../i18n";
+import { buildCopy } from "../../lib/content";
 
-const t = translations.es;
+// Textos fijos de src/i18n con lo editado en /admin encima.
+const t = buildCopy("es", Astro.locals.content);
 ---
 
 <Base lang={t.htmlLang} title={t.metaTitle} description={t.metaDescription}>
